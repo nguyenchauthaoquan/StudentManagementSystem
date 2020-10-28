@@ -15,8 +15,6 @@ class CreateTeachersTable extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('id_user')->unique();
-            $table->foreign('id_user')->references('id')->on('users');
             $table->string('firstname');
             $table->string('middlename');
             $table->string('lastname');

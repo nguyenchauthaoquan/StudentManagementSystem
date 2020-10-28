@@ -15,7 +15,8 @@ class CreateClassroomsTable extends Migration
     {
         Schema::create('classrooms', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->bigInteger('course');
+            $table->unsignedBigInteger('id_training');
+            $table->foreign('id_training')->references('id')->on('training_system');
             $table->date('intake');
             $table->date('graduate');
             $table->timestamps();

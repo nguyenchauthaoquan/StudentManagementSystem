@@ -15,8 +15,7 @@ class CreateTrainingSystemTable extends Migration
     {
         Schema::create('training_system', function (Blueprint $table) {
             $table->id();
-            $table->string('id_classroom');
-            $table->foreign('id_classroom')->references('id')->on('classrooms');
+            $table->string('name');
             $table->timestamps();
         });
     }

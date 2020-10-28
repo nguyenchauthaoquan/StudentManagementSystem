@@ -15,9 +15,9 @@ class CreateDetailsTable extends Migration
     {
         Schema::create('details', function (Blueprint $table) {
             $table->id();
-            $table->string('id_student')->unique();
+            $table->string('id_student')->unique()->nullable();
             $table->foreign('id_student')->references('id')->on('students');
-            $table->string('id_teacher')->unique();
+            $table->string('id_teacher')->unique()->nullable();
             $table->foreign('id_teacher')->references('id')->on('teachers');
             $table->string('gender');
             $table->string('phone');
