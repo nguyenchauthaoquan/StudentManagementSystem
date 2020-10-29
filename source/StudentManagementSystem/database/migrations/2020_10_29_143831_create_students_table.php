@@ -15,7 +15,7 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('id_faculty')->unique();
+            $table->string('id_faculty');
             $table->foreign('id_faculty')
                 ->references('id')->on('faculties')
                 ->cascadeOnDelete();

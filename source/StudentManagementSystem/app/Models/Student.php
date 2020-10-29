@@ -9,11 +9,19 @@ class Student extends Model
 {
     use HasFactory;
 
-    public function faculty() {
-        return $this->hasOne(Faculty::class, 'id_faculty');
-    }
-
     public function classrooms() {
         return $this->belongsTo(Classroom::class, 'id_classroom');
+    }
+
+    public function faculty() {
+        return $this->belongsTo(Faculty::class, 'id_faculty');
+    }
+
+    public function disciplines() {
+        return $this->hasMany(Discipline::class, 'id_student');
+    }
+
+    public function detail() {
+        return $this->hasOne(Detail::class, 'id_student');
     }
 }
