@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EducationSystem extends Model
+class Role extends Model
 {
     use HasFactory;
-
-    public function classroom() {
-        return $this->hasMany(Classroom::class);
-    }
 }

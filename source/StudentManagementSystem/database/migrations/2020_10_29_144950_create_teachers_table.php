@@ -15,11 +15,13 @@ class CreateTeachersTable extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('firstname');
-            $table->string('middlename');
-            $table->string('lastname');
-            $table->string('academic_rank')->nullable();
-            $table->string('degree')->nullable();
+            $table->string('id_faculty')->unique();
+            $table->foreign('id_faculty')
+                ->references('id')->on('faculties')
+                ->cascadeOnDelete();
+            $table->string('academic_rank');
+            $table->string('degree');
+            $table->string('talents');
             $table->timestamps();
         });
     }
