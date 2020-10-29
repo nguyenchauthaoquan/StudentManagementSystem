@@ -15,10 +15,6 @@ class CreateTeachersTable extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('id_faculty')->unique();
-            $table->foreign('id_faculty')
-                ->references('id')->on('faculties')
-                ->cascadeOnDelete();
             $table->string('academic_rank');
             $table->string('degree');
             $table->string('talents');

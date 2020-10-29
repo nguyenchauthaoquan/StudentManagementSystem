@@ -10,10 +10,10 @@ class Discipline extends Model
     use HasFactory;
 
     public function student() {
-        return $this->belongsTo(Student::class, 'id_student');
+        return $this->belongsTo(Discipline::class, 'id_student');
     }
 
     public function teacher() {
-        return $this->belongsTo(Teacher::class, 'id_teacher');
+        return $this->belongsTo(Discipline::class, 'id_teacher');
     }
 }

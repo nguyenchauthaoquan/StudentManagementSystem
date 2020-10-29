@@ -19,10 +19,6 @@ class CreateClassroomsTable extends Migration
             $table->foreign('id_training')
                 ->references('id')->on('training_programs')
                 ->cascadeOnDelete();
-            $table->string('id_faculty')->unique();
-            $table->foreign('id_faculty')
-                ->references('id')->on('faculties')
-                ->cascadeOnDelete();
             $table->bigInteger('intakes_course');
             $table->date('date_admission');
             $table->date('date_graduate');

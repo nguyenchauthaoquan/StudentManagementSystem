@@ -9,24 +9,41 @@ class Faculty extends Model
 {
     use HasFactory;
 
-    public function classroom() {
-        return $this->hasMany(Classroom::class, 'id_faculty');
-    }
-
-    public function student() {
-        return $this->hasMany(Student::class, 'id_faculty');
-    }
-
-    public function teacher() {
-        return $this->hasOne(Teacher::class, 'id_faculty');
-    }
-
     public function announcements() {
         return $this->belongsToMany(
-            Announcement::class,
+            Faculty::class,
             'faculties_announcements',
             'id_faculty',
             'id_announcement'
         );
     }
+
+    public function classrooms() {
+        return $this->belongsToMany(
+            Classroom::class,
+            'classrooms_faculties',
+            'id_faculty',
+            'id_classroom'
+
+        );
+    }
+
+    public function students() {
+        return $this->belongsToMany(
+          Student::class,
+          'students_faculties',
+          'id_faculty',
+          'id_student'
+        );
+    }
+
+    public function teachers() {
+        return $this->belongsToMany(
+            Teacher::class,
+            'teachers_faculties',
+            'id_faculty',
+            'id_teacher'
+        );
+    }
+
 }

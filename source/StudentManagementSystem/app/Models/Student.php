@@ -10,11 +10,22 @@ class Student extends Model
     use HasFactory;
 
     public function classrooms() {
-        return $this->belongsTo(Classroom::class, 'id_classroom');
+        return $this->belongsToMany(
+            Student::class,
+            'students_classrooms',
+            'id_student',
+            'id_classroom'
+
+        );
     }
 
-    public function faculty() {
-        return $this->belongsTo(Faculty::class, 'id_faculty');
+    public function faculties() {
+        return $this->belongsToMany(
+            Faculty::class,
+            'students_faculties',
+            'id_student',
+            'id_faculty'
+        );
     }
 
     public function disciplines() {

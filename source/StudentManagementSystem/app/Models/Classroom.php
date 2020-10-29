@@ -9,15 +9,26 @@ class Classroom extends Model
 {
     use HasFactory;
 
-    public function training_programs() {
+    public function training_program() {
         return $this->belongsTo(Training_Program::class, 'id_training');
     }
 
-    public function faculty() {
-        return $this->belongsTo(Faculty::class, 'id_faculty');
+    public function students() {
+        return $this->belongsToMany(
+            Student::class,
+            'students_classrooms',
+            'id_classroom',
+            'id_student'
+        );
     }
 
-    public function students() {
-        return $this->hasMany(Student::class, 'id_faculty');
+    public function faculties() {
+        return $this->belongsToMany(
+          Faculty::class,
+          'classrooms_faculties',
+          'id_classroom',
+          'id_faculty'
+        );
     }
+
 }

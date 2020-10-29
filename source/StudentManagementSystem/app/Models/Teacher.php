@@ -9,15 +9,21 @@ class Teacher extends Model
 {
     use HasFactory;
 
-    public function faculty() {
-        return $this->belongsTo(Faculty::class, 'id_faculty');
+    public function teachers() {
+        return $this->belongsToMany(
+            Teacher::class,
+            'teachers_faculties',
+            'id_teacher',
+            'id_faculty',
+        );
     }
 
     public function disciplines() {
-        return $this->hasMany(Discipline::class, 'id_teacher');
+        return $this->hasMany(Discipline::class, 'id_student');
     }
 
     public function detail() {
         return $this->hasOne(Detail::class, 'id_teacher');
     }
+
 }
