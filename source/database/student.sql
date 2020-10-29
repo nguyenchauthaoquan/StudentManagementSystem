@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2020 at 08:17 AM
+-- Generation Time: Oct 29, 2020 at 04:58 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -24,16 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `announcements`
+--
+
+CREATE TABLE `announcements` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` text COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `classrooms`
 --
 
 CREATE TABLE `classrooms` (
-  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `id` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `id_training` bigint(20) UNSIGNED NOT NULL,
-  `intake` date NOT NULL,
-  `graduate` date NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `id_faculty` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `intakes_course` bigint(20) NOT NULL,
+  `date_admission` date NOT NULL,
+  `date_graduate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -44,23 +58,48 @@ CREATE TABLE `classrooms` (
 
 CREATE TABLE `details` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `id_student` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `id_teacher` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `gender` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `birthday` date NOT NULL,
-  `origin` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `nationality` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `identity_number` bigint(20) NOT NULL,
-  `date_of_identity` date NOT NULL,
-  `identity_origin` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `background` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`background`)),
-  `policies` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`policies`)),
-  `date_of_union` date NOT NULL,
-  `date_of_communist` date NOT NULL,
-  `talents` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `id_student` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_teacher` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `firstname` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `middlename` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lastname` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gender` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `birthday` date DEFAULT NULL,
+  `origin` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `identity_number` bigint(20) DEFAULT NULL,
+  `date_of_issue_identity_card` date DEFAULT NULL,
+  `place_of_identity_card` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `background` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`background`)),
+  `policies` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`policies`)),
+  `date_of_union` date DEFAULT NULL,
+  `date_of_communist` date DEFAULT NULL,
+  `talents` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `disciplines`
+--
+
+CREATE TABLE `disciplines` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_student` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_teacher` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `decision` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `notification` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `decision_number` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `notification_number` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `reason` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `forms_of_processing` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `semester` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `date_of_violation` date NOT NULL,
+  `date_of_signing` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -72,8 +111,23 @@ CREATE TABLE `details` (
 --
 
 CREATE TABLE `faculties` (
-  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `id` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `leader` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `date_initiated` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faculties_announcements`
+--
+
+CREATE TABLE `faculties_announcements` (
+  `id_faculty` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `id_announcement` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -86,7 +140,7 @@ CREATE TABLE `faculties` (
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `uuid` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `connection` text COLLATE utf8_unicode_ci NOT NULL,
   `queue` text COLLATE utf8_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8_unicode_ci NOT NULL,
@@ -102,7 +156,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `migration` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -114,15 +168,17 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2020_10_27_100659_create_students_table', 1),
-(5, '2020_10_27_101010_create_teachers_table', 1),
-(6, '2020_10_27_143704_create_details_table', 1),
-(7, '2020_10_27_155130_create_training_system_table', 1),
-(8, '2020_10_28_063941_create_faculties_table', 1),
-(9, '2020_10_28_064408_create_students_faculties_table', 1),
-(10, '2020_10_28_064729_create_teachers_faculties_table', 1),
-(11, '2020_10_28_070134_create_classrooms_table', 1),
-(12, '2020_10_28_071006_create_students_classrooms_table', 1);
+(4, '2020_10_29_070839_create_roles_table', 1),
+(5, '2020_10_29_070923_create_users_roles_table', 1),
+(6, '2020_10_29_073652_create_faculties_table', 1),
+(7, '2020_10_29_101556_create_training__programs_table', 1),
+(8, '2020_10_29_101724_create_classrooms_table', 1),
+(9, '2020_10_29_143831_create_students_table', 1),
+(10, '2020_10_29_144950_create_teachers_table', 1),
+(11, '2020_10_29_145654_create_details_table', 1),
+(12, '2020_10_29_152248_create_disciplines_table', 1),
+(13, '2020_10_29_153524_create_announcements_table', 1),
+(14, '2020_10_29_154037_create_faculties_announcements_table', 1);
 
 -- --------------------------------------------------------
 
@@ -131,9 +187,20 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(300) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -143,36 +210,13 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `students` (
-  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `firstname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `middlename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `lastname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `major` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `id` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `id_faculty` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `id_classroom` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `major` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `admission_records` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`admission_records`)),
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `students_classrooms`
---
-
-CREATE TABLE `students_classrooms` (
-  `id_student` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `id_classroom` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `students_faculties`
---
-
-CREATE TABLE `students_faculties` (
-  `id_student` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `id_faculty` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -182,10 +226,11 @@ CREATE TABLE `students_faculties` (
 --
 
 CREATE TABLE `teachers` (
-  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `firstname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `middlename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `lastname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `id` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `id_faculty` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `academic_rank` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `degree` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `talents` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -193,25 +238,13 @@ CREATE TABLE `teachers` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `teachers_faculties`
+-- Table structure for table `training_programs`
 --
 
-CREATE TABLE `teachers_faculties` (
-  `id_teacher` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `id_faculty` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `training_system`
---
-
-CREATE TABLE `training_system` (
+CREATE TABLE `training_programs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `mode` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -223,13 +256,24 @@ CREATE TABLE `training_system` (
 --
 
 CREATE TABLE `users` (
-  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `id` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_roles`
+--
+
+CREATE TABLE `users_roles` (
+  `id_user` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `id_roles` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -237,10 +281,17 @@ CREATE TABLE `users` (
 --
 
 --
+-- Indexes for table `announcements`
+--
+ALTER TABLE `announcements`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `classrooms`
 --
 ALTER TABLE `classrooms`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `classrooms_id_faculty_unique` (`id_faculty`),
   ADD KEY `classrooms_id_training_foreign` (`id_training`);
 
 --
@@ -252,10 +303,25 @@ ALTER TABLE `details`
   ADD UNIQUE KEY `details_id_teacher_unique` (`id_teacher`);
 
 --
+-- Indexes for table `disciplines`
+--
+ALTER TABLE `disciplines`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `disciplines_id_student_foreign` (`id_student`),
+  ADD KEY `disciplines_id_teacher_foreign` (`id_teacher`);
+
+--
 -- Indexes for table `faculties`
 --
 ALTER TABLE `faculties`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `faculties_announcements`
+--
+ALTER TABLE `faculties_announcements`
+  ADD KEY `faculties_announcements_id_faculty_foreign` (`id_faculty`),
+  ADD KEY `faculties_announcements_id_announcement_foreign` (`id_announcement`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -277,42 +343,30 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indexes for table `students`
+-- Indexes for table `roles`
 --
-ALTER TABLE `students`
+ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `students_classrooms`
+-- Indexes for table `students`
 --
-ALTER TABLE `students_classrooms`
-  ADD KEY `students_classrooms_id_student_foreign` (`id_student`),
-  ADD KEY `students_classrooms_id_classroom_foreign` (`id_classroom`);
-
---
--- Indexes for table `students_faculties`
---
-ALTER TABLE `students_faculties`
-  ADD KEY `students_faculties_id_student_foreign` (`id_student`),
-  ADD KEY `students_faculties_id_faculty_foreign` (`id_faculty`);
+ALTER TABLE `students`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `students_id_faculty_unique` (`id_faculty`),
+  ADD KEY `students_id_classroom_foreign` (`id_classroom`);
 
 --
 -- Indexes for table `teachers`
 --
 ALTER TABLE `teachers`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `teachers_id_faculty_unique` (`id_faculty`);
 
 --
--- Indexes for table `teachers_faculties`
+-- Indexes for table `training_programs`
 --
-ALTER TABLE `teachers_faculties`
-  ADD KEY `teachers_faculties_id_teacher_foreign` (`id_teacher`),
-  ADD KEY `teachers_faculties_id_faculty_foreign` (`id_faculty`);
-
---
--- Indexes for table `training_system`
---
-ALTER TABLE `training_system`
+ALTER TABLE `training_programs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -323,13 +377,32 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `users_roles`
+--
+ALTER TABLE `users_roles`
+  ADD KEY `users_roles_id_user_foreign` (`id_user`),
+  ADD KEY `users_roles_id_roles_foreign` (`id_roles`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `announcements`
+--
+ALTER TABLE `announcements`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `details`
 --
 ALTER TABLE `details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `disciplines`
+--
+ALTER TABLE `disciplines`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -342,12 +415,18 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `training_system`
+-- AUTO_INCREMENT for table `roles`
 --
-ALTER TABLE `training_system`
+ALTER TABLE `roles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `training_programs`
+--
+ALTER TABLE `training_programs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -358,35 +437,49 @@ ALTER TABLE `training_system`
 -- Constraints for table `classrooms`
 --
 ALTER TABLE `classrooms`
-  ADD CONSTRAINT `classrooms_id_training_foreign` FOREIGN KEY (`id_training`) REFERENCES `training_system` (`id`);
+  ADD CONSTRAINT `classrooms_id_faculty_foreign` FOREIGN KEY (`id_faculty`) REFERENCES `faculties` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `classrooms_id_training_foreign` FOREIGN KEY (`id_training`) REFERENCES `training_programs` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `details`
 --
 ALTER TABLE `details`
-  ADD CONSTRAINT `details_id_student_foreign` FOREIGN KEY (`id_student`) REFERENCES `students` (`id`),
-  ADD CONSTRAINT `details_id_teacher_foreign` FOREIGN KEY (`id_teacher`) REFERENCES `teachers` (`id`);
+  ADD CONSTRAINT `details_id_student_foreign` FOREIGN KEY (`id_student`) REFERENCES `students` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `details_id_teacher_foreign` FOREIGN KEY (`id_teacher`) REFERENCES `teachers` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `students_classrooms`
+-- Constraints for table `disciplines`
 --
-ALTER TABLE `students_classrooms`
-  ADD CONSTRAINT `students_classrooms_id_classroom_foreign` FOREIGN KEY (`id_classroom`) REFERENCES `classrooms` (`id`),
-  ADD CONSTRAINT `students_classrooms_id_student_foreign` FOREIGN KEY (`id_student`) REFERENCES `students` (`id`);
+ALTER TABLE `disciplines`
+  ADD CONSTRAINT `disciplines_id_student_foreign` FOREIGN KEY (`id_student`) REFERENCES `students` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `disciplines_id_teacher_foreign` FOREIGN KEY (`id_teacher`) REFERENCES `teachers` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `students_faculties`
+-- Constraints for table `faculties_announcements`
 --
-ALTER TABLE `students_faculties`
-  ADD CONSTRAINT `students_faculties_id_faculty_foreign` FOREIGN KEY (`id_faculty`) REFERENCES `faculties` (`id`),
-  ADD CONSTRAINT `students_faculties_id_student_foreign` FOREIGN KEY (`id_student`) REFERENCES `students` (`id`);
+ALTER TABLE `faculties_announcements`
+  ADD CONSTRAINT `faculties_announcements_id_announcement_foreign` FOREIGN KEY (`id_announcement`) REFERENCES `announcements` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `faculties_announcements_id_faculty_foreign` FOREIGN KEY (`id_faculty`) REFERENCES `faculties` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `teachers_faculties`
+-- Constraints for table `students`
 --
-ALTER TABLE `teachers_faculties`
-  ADD CONSTRAINT `teachers_faculties_id_faculty_foreign` FOREIGN KEY (`id_faculty`) REFERENCES `faculties` (`id`),
-  ADD CONSTRAINT `teachers_faculties_id_teacher_foreign` FOREIGN KEY (`id_teacher`) REFERENCES `teachers` (`id`);
+ALTER TABLE `students`
+  ADD CONSTRAINT `students_id_classroom_foreign` FOREIGN KEY (`id_classroom`) REFERENCES `classrooms` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `students_id_faculty_foreign` FOREIGN KEY (`id_faculty`) REFERENCES `faculties` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `teachers`
+--
+ALTER TABLE `teachers`
+  ADD CONSTRAINT `teachers_id_faculty_foreign` FOREIGN KEY (`id_faculty`) REFERENCES `faculties` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `users_roles`
+--
+ALTER TABLE `users_roles`
+  ADD CONSTRAINT `users_roles_id_roles_foreign` FOREIGN KEY (`id_roles`) REFERENCES `roles` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `users_roles_id_user_foreign` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
