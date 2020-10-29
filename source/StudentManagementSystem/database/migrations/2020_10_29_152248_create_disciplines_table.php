@@ -15,6 +15,14 @@ class CreateDisciplinesTable extends Migration
     {
         Schema::create('disciplines', function (Blueprint $table) {
             $table->id();
+            $table->string('id_student')->nullable();
+            $table->foreign('id_student')
+                ->references('id')->on('students')
+                ->cascadeOnDelete();
+            $table->string('id_teacher')->nullable();
+            $table->foreign('id_teacher')
+                ->references('id')->on('teachers')
+                ->cascadeOnDelete();
             $table->string('decision');
             $table->string('notification');
             $table->string('decision_number');
