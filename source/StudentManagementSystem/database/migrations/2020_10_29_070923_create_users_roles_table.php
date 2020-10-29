@@ -18,8 +18,8 @@ class CreateUsersRolesTable extends Migration
             $table->foreign('id_user')
                 ->references('id')->on('users')
                 ->cascadeOnDelete();
-            $table->unsignedBigInteger('id_roles');
-            $table->foreign('id_roles')
+            $table->unsignedBigInteger('id_role');
+            $table->foreign('id_role')
                 ->references('id')->on('roles')
                 ->cascadeOnDelete();;
         });
