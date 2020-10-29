@@ -14,9 +14,8 @@ class CreateClassroomsFacultiesTable extends Migration
     public function up()
     {
         Schema::create('classrooms_faculties', function (Blueprint $table) {
-            $table->string('id_classrooms');
-            $table->string('id_classrooms');
-            $table->foreign('id_classrooms')
+            $table->string('id_classroom');
+            $table->foreign('id_classroom')
                 ->references('id')->on('classrooms')
                 ->cascadeOnDelete();
             $table->string('id_faculty');
