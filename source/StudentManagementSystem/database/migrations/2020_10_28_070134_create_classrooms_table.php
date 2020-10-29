@@ -18,7 +18,6 @@ class CreateClassroomsTable extends Migration
             $table->unsignedBigInteger('id_training');
             $table->foreign('id_training')->references('id')->on('training_system');
             $table->date('intake');
-            $table->date('graduate');
             $table->timestamps();
         });
     }
