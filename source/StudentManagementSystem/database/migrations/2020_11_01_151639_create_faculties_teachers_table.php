@@ -21,7 +21,6 @@ class CreateFacultiesTeachersTable extends Migration
             $table->string('id_teacher')
                 ->references('id')->on('teachers')
                 ->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 

@@ -29,7 +29,6 @@ class CreateAdmissionDetailsTable extends Migration
             $table->string('performance');
             $table->string('conduct');
             $table->string('province');
-            $table->timestamps();
         });
     }
 
