@@ -16,7 +16,9 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('major');
-            $table->json('admission_records');
+            $table->date('day_of_dormitory');
+            $table->string('room_of_dormitory');
+            $table->date('date_of_student_union');
             $table->timestamps();
         });
     }
