@@ -14,6 +14,7 @@ class CreateAdmissionDetailsTable extends Migration
     public function up()
     {
         Schema::create('admission_details', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('id_admission')->unsigned();
             $table->foreign('id_admission')
                 ->references('id')->on('admission_records')
