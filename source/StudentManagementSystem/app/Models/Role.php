@@ -9,6 +9,10 @@ class Role extends Model
 {
     use HasFactory;
 
+    protected $table = 'roles';
+    protected $dateFormat = 'd/m/Y';
+    protected $fillable = ['name'];
+
     public function users() {
         return $this->belongsToMany(
             User::class,

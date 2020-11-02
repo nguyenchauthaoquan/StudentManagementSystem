@@ -34,6 +34,7 @@ class CreateStudentsTable extends Migration
             $table->integer('id_number');
             $table->string('place_of_id_number');
             $table->string('nationality');
+            $table->string('major');
             $table->string('talents')->nullable();
             $table->date('date_of_union')->nullable();
             $table->date('date_of_communist')->nullable();
