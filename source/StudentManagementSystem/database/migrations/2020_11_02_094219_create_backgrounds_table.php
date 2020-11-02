@@ -23,8 +23,8 @@ class CreateBackgroundsTable extends Migration
             $table->foreign('id_teacher')
                 ->references('id')->on('teachers')
                 ->cascadeOnDelete();
-            $table->string('fullname')->nullable();
-            $table->string('relationship',10)->nullable();
+            $table->string('name');
+            $table->string('relationship');
             $table->date('birthday')->nullable();
             $table->string('phone', 50)->nullable();
             $table->string('job')->nullable();
@@ -32,9 +32,9 @@ class CreateBackgroundsTable extends Migration
             $table->string('resident')->nullable();
             $table->string('workplace')->nullable();
             $table->string('incomes_source')->nullable();
-            $table->text('description')->nullable();
             $table->string('career')->nullable();
-            $table->string('place_of_work')->nullable();
+            $table->text('description')->nullable();
+            $table->timestamps();
         });
     }
 

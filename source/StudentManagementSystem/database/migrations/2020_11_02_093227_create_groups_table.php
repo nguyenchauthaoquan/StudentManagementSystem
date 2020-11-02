@@ -19,8 +19,12 @@ class CreateGroupsTable extends Migration
             $table->foreign('id_training')
                 ->references('id')->on('training_programs')
                 ->cascadeOnDelete();
-            $table->date('intakes');
-            $table->date('graduate');
+            $table->string('id_faculty');
+            $table->foreign('id_faculty')
+                ->references('id')->on('faculties')
+                ->cascadeOnDelete();
+            $table->date('date_graduation');
+            $table->date('date_admission');
             $table->timestamps();
         });
     }
