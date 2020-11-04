@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Announcement extends Model
 {
     use HasFactory;
+
+    protected $table = 'announcements';
+    protected $dateFormat = 'd/m/Y';
+
+    protected $fillable = [
+      'title', 'description'
+    ];
 }
