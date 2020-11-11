@@ -26,12 +26,12 @@ class CreateStudentsTable extends Migration
             $table->string('place_of_birth');
             $table->string('origin');
             $table->string('gender', 10);
-            $table->string('phone', 50)->nullable();
+            $table->string('phone', 50);
             $table->string('address');
             $table->string('email')->nullable();
-            $table->string('religion');
-            $table->string('race');
-            $table->integer('id_number');
+            $table->string('religion')->nullable();
+            $table->string('kin')->nullable();
+            $table->string('id_number');
             $table->string('place_of_id_number');
             $table->string('nationality');
             $table->string('major');

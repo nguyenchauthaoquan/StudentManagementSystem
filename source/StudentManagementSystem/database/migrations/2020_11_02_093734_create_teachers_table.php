@@ -26,13 +26,13 @@ class CreateTeachersTable extends Migration
             $table->string('place_of_birth');
             $table->string('origin');
             $table->string('gender', 10);
-            $table->string('phone', 50)->nullable();
+            $table->string('phone', 50);
             $table->string('address');
             $table->string('email')->nullable();
             $table->string('academic_rank')->nullable();
             $table->string('degree')->nullable();
             $table->string('religion');
-            $table->string('race');
+            $table->string('kin');
             $table->integer('id_number');
             $table->string('place_of_id_number');
             $table->string('nationality');

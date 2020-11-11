@@ -11,17 +11,21 @@ class Student extends Model
 
     protected $table = 'students';
 
-    protected $dateFormat = 'd/m/Y';
-
     protected $fillable = [
         'id',
         'firstname', 'middlename', 'lastname',
         'birthday', 'place_of_birth', 'origin',
         'gender', 'phone', 'address', 'email',
-        'religion', 'race', 'id_number', 'place_of_id_number',
+        'religion', 'kin', 'id_number', 'place_of_id_number',
         'nationality', 'major', 'talents', 'date_of_union',
         'date_of_communist', 'date_of_student_union', 'date_of_dormitory',
         'room_of_dormitory'
+    ];
+
+    protected $casts = [
+        'birthday' => 'date:d/m/Y',
+        'created_at' => 'datetime:d/m/Y H:m:s',
+        'updated_at' => 'datetime:d/m/Y H:m:s',
     ];
 
     public function group() {

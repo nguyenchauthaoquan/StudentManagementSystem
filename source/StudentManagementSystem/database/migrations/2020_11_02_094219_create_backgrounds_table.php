@@ -23,8 +23,8 @@ class CreateBackgroundsTable extends Migration
             $table->foreign('id_teacher')
                 ->references('id')->on('teachers')
                 ->cascadeOnDelete();
-            $table->string('name');
-            $table->string('relationship');
+            $table->string('name')->nullable();
+            $table->string('relationship')->nullable();
             $table->date('birthday')->nullable();
             $table->string('phone', 50)->nullable();
             $table->string('job')->nullable();
