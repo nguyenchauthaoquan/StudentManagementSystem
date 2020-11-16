@@ -10,8 +10,8 @@
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
                         <tr>
-                            <th colspan="6">
-                                <a href="{{url('/admin/students/create')}}" class="btn btn-primary">
+                            <th colspan="5">
+                                <a href="{{url('/admin/faculties/create')}}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i>
                                 </a>
                             </th>
@@ -19,26 +19,21 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Group</th>
                             <th>Created</th>
                             <th>Updated</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($students as $student)
+                        @foreach($faculties as $faculty)
                             <tr>
-                                <td>{{$student->id}}</td>
+                                <td>{{$faculty->id}}</td>
                                 <td>
-                                    <a href="{{url('admin/students/profile/id='.$student->id)}}">
-                                        {{$student->firstname . ' '.$student->middlename.' '.$student->lastname}}
-                                    </a>
+                                    <a href="{{url('/admin/faculties/view/id='.$faculty->id)}}">{{$faculty->name}}</a>
                                 </td>
-                                <td>{{$student->group->id_group}}</td>
-                                <td>{{$student->created_at}}</td>
-                                <td>{{$student->updated_at}}</td>
+                                <td>{{$faculty->created_at}}</td>
+                                <td>{{$faculty->updated_at}}</td>
                                 <td>
-                                    <a href="{{url('/admin/students/edit/id='.$student->id)}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                    <a href="{{url('/admin/faculties/edit/id='.$faculty->id)}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                                 </td>
                             </tr>
                         @endforeach

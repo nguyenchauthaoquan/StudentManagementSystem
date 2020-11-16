@@ -24,16 +24,6 @@ class Student extends Model
         'room_of_dormitory'
     ];
 
-    protected $casts = [
-        'birthday' => 'date:d/m/Y',
-        'date_of_union' => 'date:d/m/Y',
-        'date_of_communist' => 'date:d/m/Y',
-        'date_of_student_union' => 'date:d/m/Y',
-        'date_of_dormitory' => 'date:d/m/Y',
-        'created_at' => 'datetime:d/m/Y H:m:s',
-        'updated_at' => 'datetime:d/m/Y H:m:s'
-    ];
-
     public function group() {
         return $this->belongsTo(Group::class, 'id_group');
     }

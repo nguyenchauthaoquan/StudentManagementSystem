@@ -12,15 +12,20 @@ class Faculty extends Model
     protected $table = 'faculties';
     protected $keyType = 'string';
     protected $fillable = [
-        'id', 'name', 'head'
+        'id', 'name'
     ];
     protected $casts = [
         'created_at' => 'datetime:d/m/Y H:m:s',
         'updated_at' => 'datetime:d/m/Y H:m:s'
     ];
 
-    public function groups() {
-        return $this->hasMany(Group::class, 'id_faculty');
+    public function training_programs() {
+        return $this->belongsToMany(
+            Group::class,
+            'groups',
+            'id_faculty',
+        'id_training'
+        )->withPivot('id_group', 'date_admission', 'date_graduation')->withTimestamps();
     }
 
     public function teachers() {

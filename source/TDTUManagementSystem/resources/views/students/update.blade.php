@@ -51,7 +51,7 @@
                     <div class="col-md-2">
                         <label for="group">Group</label>
                         <div>
-                            <input type="text" class="form-control" id="group" name="group" value="{{$student->group->id}}">
+                            <input type="text" class="form-control" id="group" name="group" value="{{$student->group->id_group}}">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -184,7 +184,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12 mx-auto">
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </div>
         </form>

@@ -14,7 +14,19 @@ class CreateDisciplinesTable extends Migration
     public function up()
     {
         Schema::create('disciplines', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
+            $table->string('id_student')->nullable();
+            $table->string('id_teacher')->nullable();
+            $table->foreign('id_student')
+                ->references('id')->on('students')
+                ->cascadeOnDelete();
+            $table->foreign('id_teacher')
+                ->references('id')->on('teachers')
+                ->cascadeOnDelete();
+            $table->string('announcement/decision');
+            $table->string('reason');
+            $table->string('semester');
+            $table->date('signing');
             $table->timestamps();
         });
     }

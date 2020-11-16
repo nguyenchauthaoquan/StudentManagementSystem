@@ -31,9 +31,6 @@ class CreateBackgroundsTable extends Migration
             $table->string('email')->nullable();
             $table->string('resident')->nullable();
             $table->string('workplace')->nullable();
-            $table->string('incomes_source')->nullable();
-            $table->string('career')->nullable();
-            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

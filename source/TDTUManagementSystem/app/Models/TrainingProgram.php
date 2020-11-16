@@ -20,7 +20,12 @@ class TrainingProgram extends Model
         'updated_at' => 'datetime:d/m/Y H:m:s'
     ];
 
-    public function groups() {
-        return $this->hasMany(Group::class, 'id_group');
+    public function faculties() {
+        return $this->belongsToMany(
+            Group::class,
+            'groups',
+            'id_training',
+            'id_faculty'
+        )->withPivot('id_group', 'date_admission', 'date_graduation')->withTimestamps();
     }
 }

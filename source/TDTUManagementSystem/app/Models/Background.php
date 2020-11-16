@@ -17,12 +17,6 @@ class Background extends Model
         'description'
     ];
 
-    protected $casts = [
-        'birthday' => 'date:d/m/Y',
-        'created_at' => 'datetime:d/m/Y H:m:s',
-        'updated_at' => 'datetime:d/m/Y H:m:s'
-    ];
-
     public function student() {
         return $this->belongsTo(Student::class, 'id_student');
     }

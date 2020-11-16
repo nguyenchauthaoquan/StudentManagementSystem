@@ -15,7 +15,7 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('id_group');
+            $table->unsignedBigInteger('id_group');
             $table->foreign('id_group')
                 ->references('id')->on('groups')
                 ->cascadeOnDelete();

@@ -16,12 +16,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         TrainingProgram::create([
-            'name' => 'Chương trình tiêu chuẩn',
-            'system' => 'Hệ đại học'
+            'name' => 'Regular Program',
+            'system' => 'University'
         ]);
         Faculty::create([
-            'id' => '05',
-            'name' => 'Information Technology'
+            'id' => '06',
+            'name' => 'Science Application'
         ]);
     }
 }

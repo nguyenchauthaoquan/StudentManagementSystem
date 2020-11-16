@@ -10,7 +10,6 @@ class Policy extends Model
     use HasFactory;
 
     protected $table = 'policies';
-    protected $dateFormat = 'd/m/Y';
     protected $fillable = [
         'area', 'date_of_military', 'year_of_volunteer'
     ];

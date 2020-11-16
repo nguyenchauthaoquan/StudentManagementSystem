@@ -11,34 +11,36 @@
                         <thead>
                         <tr>
                             <th colspan="6">
-                                <a href="{{url('/admin/students/create')}}" class="btn btn-primary">
+                                <a href="{{url('/admin/groups/create')}}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i>
                                 </a>
                             </th>
                         </tr>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Group</th>
+                            <th>Admission</th>
+                            <th>Graduate</th>
+                            <th>Faculty</th>
                             <th>Created</th>
                             <th>Updated</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($students as $student)
+                        @foreach($groups as $group)
                             <tr>
-                                <td>{{$student->id}}</td>
                                 <td>
-                                    <a href="{{url('admin/students/profile/id='.$student->id)}}">
-                                        {{$student->firstname . ' '.$student->middlename.' '.$student->lastname}}
-                                    </a>
+                                    <a href="{{url('/admin/groups/view/id='.$group->id)}}">{{$group->id_group}}</a>
                                 </td>
-                                <td>{{$student->group->id_group}}</td>
-                                <td>{{$student->created_at}}</td>
-                                <td>{{$student->updated_at}}</td>
+                                <td>{{$group->date_admission}}</td>
+                                <td>{{$group->date_graduation}}</td>
+                                <td>{{\App\Models\Faculty::find($group->id_faculty)->name}}</td>
+                                <td>{{$group->created_at}}</td>
+                                <td>{{$group->updated_at}}</td>
                                 <td>
-                                    <a href="{{url('/admin/students/edit/id='.$student->id)}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                    <a href="{{url('/admin/groups/edit/id='.$group->id)}}" class="btn btn-success">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

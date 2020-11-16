@@ -14,7 +14,7 @@ class CreateGroupsTable extends Migration
     public function up()
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->id();
             $table->bigInteger('id_training')->unsigned();
             $table->foreign('id_training')
                 ->references('id')->on('training_programs')
@@ -23,6 +23,7 @@ class CreateGroupsTable extends Migration
             $table->foreign('id_faculty')
                 ->references('id')->on('faculties')
                 ->cascadeOnDelete();
+            $table->string('id_group');
             $table->date('date_graduation');
             $table->date('date_admission');
             $table->timestamps();
