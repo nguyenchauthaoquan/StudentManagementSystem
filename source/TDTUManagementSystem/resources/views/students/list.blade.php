@@ -22,7 +22,6 @@
                             <th>Group</th>
                             <th>Created</th>
                             <th>Updated</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>

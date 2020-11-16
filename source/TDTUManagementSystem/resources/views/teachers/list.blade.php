@@ -11,35 +11,33 @@
                         <thead>
                         <tr>
                             <th colspan="6">
-                                <a href="{{url('/admin/groups/create')}}" class="btn btn-primary">
+                                <a href="{{url('/admin/teachers/create')}}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i>
                                 </a>
                             </th>
                         </tr>
                         <tr>
                             <th>ID</th>
-                            <th>Admission</th>
-                            <th>Graduate</th>
+                            <th>Name</th>
                             <th>Faculty</th>
                             <th>Created</th>
                             <th>Updated</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($groups as $group)
+                        @foreach($teachers as $teacher)
                             <tr>
+                                <td>{{$teacher->id}}</td>
                                 <td>
-                                    <a href="{{url('/admin/groups/view/id='.$group->id)}}">{{$group->id_group}}</a>
-                                </td>
-                                <td>{{$group->date_admission}}</td>
-                                <td>{{$group->date_graduation}}</td>
-                                <td>{{\App\Models\Faculty::find($group->id_faculty)->name}}</td>
-                                <td>{{$group->created_at}}</td>
-                                <td>{{$group->updated_at}}</td>
-                                <td>
-                                    <a href="{{url('/admin/groups/edit/id='.$group->id)}}" class="btn btn-success">
-                                        <i class="fas fa-edit"></i>
+                                    <a href="{{url('admin/teachers/profile/id='.$teacher->id)}}">
+                                        {{$teacher->firstname . ' '.$teacher->middlename.' '.$teacher->lastname}}
                                     </a>
+                                </td>
+                                <td>{{$teacher->faculty->name}}</td>
+                                <td>{{$teacher->created_at}}</td>
+                                <td>{{$teacher->updated_at}}</td>
+                                <td>
+                                    <a href="{{url('/admin/teachers/edit/id='.$teacher->id)}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                                 </td>
                             </tr>
                         @endforeach

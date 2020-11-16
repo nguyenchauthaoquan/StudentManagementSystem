@@ -23,6 +23,30 @@ Route::get('/', function () {
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [PersonController::class, 'home']);
+
+    Route::prefix('teachers')->group(function () {
+        Route::get('/', [PersonController::class, 'teachers']);
+        Route::get('profile/id={id}', [PersonController::class, 'viewTeacher']);
+        Route::get('create', [PersonController::class, 'createTeacher']);
+        Route::get('edit/id={id}', [PersonController::class, 'editTeacher']);
+        Route::post('add', [PersonController::class, 'addTeacher']);
+        Route::put('update/id={id}', [PersonController::class, 'updateTeacher']);
+
+        Route::prefix('backgrounds')->group(function () {
+            Route::get('create/id={id}', [PersonController::class, 'createTeacherBackground']);
+            Route::get('edit/id={id}', [PersonController::class, 'editTeacherBackground']);
+            Route::post('add/id={id}', [PersonController::class, 'addTeacherBackground']);
+            Route::put('update/id={id}', [PersonController::class, 'updateTeacherBackground']);
+        });
+
+        Route::prefix('policies')->group(function () {
+            Route::get('create/id={id}', [PersonController::class, 'createTeacherPolicy']);
+            Route::get('edit/id={id}', [PersonController::class, 'editTeacherPolicy']);
+            Route::post('add/id={id}', [PersonController::class, 'addTeacherPolicy']);
+            Route::put('update/id={id}', [PersonController::class, 'updateTeacherPolicy']);
+        });
+    });
+
     Route::prefix('students')->group(function () {
         Route::get('/', [PersonController::class, 'students']);
         Route::get('create', [PersonController::class, 'createStudent']);
@@ -40,7 +64,9 @@ Route::prefix('admin')->group(function () {
 
         Route::prefix('policies')->group(function () {
             Route::get('create/id={id}', [PersonController::class, 'createStudentPolicy']);
+            Route::get('edit/id={id}', [PersonController::class, 'editStudentPolicy']);
             Route::post('add/id={id}', [PersonController::class, 'addStudentPolicy']);
+            Route::put('update/id={id}', [PersonController::class, 'updateStudentPolicy']);
         });
     });
     Route::prefix('faculties')->group(function () {

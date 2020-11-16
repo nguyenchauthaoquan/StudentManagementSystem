@@ -22,15 +22,6 @@ class Teacher extends Model
         'date_of_communist', 'date_of_student_union'
     ];
 
-    protected $casts = [
-        'birthday' => 'date:d/m/Y',
-        'date_of_union' => 'date:d/m/Y',
-        'date_of_communist' => 'date:d/m/Y',
-        'date_of_student_union' => 'date:d/m/Y',
-        'created_at' => 'datetime:d/m/Y H:m:s',
-        'updated_at' => 'datetime:d/m/Y H:m:s'
-    ];
-
     public function faculty() {
         return $this->belongsTo(Faculty::class, 'id_faculty');
     }
@@ -40,6 +31,6 @@ class Teacher extends Model
     }
 
     public function policies() {
-        return $this->hasMany(Policies::class, 'id_teacher');
+        return $this->hasMany(Policy::class, 'id_teacher');
     }
 }

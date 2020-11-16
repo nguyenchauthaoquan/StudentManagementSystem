@@ -33,7 +33,7 @@ class CreateTeachersTable extends Migration
             $table->string('degree')->nullable();
             $table->string('religion');
             $table->string('kin');
-            $table->integer('id_number');
+            $table->string('id_number');
             $table->string('place_of_id_number');
             $table->string('nationality');
             $table->string('talents')->nullable();

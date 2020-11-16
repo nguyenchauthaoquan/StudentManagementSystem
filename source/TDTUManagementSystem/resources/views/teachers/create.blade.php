@@ -2,13 +2,12 @@
 
 
 @section('content')
-    <div class="container">
-        <form method="post" action="{{url('/admin/teachers/add')}}">
-            @csrf
+
+    <form method="post" action="{{url('/admin/teachers/add')}}">
+        @csrf
+        <div class="container">
             <div class="row row-header">
-                <div class="col-md-12">
-                    <h5>Basic information</h5>
-                </div>
+                <div class="col-md-12">Basic Information</div>
             </div>
             <div class="row row-information">
                 <div class="row w-100">
@@ -47,21 +46,33 @@
                 </div>
                 <div class="row w-100">
                     <div class="col-md-2">
-                        <label for="group">Group</label>
+                        <label for="faculty">Faculty</label>
                         <div>
-                            <input type="text" class="form-control" id="group" name="group">
+                            <input type="text" class="form-control" id="faculty" name="faculty">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="academic_rank">Academic Rank</label>
+                        <div>
+                            <input type="text" class="form-control" id="academic_rank" name="academic_rank">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="degree">Degree</label>
+                        <div>
+                            <input type="text" class="form-control" id="degree" name="degree">
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="major">Major</label>
-                        <input type="text" id="major" class="form-control" name="major">
+                        <label for="talents">Talents</label>
+                        <div>
+                            <input type="text" class="form-control" id="talents" name="talents">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row row-header">
-                <div class="col-md-12">
-                    <h5>Personal Information</h5>
-                </div>
+                <div class="col-md-12">Personal Information</div>
             </div>
             <div class="row row-information">
                 <div class="row w-100">
@@ -128,29 +139,6 @@
                 </div>
             </div>
             <div class="row row-header">
-                <div class="col-md-12">
-                    <h5>Accomodations</h5>
-                </div>
-            </div>
-            <div class="row row-information">
-                <div class="row w-100">
-                    <div class="col-md-12">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" class="form-control" name="address">
-                    </div>
-                </div>
-                <div class="row w-100">
-                    <div class="col-md-2">
-                        <label for="date_of_dormitory">Date of Dormitory</label>
-                        <input id="date_of_dormitory" class="form-control date-picker" name="date_of_dormitory">
-                    </div>
-                    <div class="col-md-5">
-                        <label for="room_of_dormitory">Room of dormitory</label>
-                        <input id="room_of_dormitory" class="form-control" name="room_of_dormitory">
-                    </div>
-                </div>
-            </div>
-            <div class="row row-header">
                 <div class="col-md-12"><h5>Union and Communist</h5></div>
             </div>
             <div class="row row-information">
@@ -170,22 +158,24 @@
                 </div>
             </div>
             <div class="row row-header">
-                <div class="col-md-12"><h5>Other Information</h5></div>
+                <div class="col-md-12">
+                    <h5>Accomodations</h5>
+                </div>
             </div>
             <div class="row row-information">
                 <div class="row w-100">
                     <div class="col-md-12">
-                        <label for="talents">Talents</label>
-                        <input type="text" id="talents" class="form-control" name="talents">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" class="form-control" name="address">
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 mx-auto">
+                <div class="col-md-12">
                     <button type="submit" class="btn btn-primary">Create</button>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 
 @endsection

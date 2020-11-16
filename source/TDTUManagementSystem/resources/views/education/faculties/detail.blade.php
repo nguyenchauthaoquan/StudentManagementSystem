@@ -3,38 +3,6 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-xl-6">
-                <div class="card bg-primary text-white mb-4">
-                    <div class="card-header">
-                        <span>Number of groups</span>
-                    </div>
-                    <div class="card-body">
-                        <span>{{count($groups)}}</span>
-                    </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-6">
-                <div class="card bg-success text-white mb-4">
-                    <div class="card-header">
-                        <span>Number of students</span>
-                    </div>
-                    <div class="card-body">
-                        @foreach($groups as $group)
-                            @if(count($group->students) > 0)
-                                {{count($group->students)}}
-                            @endif
-                        @endforeach
-                    </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
         <div class="row row-header">
             <div class="col-md-12">Groups</div>
         </div>

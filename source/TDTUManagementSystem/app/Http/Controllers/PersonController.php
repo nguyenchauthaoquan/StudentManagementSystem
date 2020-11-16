@@ -133,12 +133,30 @@ class PersonController extends Controller
     }
 
     public function teachers() {
-        return response()->json(Teacher::with('faculty', 'backgrounds', 'policies')->get()->jsonSerialize(), Response::HTTP_OK);
+        return view('teachers.list', [
+            'teachers' =>Teacher::all()
+        ]);
+    }
+
+    public function viewTeacher($id) {
+        return view('teachers.profile', [
+            'teacher' => Teacher::find($id)
+        ]);
+    }
+
+    public function createTeacher() {
+        return view('teachers.create');
+    }
+
+    public function editTeacher($id) {
+        return view('teachers.update', [
+            'teacher' => Teacher::find($id)
+        ]);
     }
 
     public function addTeacher(Request $request) {
         $this->validate($request, [
-            'id' => ['required', ' unique:App\Models\Teacher,id'],
+            'id' => ['required', 'unique:App\Models\Teacher,id'],
             'firstname' => ['required'],
             'middlename' => ['nullable'],
             'lastname' => ['required'],
@@ -158,9 +176,9 @@ class PersonController extends Controller
             'place_of_id_number' => ['required'],
             'nationality' => ['required'],
             'talents' => ['nullable'],
-            'date_of_union' => ['nullable', 'date'],
-            'date_of_communist' => ['nullable', 'date'],
-            'date_of_student_union' => ['nullable', 'date'],
+            'date_of_union' => ['nullable'],
+            'date_of_communist' => ['nullable'],
+            'date_of_student_union' => ['nullable'],
         ]);
         $teacher = new Teacher([
             'id' => $request['id'],
@@ -188,42 +206,14 @@ class PersonController extends Controller
             'date_of_student_union' => $request['date_of_communist'],
         ]);
 
-        $faculty = Faculty::find($request['faculty']);
+        $faculty = Faculty::where('name', $request['faculty'])->first();
+        $teacher->faculty()->associate($faculty);
+        $teacher->save();
 
-        if ($faculty) {
-            $teacher->faculty()->associate($faculty);
-            $teacher->save();
-        }
-
-        return response()->json($teacher->jsonSerialize(), Response::HTTP_CREATED);
+        return redirect('/admin/teachers');
     }
 
     public function updateTeacher(Request $request, $id) {
-        $this->validate($request, [
-            'id' => ['required', ' unique:App\Models\Teacher,id'],
-            'firstname' => ['required'],
-            'middlename' => ['nullable'],
-            'lastname' => ['required'],
-            'faculty' => ['required'],
-            'birthday' => ['required'],
-            'place_of_birth' => ['required'],
-            'origin' => ['required'],
-            'gender' => ['required'],
-            'phone' => ['required'],
-            'address' => ['required'],
-            'email' => ['nullable', 'email'],
-            'academic_rank' => ['nullable'],
-            'degree' => ['nullable'],
-            'religion' => ['nullable'],
-            'kin' => ['nullable'],
-            'id_number' => ['required'],
-            'place_of_id_number' => ['required'],
-            'nationality' => ['required'],
-            'talents' => ['nullable'],
-            'date_of_union' => ['nullable', 'date'],
-            'date_of_communist' => ['nullable', 'date'],
-            'date_of_student_union' => ['nullable', 'date'],
-        ]);
 
         $teacher = Teacher::find($id);
         $teacher->update([
@@ -251,21 +241,17 @@ class PersonController extends Controller
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_communist'],
         ]);
-        $faculty = Faculty::where('name',$request['faculty'])->get();
+        $faculty = Faculty::where('name',$request['faculty'])->first();
+        $teacher->faculty()->associate($faculty);
+        $teacher->save();
 
-        if ($faculty) {
-            $teacher->faculty()->associate($faculty);
-            $teacher->save();
-        }
-        return response()->json($teacher->jsonSerialize(), Response::HTTP_OK);
+        return redirect('/admin/teachers/profile/id='.$teacher->id);
     }
-
-    public function viewTeacher($id) {
-        $teacher = Teacher::with(['backgrounds', 'policies', 'group'])->find($id);
-
-        return response()->json($teacher->jsonSerialize(), Response::HTTP_OK);
+    public function createTeacherBackground($id) {
+        return view('teachers.backgrounds.create', [
+            'teacher' => Teacher::find($id)
+        ]);
     }
-
     public function addTeacherBackground(Request $request, $id) {
         $this->validate($request, [
             'name' => ['required'],
@@ -292,6 +278,28 @@ class PersonController extends Controller
         );
 
         return redirect('/admin/teachers/profile/id='.$teacher->id);
+    }
+
+    public function editTeacherBackground($id) {
+        return view('teachers.backgrounds.update', [
+            'background' => Background::find($id)
+        ]);
+    }
+
+    public function updateTeacherBackground(Request $request, $id) {
+        $background = Background::find($id);
+        $background->update([
+            'name' => $request['name'],
+            'relationship' => $request['relationship'],
+            'birthday' => $request['birthday'],
+            'phone' => $request['phone'],
+            'job' => $request['job'],
+            'email' => $request['email'],
+            'resident' => $request['resident'],
+            'workplace' => $request['workplace'],
+        ]);
+
+        return redirect('/admin/teachers/profile/id='.$background->id_teacher);
     }
 
     public function createStudentBackground($id) {
@@ -326,27 +334,6 @@ class PersonController extends Controller
         );
 
         return redirect('/admin/students/profile/id='.$student->id);
-    }
-
-    public function updateTeacherBackground(Request $request, $id) {
-        $teacher = Teacher::find($id);
-        $teacher->backgrounds()->save([
-            new Background([
-                'name' => $request['name'],
-                'relationship' => $request['relationship'],
-                'birthday' => $request['birthday'],
-                'phone' => $request['phone'],
-                'job' => $request['job'],
-                'email' => $request['email'],
-                'resident' => $request['resident'],
-                'workplace' => $request['workplace'],
-                'incomes_source' => $request['incomes_source'],
-                'career' => $request['career'],
-                'description' => $request['description']
-            ])
-        ]);
-
-        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
     public function editStudentBackground($id) {
@@ -410,5 +397,46 @@ class PersonController extends Controller
         ]);
 
         return redirect('/admin/students/profile/id='.$policy->id_student);
+    }
+
+    public function createTeacherPolicy($id) {
+        return view('teachers.policy.create', [
+            'teacher' => Teacher::find($id)
+        ]);
+    }
+
+    public function addTeacherPolicy(Request $request, $id) {
+        $this->validate($request, [
+            'area' => ['nullable'],
+            'date_of_military' => ['nullable'],
+            'year_of_volunteer' => ['nullable']
+        ]);
+        $teacher = Teacher::find($id);
+
+        $teacher->policies()->save(new Policy([
+            'area' => $request['area'],
+            'date_of_military' => $request['date_of_military'],
+            'year_of_volunteer' => $request['year_of_volunteer']
+        ]));
+
+        return redirect('/admin/teachers/profile/id='.$teacher->id);
+    }
+
+    public function editTeacherPolicy($id) {
+        return view('teachers.policy.update', [
+            'policy' => Policy::find($id)
+        ]);
+    }
+
+    public function updateTeacherPolicy(Request $request, $id) {
+        $policy = Policy::find($id);
+
+        $policy->update([
+            'area' => $request['area'],
+            'date_of_military' => $request['date_of_military'],
+            'year_of_volunteer' => $request['year_of_volunteer']
+        ]);
+
+        return redirect('/admin/teachers/profile/id='.$policy->id_teacher);
     }
 }

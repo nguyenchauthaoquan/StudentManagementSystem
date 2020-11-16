@@ -46,7 +46,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{url('/admin/teachers')}}" class="nav-link">
                                         <i class="fas fa-chalkboard-teacher"></i><span>Teacher Management</span>
                                     </a>
                                 </li>

@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <form method="post" action="{{url('/admin/students/policies/update/id='.$policy->id)}}">
+    <form method="post" action="{{url('/admin/teachers/policies/update/id='.$policy->id)}}">
         @csrf
         @method('put')
         <div class="container">

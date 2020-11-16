@@ -3,9 +3,8 @@
 
 @section('content')
 
-    <form method="post" action="{{url('/admin/students/policies/update/id='.$policy->id)}}">
+    <form method="post" action="{{url('/admin/teachers/policies/add/id='.$teacher->id)}}">
         @csrf
-        @method('put')
         <div class="container">
             <div class="row row-header">
                 <div class="col-md-12">
@@ -17,26 +16,26 @@
                     <div class="col-md-4">
                         <label for="area">Area</label>
                         <div>
-                            <input type="text" class="form-control" name="area" id="area" value="{{$policy->area}}">
+                            <input type="text" class="form-control" name="area" id="area">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <label for="date_of_military">Date of military</label>
                         <div>
-                            <input type="text" class="form-control date-picker" name="date_of_military" id="date_of_military" value="{{$policy->date_of_military}}">
+                            <input type="text" class="form-control date-picker" name="date_of_military" id="date_of_military">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <label for="year_of_volunteer">Year of volunteer</label>
                         <div>
-                            <input type="text" class="form-control" name="year_of_volunteer" id="year_of_volunteer" value="{{$policy->year_of_volunteer}}">
+                            <input type="text" class="form-control" name="year_of_volunteer" id="year_of_volunteer">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button class="btn btn-primary" type="submit">Update</button>
+                    <button class="btn btn-primary" type="submit">Create</button>
                 </div>
             </div>
         </div>
