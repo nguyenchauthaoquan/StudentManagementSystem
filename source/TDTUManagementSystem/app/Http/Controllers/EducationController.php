@@ -67,13 +67,17 @@ class EducationController extends Controller
 
     public function groups() {
         $groups = Group::all();
-        return view('education.groups.list', ['groups' => $groups]);
+        return view('education.groups.list', [
+            'groups' => $groups
+        ]);
     }
 
     public function viewGroup($id) {
         $group = Group::find($id);
         return view('education.groups.detail', [
-            'group' => $group
+            'group' => $group,
+            'faculty' => Faculty::find($group->id_faculty),
+            'training' => TrainingProgram::find($group->id_training)
         ]);
     }
 
@@ -82,12 +86,15 @@ class EducationController extends Controller
     }
 
     public function editGroup($id) {
-        return view('education.groups.update', ['group' => Group::find($id)]);
+        $group = Group::find($id);
+        return view('education.groups.update', [
+            'group' => $group
+        ]);
     }
 
     public function addGroup(Request $request) {
         $this->validate($request, [
-            'id' => ['required'],
+            'name' => ['required'],
             'faculty' => ['required'],
             'program_name' => ['required'],
             'program_system' => ['required'],
@@ -100,8 +107,8 @@ class EducationController extends Controller
         );
         $faculty = Faculty::where('name', $request['faculty'])->get();
 
-       $training_program->faculties()->attach($faculty, [
-           'id_group' => $request['id'],
+       $training_program->groups()->attach($faculty, [
+           'name' => $request['name'],
            'date_admission'=> $request['date_admission'],
            'date_graduation' => $request['date_graduation']
        ]);
@@ -110,35 +117,12 @@ class EducationController extends Controller
     }
 
     public function updateGroup(Request $request, $id) {
-        $this->validate($request, [
-            'id' => ['required'],
-            'faculty' => ['require'],
-            'program_name' => ['required'],
-            'program_system' => ['required'],
-            'date_admission' => ['required', 'date'],
-            'date_graduation' => ['required', 'date']
-        ]);
-
         $group = Group::find($id);
         $group->update([
-            'id' => $request['id'],
-            'faculty' => $request['faculty'],
-            'program_name' => $request['program_name'],
-            'program_system' =>$request ['program_system'],
+            'name' => $request['name'],
             'date_admission' => $request['date_admission'],
             'date_graduation' => $request['date_graduation']
         ]);
-        $training_program = TrainingProgram::firstOrCreate(
-            [
-                'name' => $request['program_name']
-            ],
-            [
-                'name' => $request['program_name'],
-                'program_system' => $request['program_system']
-            ]
-        );
-        $group->training_program()->associate($training_program)->save();
-        $group->faculty()->associate(Faculty::where('name', $request['faculty']))->save();
 
         return redirect('/admin/groups')->with('success', 'Update successful');
     }

@@ -14,18 +14,14 @@ class Faculty extends Model
     protected $fillable = [
         'id', 'name'
     ];
-    protected $casts = [
-        'created_at' => 'datetime:d/m/Y H:m:s',
-        'updated_at' => 'datetime:d/m/Y H:m:s'
-    ];
 
-    public function training_programs() {
+    public function groups() {
         return $this->belongsToMany(
-            Group::class,
+            TrainingProgram::class,
             'groups',
             'id_faculty',
-        'id_training'
-        )->withPivot('id_group', 'date_admission', 'date_graduation')->withTimestamps();
+        'id_training')->using(Group::class)
+            ->withPivot('name', 'date_admission', 'date_graduation')->withTimestamps();
     }
 
     public function teachers() {

@@ -170,6 +170,27 @@
                     </div>
                 </div>
             </div>
+            <div class="row row-header">
+                <div class="col-md-12"><h5>Other Information</h5></div>
+            </div>
+            <div class="row row-information">
+                <div class="row w-100">
+                    <div class="col-md-6">
+                        <label for="career">Career</label>
+                        <input type="text" id="career" class="form-control" name="career">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="incomes">Incomes</label>
+                        <input type="text" id="incomes" class="form-control" name="incomes">
+                    </div>
+                </div>
+                <div class="row w-100">
+                    <div class="col-md-12">
+                        <label for="description">Family Background Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="12"></textarea>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-primary">Create</button>

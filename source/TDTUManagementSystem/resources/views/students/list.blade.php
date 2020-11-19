@@ -33,7 +33,7 @@
                                         {{$student->firstname . ' '.$student->middlename.' '.$student->lastname}}
                                     </a>
                                 </td>
-                                <td>{{$student->group->id_group}}</td>
+                                <td>{{$student->group->name}}</td>
                                 <td>{{$student->created_at}}</td>
                                 <td>{{$student->updated_at}}</td>
                                 <td>

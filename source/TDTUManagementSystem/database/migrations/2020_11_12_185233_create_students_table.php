@@ -15,10 +15,11 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->unsignedBigInteger('id_group');
+            $table->bigInteger('id_group')->unsigned();
             $table->foreign('id_group')
                 ->references('id')->on('groups')
                 ->cascadeOnDelete();
+            $table->string('avatar')->default('user.png');
             $table->string('firstname');
             $table->string('middlename')->nullable();
             $table->string('lastname');
@@ -36,6 +37,9 @@ class CreateStudentsTable extends Migration
             $table->string('nationality');
             $table->string('major');
             $table->string('talents')->nullable();
+            $table->string('incomes')->nullable();
+            $table->string('career')->nullable();
+            $table->text('description')->nullable();
             $table->date('date_of_union')->nullable();
             $table->date('date_of_communist')->nullable();
             $table->date('date_of_student_union')->nullable();

@@ -15,17 +15,12 @@ class TrainingProgram extends Model
         'name', 'system'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime:d/m/Y H:m:s',
-        'updated_at' => 'datetime:d/m/Y H:m:s'
-    ];
-
-    public function faculties() {
+    public function groups() {
         return $this->belongsToMany(
-            Group::class,
+            Faculty::class,
             'groups',
             'id_training',
             'id_faculty'
-        )->withPivot('id_group', 'date_admission', 'date_graduation')->withTimestamps();
+        )->withTimestamps();
     }
 }

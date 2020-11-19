@@ -2,7 +2,48 @@
 
 
 @section('content')
-
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-xl-4">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <div class="card-body">
+                        <span>{{$group->name}}</span>
+                    </div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <span>{{ $group->created_at }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <div class="card-body">
+                        <span>{{$faculty->name}}</span>
+                    </div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <span>{{ $group->created_at }}</span>
+                    </div>
+                </div>
+            </div><div class="col-md-6 col-xl-4">
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <div class="card-body">
+                        <span>{{$training->name}}</span>
+                    </div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <span>{{ $group->created_at }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="row row-header">
             <div class="col-md-12">

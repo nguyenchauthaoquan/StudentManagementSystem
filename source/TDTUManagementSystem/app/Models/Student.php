@@ -19,7 +19,8 @@ class Student extends Model
         'birthday', 'place_of_birth', 'origin',
         'gender', 'phone', 'address', 'email',
         'religion', 'kin', 'id_number', 'place_of_id_number',
-        'nationality', 'major', 'talents', 'date_of_union',
+        'nationality', 'major', 'talents', 'incomes',
+        'career', 'description', 'date_of_union',
         'date_of_communist', 'date_of_student_union', 'date_of_dormitory',
         'room_of_dormitory'
     ];

@@ -19,6 +19,7 @@
 html, body {
     height: 100%;
     font-size: 0.9rem;
+    overflow-x: hidden;
 }
 
 .wrapper {
@@ -98,6 +99,9 @@ html, body {
                     span {
                         display: none;
                     }
+                }
+                .sidebar-heading {
+                    display: none;
                 }
             }
         }

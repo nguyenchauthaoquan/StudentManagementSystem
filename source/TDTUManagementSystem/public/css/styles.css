@@ -18565,6 +18565,7 @@ html,
 body {
   height: 100%;
   font-size: 0.9rem;
+  overflow-x: hidden;
 }
 
 .wrapper {
@@ -18656,6 +18657,10 @@ body {
 }
 
 .wrapper .sidebar.active .sidebar-nav .nav-link span {
+  display: none;
+}
+
+.wrapper .sidebar.active .sidebar-nav .sidebar-heading {
   display: none;
 }
 

@@ -18,7 +18,8 @@ class Teacher extends Model
         'gender', 'phone', 'address', 'email',
         'academic_rank', 'degree', 'religion',
         'kin', 'id_number', 'place_of_id_number',
-        'nationality', 'talents', 'date_of_union',
+        'nationality', 'talents', 'incomes',
+        'career', 'description', 'date_of_union',
         'date_of_communist', 'date_of_student_union'
     ];
 

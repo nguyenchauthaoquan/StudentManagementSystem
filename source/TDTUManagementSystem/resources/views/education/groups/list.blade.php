@@ -20,7 +20,6 @@
                             <th>ID</th>
                             <th>Admission</th>
                             <th>Graduate</th>
-                            <th>Faculty</th>
                             <th>Created</th>
                             <th>Updated</th>
                         </tr>
@@ -29,11 +28,10 @@
                         @foreach($groups as $group)
                             <tr>
                                 <td>
-                                    <a href="{{url('/admin/groups/view/id='.$group->id)}}">{{$group->id_group}}</a>
+                                    <a href="{{url('/admin/groups/view/id='.$group->id)}}">{{$group->name}}</a>
                                 </td>
                                 <td>{{$group->date_admission}}</td>
                                 <td>{{$group->date_graduation}}</td>
-                                <td>{{\App\Models\Faculty::find($group->id_faculty)->name}}</td>
                                 <td>{{$group->created_at}}</td>
                                 <td>{{$group->updated_at}}</td>
                                 <td>

@@ -8,9 +8,7 @@ use App\Models\Group;
 use App\Models\Policy;
 use App\Models\Student;
 use App\Models\Teacher;
-use App\Models\TrainingProgram;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class PersonController extends Controller
 {
@@ -44,6 +42,9 @@ class PersonController extends Controller
             'nationality' => ['required'],
             'major' => ['required'],
             'talents' => ['nullable'],
+            'incomes' => ['nullable'],
+            'career' => ['nullable'],
+            'description' => ['nullable'],
             'date_of_union' => ['nullable', 'date'],
             'date_of_communist' => ['nullable', 'date'],
             'date_of_student_union' => ['nullable', 'date'],
@@ -51,7 +52,7 @@ class PersonController extends Controller
             'room_of_dormitory' => ['nullable']
         ]);
 
-        $group = Group::where('id_group', $request['group'])->first();
+        $group = Group::where('name', $request['group'])->first();
         $student = new Student([
             'id' => $request['id'],
             'firstname' => $request['firstname'],
@@ -71,6 +72,9 @@ class PersonController extends Controller
             'nationality' => $request['nationality'],
             'major' => $request['major'],
             'talents' => $request['talents'],
+            'incomes' => $request['incomes'],
+            'career' => $request['career'],
+            'description' => $request['description'],
             'date_of_union' => $request['date_of_union'],
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_student_union'],
@@ -107,6 +111,9 @@ class PersonController extends Controller
             'nationality' => $request['nationality'],
             'major' => $request['major'],
             'talents' => $request['talents'],
+            'incomes' => $request['incomes'],
+            'career' => $request['career'],
+            'description' => $request['description'],
             'date_of_union' => $request['date_of_union'],
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_student_union'],
@@ -114,7 +121,7 @@ class PersonController extends Controller
             'room_of_dormitory' => $request['room_of_dormitory']
         ]);
 
-        $group = Group::where('id_group', $request['group'])->first();
+        $group = Group::where('name', $request['group'])->first();
 
         $student->group()->associate($group);
         $student->save();
@@ -176,6 +183,9 @@ class PersonController extends Controller
             'place_of_id_number' => ['required'],
             'nationality' => ['required'],
             'talents' => ['nullable'],
+            'incomes' => ['nullable'],
+            'career' => ['nullable'],
+            'description' => ['nullable'],
             'date_of_union' => ['nullable'],
             'date_of_communist' => ['nullable'],
             'date_of_student_union' => ['nullable'],
@@ -201,6 +211,9 @@ class PersonController extends Controller
             'place_of_id_number' => $request['place_of_id_number'],
             'nationality' => $request['nationality'],
             'talents' => $request['talents'],
+            'incomes' => $request['incomes'],
+            'career' => $request['career'],
+            'description' => $request['description'],
             'date_of_union' => $request['date_of_union'],
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_communist'],
@@ -237,6 +250,9 @@ class PersonController extends Controller
             'place_of_id_number' => $request['place_of_id_number'],
             'nationality' => $request['nationality'],
             'talents' => $request['talents'],
+            'incomes' => $request['incomes'],
+            'career' => $request['career'],
+            'description' => $request['description'],
             'date_of_union' => $request['date_of_union'],
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_communist'],

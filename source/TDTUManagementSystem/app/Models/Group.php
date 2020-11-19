@@ -11,7 +11,7 @@ class Group extends Model
 
     protected $table = 'groups';
     protected $fillable = [
-        'id_group', 'date_admission', 'date_graduation'
+        'name', 'date_admission', 'date_graduation'
     ];
 
     public function students() {

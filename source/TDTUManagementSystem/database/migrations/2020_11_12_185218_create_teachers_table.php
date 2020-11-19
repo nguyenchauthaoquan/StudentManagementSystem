@@ -19,6 +19,7 @@ class CreateTeachersTable extends Migration
             $table->foreign('id_faculty')
                 ->references('id')->on('faculties')
                 ->cascadeOnDelete();
+            $table->string('avatar')->default('user.png');
             $table->string('firstname');
             $table->string('middlename')->nullable();
             $table->string('lastname');
@@ -37,6 +38,9 @@ class CreateTeachersTable extends Migration
             $table->string('place_of_id_number');
             $table->string('nationality');
             $table->string('talents')->nullable();
+            $table->string('incomes')->nullable();
+            $table->string('career')->nullable();
+            $table->text('description')->nullable();
             $table->date('date_of_union')->nullable();
             $table->date('date_of_communist')->nullable();
             $table->date('date_of_student_union')->nullable();

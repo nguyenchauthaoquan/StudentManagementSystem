@@ -2,7 +2,7 @@
 
 
 @section('content')
-
+    {{$errors}}
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -12,11 +12,11 @@
                         <form action="{{url('/admin/groups/add')}}" method="post">
                             @csrf
                             <div class="form-group row">
-                                <label for="id" class="col-md-4 col-form-label">
-                                    {{__('ID')}}
+                                <label for="name" class="col-md-4 col-form-label">
+                                    {{__('Name')}}
                                 </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="id" class="form-control" name="id">
+                                    <input type="text" id="name" class="form-control" name="name">
                                 </div>
                             </div>
                             <div class="form-group row">

@@ -51,7 +51,7 @@
                     <div class="col-md-2">
                         <label for="group">Group</label>
                         <div>
-                            <input type="text" class="form-control" id="group" name="group" value="{{$student->group->id_group}}">
+                            <input type="text" class="form-control" id="group" name="group" value="{{$student->group->name}}">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -179,6 +179,24 @@
                     <div class="col-md-12">
                         <label for="talents">Talents</label>
                         <input type="text" id="talents" class="form-control" name="talents" value="{{$student->talents}}">
+                    </div>
+                </div>
+                <div class="row w-100">
+                    <div class="col-md-6">
+                        <label for="career">Career</label>
+                        <input type="text" id="career" class="form-control" name="career" value="{{$student->career}}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="incomes">Incomes</label>
+                        <input type="text" id="incomes" class="form-control" name="incomes" value="{{$student->incomes}}">
+                    </div>
+                </div>
+                <div class="row w-100">
+                    <div class="col-md-12">
+                        <label for="description">Family Background Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="12">
+                            {{$student->description}}
+                        </textarea>
                     </div>
                 </div>
             </div>

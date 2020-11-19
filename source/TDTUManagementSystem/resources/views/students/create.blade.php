@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{url('/admin/teachers/add')}}">
+        <form method="post" action="{{url('/admin/students/add')}}">
             @csrf
             <div class="row row-header">
                 <div class="col-md-12">
@@ -177,6 +177,20 @@
                     <div class="col-md-12">
                         <label for="talents">Talents</label>
                         <input type="text" id="talents" class="form-control" name="talents">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="career">Career</label>
+                        <input type="text" id="career" class="form-control" name="career">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="incomes">Incomes</label>
+                        <input type="text" id="incomes" class="form-control" name="incomes">
+                    </div>
+                </div>
+                <div class="row w-100">
+                    <div class="col-md-12">
+                        <label for="description">Family Background Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="12"></textarea>
                     </div>
                 </div>
             </div>
