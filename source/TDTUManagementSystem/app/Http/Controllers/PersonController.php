@@ -383,15 +383,15 @@ class PersonController extends Controller
     public function addStudentPolicy(Request $request, $id) {
         $this->validate($request, [
             'area' => ['nullable'],
-            'date_of_military' => ['nullable'],
-            'year_of_volunteer' => ['nullable']
+            'military' => ['nullable'],
+            'volunteer' => ['nullable']
         ]);
         $student = Student::find($id);
 
         $student->policies()->save(new Policy([
             'area' => $request['area'],
-            'date_of_military' => $request['date_of_military'],
-            'year_of_volunteer' => $request['year_of_volunteer']
+            'military' => $request['date_of_military'],
+            'volunteer' => $request['year_of_volunteer']
         ]));
 
         return redirect('/admin/students/profile/id='.$student->id);
@@ -408,8 +408,8 @@ class PersonController extends Controller
 
         $policy->update([
             'area' => $request['area'],
-            'date_of_military' => $request['date_of_military'],
-            'year_of_volunteer' => $request['year_of_volunteer']
+            'military' => $request['date_of_military'],
+            'volunteer' => $request['year_of_volunteer']
         ]);
 
         return redirect('/admin/students/profile/id='.$policy->id_student);
@@ -424,15 +424,15 @@ class PersonController extends Controller
     public function addTeacherPolicy(Request $request, $id) {
         $this->validate($request, [
             'area' => ['nullable'],
-            'date_of_military' => ['nullable'],
-            'year_of_volunteer' => ['nullable']
+            'military' => ['nullable'],
+            'volunteer' => ['nullable']
         ]);
         $teacher = Teacher::find($id);
 
         $teacher->policies()->save(new Policy([
             'area' => $request['area'],
-            'date_of_military' => $request['date_of_military'],
-            'year_of_volunteer' => $request['year_of_volunteer']
+            'military' => $request['military'],
+            'volunteer' => $request['volunteer']
         ]));
 
         return redirect('/admin/teachers/profile/id='.$teacher->id);
@@ -449,8 +449,8 @@ class PersonController extends Controller
 
         $policy->update([
             'area' => $request['area'],
-            'date_of_military' => $request['date_of_military'],
-            'year_of_volunteer' => $request['year_of_volunteer']
+            'military' => $request['date_of_military'],
+            'volunteer' => $request['year_of_volunteer']
         ]);
 
         return redirect('/admin/teachers/profile/id='.$policy->id_teacher);

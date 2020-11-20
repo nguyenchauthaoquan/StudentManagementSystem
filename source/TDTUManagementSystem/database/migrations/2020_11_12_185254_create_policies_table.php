@@ -25,7 +25,7 @@ class CreatePoliciesTable extends Migration
                 ->cascadeOnDelete();
             $table->string('area')->nullable();
             $table->bigInteger('military')->nullable();
-            $table->year('volunteer')->nullable();
+            $table->bigInteger('volunteer')->nullable();
 
             $table->timestamps();
         });

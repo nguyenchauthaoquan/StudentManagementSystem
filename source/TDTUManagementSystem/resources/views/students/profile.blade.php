@@ -224,8 +224,8 @@
                     @foreach($student->policies as $policy)
                         <tr>
                             <td>{{$policy->area}}</td>
-                            <td>{{$policy->date_of_military}}</td>
-                            <td>{{$policy->year_of_volunteer}}</td>
+                            <td>{{$policy->military}}</td>
+                            <td>{{$policy->volunteer}}</td>
                             <td>
                                 <a href="{{url('/admin/students/policies/edit/id='.$policy->id)}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                             </td>

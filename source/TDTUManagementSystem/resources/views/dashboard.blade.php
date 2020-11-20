@@ -68,7 +68,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="main col-md-9 col-lg-10 mr-sm-auto px-md-4">
+                    <div class="main col-md-9 col-lg-10">
                         @yield('content')
                     </div>
                 </div>

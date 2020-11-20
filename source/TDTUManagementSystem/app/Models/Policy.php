@@ -11,7 +11,7 @@ class Policy extends Model
 
     protected $table = 'policies';
     protected $fillable = [
-        'area', 'date_of_military', 'year_of_volunteer'
+        'area', 'military', 'volunteer'
     ];
 
     public function student() {

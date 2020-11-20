@@ -21,15 +21,15 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="date_of_military">Date of military</label>
+                        <label for="military">Date of military</label>
                         <div>
-                            <input type="text" class="form-control date-picker" name="date_of_military" id="date_of_military" value="{{$policy->date_of_military}}">
+                            <input type="text" class="form-control" name="military" id="military" value="{{$policy->military}}">
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="year_of_volunteer">Year of volunteer</label>
+                        <label for="volunteer">Year of volunteer</label>
                         <div>
-                            <input type="text" class="form-control" name="year_of_volunteer" id="year_of_volunteer" value="{{$policy->year_of_volunteer}}">
+                            <input type="text" class="form-control" name="volunteer" id="volunteer" value="{{$policy->volunteer}}">
                         </div>
                     </div>
                 </div>
