@@ -4,16 +4,16 @@
 @section('content')
     <div class="container">
         <div class="row row-header">
-            <div class="col-md-12">Groups</div>
+            <div class="col-md-12"><h5>{{__('Danh sách Lớp')}}</h5></div>
         </div>
         <div class="row row-information">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Admission</th>
-                            <th>Graduate</th>
+                            <th>{{__('Lớp')}}</th>
+                            <th>{{__('Thời gian tuyển sinh')}}</th>
+                            <th>{{__('Thời gian tốt nghiệp')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,18 +34,18 @@
             </div>
         </div>
         <div class="row row-header">
-            <div class="col-md-12">Students</div>
+            <div class="col-md-12"><h5>{{__('Danh sách sinh viên')}}</h5></div>
         </div>
         <div class="row row-information">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Major</th>
-                            <th>Email</th>
-                            <th>Phone</th>
+                            <th>{{__('MSSV')}}</th>
+                            <th>{{__('Họ và tên')}}</th>
+                            <th>{{__('Nghành')}}</th>
+                            <th>{{__('Email')}}</th>
+                            <th>{{__('Số ĐT')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,6 +68,33 @@
                         @endforeach
                     </tbody>
 
+                </table>
+            </div>
+        </div>
+        <div class="row row-header">
+            <div class="col-md-12">
+                <h5>{{__('Danh sách Giảng viên')}}</h5>
+            </div>
+        </div>
+        <div class="row row-information">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>{{__('MSGV')}}</th>
+                            <th>{{__('Họ và tên')}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($faculty->teachers as $teacher)
+                            <td>{{$teacher->id}}</td>
+                            <td>
+                                <a href="{{url('admin/teachers/profile/id='.$teacher->id)}}">
+                                    {{$teacher->firstname . ' '.$teacher->middlename.' '.$teacher->lastname}}
+                                </a>
+                            </td>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>

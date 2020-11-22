@@ -18565,7 +18565,6 @@ html,
 body {
   height: 100%;
   font-size: 0.9rem;
-  overflow-x: hidden;
 }
 
 .wrapper {
@@ -18575,6 +18574,7 @@ body {
 
 .wrapper .navbar {
   background-color: #31485B;
+  width: 100%;
 }
 
 .wrapper .navbar .navbar-brand {
@@ -18675,6 +18675,7 @@ body {
 .wrapper .main {
   transition: 0.6s cubic-bezier(0, 1.16, 0, 1.23);
   width: 260px;
+  margin-top: 70px;
   margin-left: 260px;
   padding: 20px;
 }
@@ -18700,6 +18701,19 @@ body {
   box-shadow: 1px 1px 5px #888888;
 }
 
+.errors {
+  color: red;
+  font-weight: 400;
+  display: block;
+  padding: 6px 0;
+  font-size: 13px;
+}
+
+.form-control.errors {
+  border-color: red;
+  padding: 0.375rem 0.75rem;
+}
+
 @supports ((position: -webkit-sticky) or (position: sticky)) {
   .sidebar-nav {
     position: -webkit-sticky;
@@ -18707,7 +18721,7 @@ body {
   }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .sidebar {
     top: 5rem;
   }

@@ -31,7 +31,6 @@ class PersonController extends Controller
             'birthday' => ['required', 'date'],
             'place_of_birth' => ['required'],
             'origin' => ['required'],
-            'gender' => ['required'],
             'phone' => ['required'],
             'address' => ['required'],
             'email' => ['required', 'email'],
@@ -49,7 +48,30 @@ class PersonController extends Controller
             'date_of_communist' => ['nullable', 'date'],
             'date_of_student_union' => ['nullable', 'date'],
             'date_of_dormitory' => ['nullable', 'date'],
-            'room_of_dormitory' => ['nullable']
+            'room_of_dormitory' => ['nullable'],
+            'military' => ['nullable'],
+            'volunteer' => ['nullable']
+        ], [
+            'id.required' => 'Mã số sinh viên không được bỏ trống',
+            'firstname.required' => 'Họ tên không được bỏ trống',
+            'lastname.required' => 'Họ tên không được bỏ trống',
+            'group.required' => 'Lớp học không được bỏ trống',
+            'birthday.required' => 'Ngày tháng năm sinh không được bỏ trống',
+            'birthday.date' => 'Ngày tháng năm sinh không hợp lệ',
+            'place_of_birth.required' => 'Nơi sinh không được bỏ trống',
+            'origin.required' => 'Nguyên quán không được bỏ trống',
+            'phone.required' => 'Số điện thoại không được bỏ trống',
+            'address.required' => 'Địa chỉ của sinh viên không được bỏ trống',
+            'email.required' => 'Email không được bỏ trống',
+            'email.email' => 'Email không hợp lệ',
+            'id_number.required' => 'Số CMND không được bỏ trống',
+            'place_of_id_number.required' => 'Nơi cấp CMND không được bỏ trống',
+            'nationality.required' => 'Quốc tịch không được bỏ trống',
+            'major.required' => ' Nghành của sinh viên không được bỏ trống',
+            'date_of_union.date' => 'Thời gian vào đoàn không hợp lệ',
+            'date_of_communist.date' => 'Thời gian vào đảng không hợp lệ',
+            'date_of_student_union.date' => 'Thơi gian vào hội sinh viên không hợp lệ',
+            'date_of_dormitory.date' => 'Thời gian ở ký túc xá không hợp lệ',
         ]);
 
         $group = Group::where('name', $request['group'])->first();
@@ -79,7 +101,9 @@ class PersonController extends Controller
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_student_union'],
             'date_of_dormitory' => $request['date_of_dormitory'],
-            'room_of_dormitory' => $request['room_of_dormitory']
+            'room_of_dormitory' => $request['room_of_dormitory'],
+            'military' => $request['military'],
+            'volunteer' => $request['volunteer']
         ]);
         $student->group()->associate($group)->save();
 
@@ -118,7 +142,9 @@ class PersonController extends Controller
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_student_union'],
             'date_of_dormitory' => $request['date_of_dormitory'],
-            'room_of_dormitory' => $request['room_of_dormitory']
+            'room_of_dormitory' => $request['room_of_dormitory'],
+            'military' => $request['military'],
+            'volunteer' => $request['volunteer']
         ]);
 
         $group = Group::where('name', $request['group'])->first();
@@ -126,7 +152,7 @@ class PersonController extends Controller
         $student->group()->associate($group);
         $student->save();
 
-        return redirect('/admin/students/profile/id='.$id)->with('success', 'Update Successful');
+        return redirect('/admin/students')->with('success', 'Update Successful');
     }
 
     public function editStudent($id) {
@@ -189,6 +215,8 @@ class PersonController extends Controller
             'date_of_union' => ['nullable'],
             'date_of_communist' => ['nullable'],
             'date_of_student_union' => ['nullable'],
+            'military' => ['nullable'],
+            'volunteer' => ['nullable']
         ]);
         $teacher = new Teacher([
             'id' => $request['id'],
@@ -217,6 +245,8 @@ class PersonController extends Controller
             'date_of_union' => $request['date_of_union'],
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_communist'],
+            'military' => $request['military'],
+            'volunteer' => $request['volunteer']
         ]);
 
         $faculty = Faculty::where('name', $request['faculty'])->first();
@@ -256,12 +286,14 @@ class PersonController extends Controller
             'date_of_union' => $request['date_of_union'],
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_communist'],
+            'military' => $request['military'],
+            'volunteer' => $request['volunteer']
         ]);
         $faculty = Faculty::where('name',$request['faculty'])->first();
         $teacher->faculty()->associate($faculty);
         $teacher->save();
 
-        return redirect('/admin/teachers/profile/id='.$teacher->id);
+        return redirect('/admin/teachers');
     }
     public function createTeacherBackground($id) {
         return view('teachers.backgrounds.create', [
@@ -383,15 +415,11 @@ class PersonController extends Controller
     public function addStudentPolicy(Request $request, $id) {
         $this->validate($request, [
             'area' => ['nullable'],
-            'military' => ['nullable'],
-            'volunteer' => ['nullable']
         ]);
         $student = Student::find($id);
 
         $student->policies()->save(new Policy([
             'area' => $request['area'],
-            'military' => $request['date_of_military'],
-            'volunteer' => $request['year_of_volunteer']
         ]));
 
         return redirect('/admin/students/profile/id='.$student->id);
@@ -408,8 +436,6 @@ class PersonController extends Controller
 
         $policy->update([
             'area' => $request['area'],
-            'military' => $request['date_of_military'],
-            'volunteer' => $request['year_of_volunteer']
         ]);
 
         return redirect('/admin/students/profile/id='.$policy->id_student);
@@ -424,15 +450,11 @@ class PersonController extends Controller
     public function addTeacherPolicy(Request $request, $id) {
         $this->validate($request, [
             'area' => ['nullable'],
-            'military' => ['nullable'],
-            'volunteer' => ['nullable']
         ]);
         $teacher = Teacher::find($id);
 
         $teacher->policies()->save(new Policy([
             'area' => $request['area'],
-            'military' => $request['military'],
-            'volunteer' => $request['volunteer']
         ]));
 
         return redirect('/admin/teachers/profile/id='.$teacher->id);
@@ -449,8 +471,6 @@ class PersonController extends Controller
 
         $policy->update([
             'area' => $request['area'],
-            'military' => $request['date_of_military'],
-            'volunteer' => $request['year_of_volunteer']
         ]);
 
         return redirect('/admin/teachers/profile/id='.$policy->id_teacher);

@@ -17,10 +17,8 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Created</th>
-                            <th>Updated</th>
+                            <th>{{__('Mã khoa')}}</th>
+                            <th>{{__('Tên khoa')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -30,8 +28,6 @@
                                 <td>
                                     <a href="{{url('/admin/faculties/view/id='.$faculty->id)}}">{{$faculty->name}}</a>
                                 </td>
-                                <td>{{$faculty->created_at}}</td>
-                                <td>{{$faculty->updated_at}}</td>
                                 <td>
                                     <a href="{{url('/admin/faculties/edit/id='.$faculty->id)}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                                 </td>

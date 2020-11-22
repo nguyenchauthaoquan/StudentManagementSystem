@@ -45,6 +45,8 @@ class CreateStudentsTable extends Migration
             $table->date('date_of_student_union')->nullable();
             $table->date('date_of_dormitory')->nullable();
             $table->string('room_of_dormitory')->nullable();
+            $table->bigInteger('military')->default(0);
+            $table->bigInteger('volunteer')->default(0);
             $table->timestamps();
         });
     }

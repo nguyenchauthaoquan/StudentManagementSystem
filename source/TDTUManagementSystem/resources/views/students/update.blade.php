@@ -4,205 +4,473 @@
 @section('content')
 
     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {{__('Chỉnh sửa thông tin sinh viên')}}
+            </div>
+        </div>
         <form method="post" action="{{url('/admin/students/update/id='.$student->id)}}">
             @csrf
-            @method('PUT')
+            @method('put')
             <div class="row row-header">
                 <div class="col-md-12">
-                    <h5>Basic information</h5>
+                    <h5>{{__('Thông tin cơ bản')}}</h5>
                 </div>
             </div>
             <div class="row row-information">
                 <div class="row w-100">
-                    <div class="col-md-2">
+                    <div class="col-md">
                         <div class="form-group">
-                            <label for="id">ID</label>
+                            <label for="id">{{__('MSSV')}}</label>
                             <div>
-                                <input type="text" class="form-control" name="id" id="id" value="{{$student->id}}">
+                                <input type="text"
+                                       class="form-control @if($errors->has('id')) errors @endif"
+                                       name="id"
+                                       id="id"
+                                       value="{{$student->id}}"
+                                >
+                                @if($errors->has('id'))
+                                    <div class="errors">
+                                        <strong>{{ $errors->first('id') }}</strong>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md">
                         <div class="form-group">
-                            <label for="firstname">Firstname</label>
+                            <label for="firstname">{{__('Họ')}}</label>
                             <div>
-                                <input type="text" class="form-control" name="firstname" id="firstname" value="{{$student->firstname}}">
+                                <input type="text"
+                                       class="form-control @if($errors->has('firstname')) errors @endif"
+                                       name="firstname"
+                                       id="firstname"
+                                       value="{{$student->firstname}}"
+                                >
+                                @if($errors->has('id'))
+                                    <div class="errors">
+                                        <strong>{{ $errors->first('firstname') }}</strong>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md">
                         <div class="form-group">
-                            <label for="middlename">Middlename</label>
+                            <label for="middlename">{{__('Tên đệm')}}</label>
                             <div>
-                                <input type="text" class="form-control" name="middlename" id="middlename" value="{{$student->middlename}}">
+                                <input type="text"
+                                       class="form-control"
+                                       name="middlename"
+                                       id="middlename"
+                                       value="{{$student->middlename}}">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md">
                         <div class="form-group">
-                            <label for="lastname">Lastname</label>
+                            <label for="lastname">{{__('Tên')}}</label>
                             <div>
-                                <input type="text" class="form-control" name="lastname" id="lastname" value="{{$student->lastname}}">
+                                <input type="text"
+                                       class="form-control @if($errors->has('lastname')) errors @endif"
+                                       name="lastname"
+                                       id="lastname"
+                                       value="{{$student->lastname}}">
+                                @if($errors->has('lastname'))
+                                    <div class="errors">
+                                        <strong>{{ $errors->first('lastname') }}</strong>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row w-100">
-                    <div class="col-md-2">
-                        <label for="group">Group</label>
+                    <div class="col-md-4">
+                        <label for="major">{{__('Nghành')}}</label>
                         <div>
-                            <input type="text" class="form-control" id="group" name="group" value="{{$student->group->name}}">
+                            <input type="text"
+                                   id="major"
+                                   class="form-control @if($errors->has('major')) errors @endif"
+                                   name="major"
+                                   value="{{$student->major}}">
+                            @if($errors->has('major'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('major') }}</strong>
+                                </div>
+                            @endif
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="major">Major</label>
-                        <input type="text" id="major" class="form-control" name="major" value="{{$student->major}}">
                     </div>
                 </div>
             </div>
             <div class="row row-header">
                 <div class="col-md-12">
-                    <h5>Personal Information</h5>
+                    <h5>{{__('Thông tin học tại trường')}}</h5>
+                </div>
+            </div>
+            <div class="row row-information">
+                <div class="row w-100">
+                    <div class="col-md-4">
+                        <label for="group">{{__('Lớp')}}</label>
+                        <div>
+                            <input type="text"
+                                   class="form-control @if($errors->has('group')) errors @endif"
+                                   id="group"
+                                   name="group" value="{{$student->group->name}}">
+                            @if($errors->has('group'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('group') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-header">
+                <div class="col-md-12">
+                    <h5>{{__('Thông tin cá nhân')}}</h5>
                 </div>
             </div>
             <div class="row row-information">
                 <div class="row w-100">
                     <div class="col-md-2">
-                        <label for="gender">Gender</label>
+                        <label for="gender">{{__('Giới tính')}}</label>
                         <select name="gender" id="gender" class="form-control">
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
+                            <option value="Male"
+                                    @if($student->gender === 'Male') selected @endif>
+                                {{__('Nam')}}
+                            </option>
+                            <option value="Female"
+                                    @if($student->gender === 'Female') selected @endif>
+                                {{__('Nữ')}}
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label for="birthday">Birthday</label>
-                        <input id="birthday" class="form-control date-picker" name="birthday" type="text" value="{{$student->birthday}}">
+                        <label for="birthday">{{__('Ngày sinh')}}</label>
+                        <div>
+                            <input id="birthday"
+                                   class="form-control date-picker @if($errors->has('birthday')) errors @endif"
+                                   name="birthday"
+                                   type="text"
+                                   value="{{$student->birthday}}">
+                            @if($errors->has('birthday'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('birthday') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="col-md">
-                        <label for="origin">Origin</label>
-                        <input type="text" id="origin" class="form-control" name="origin" value="{{$student->origin}}">
+                        <label for="origin">{{__('Nguyên quán')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="origin"
+                                   class="form-control @if($errors->has('origin')) errors @endif"
+                                   name="origin"
+                                   value="{{$student->origin}}">
+                            @if($errors->has('origin'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('origin') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="col-md">
-                        <label for="id_number">Identity card number</label>
-                        <input type="text" id="id_number" class="form-control" name="id_number" value="{{$student->id_number}}">
+                        <label for="id_number">{{__('Số CMND')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="id_number"
+                                   class="form-control @if($errors->has('id_number')) errors @endif"
+                                   name="id_number"
+                                   value="{{$student->id_number}}">
+                            @if($errors->has('id_number'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('id_number') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="col-md">
-                        <label for="place_of_id_number">Issued by</label>
-                        <input type="text" id="place_of_id_number" class="form-control" name="place_of_id_number" value="{{$student->place_of_id_number}}">
+                        <label for="place_of_id_number">{{__('Ngày cấp CMND')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="place_of_id_number"
+                                   class="form-control @if($errors->has('place_of_id_number')) errors @endif"
+                                   name="place_of_id_number"
+                                   value="{{$student->place_of_id_number}}">
+                            @if($errors->has('place_of_id_number'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('place_of_id_number') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="row w-100">
                     <div class="col-md-4">
-                        <label for="place_of_birth">Place of birth</label>
-                        <input type="text" id="place_of_birth" class="form-control" name="place_of_birth" value="{{$student->place_of_birth}}">
+                        <label for="place_of_birth">{{__('Nơi sinh')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="place_of_birth"
+                                   class="form-control @if($errors->has('place_of_birth')) errors @endif"
+                                   name="place_of_birth"
+                                   value="{{$student->place_of_birth}}">
+                            @if($errors->has('place_of_birth'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('place_of_birth') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="nationality">Nationality</label>
-                        <input type="text" id="nationality" class="form-control" name="nationality" value="{{$student->nationality}}">
+                        <label for="nationality">{{__('Quốc tịch')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="nationality"
+                                   class="form-control @if($errors->has('nationality')) errors @endif"
+                                   name="nationality"
+                                   value="{{$student->nationality}}">
+                            @if($errors->has('nationality'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('nationality') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="row w-100">
                     <div class="col-md-2">
-                        <label for="religion">Religion</label>
-                        <input type="text" id="religion" class="form-control" name="religion" value="{{$student->religion}}">
+                        <label for="religion">{{('Tôn giáo')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="religion"
+                                   class="form-control"
+                                   name="religion" value="{{$student->religion}}">
+                        </div>
                     </div>
                     <div class="col-md-2">
-                        <label for="kin">Kin</label>
-                        <input type="text" id="kin" class="form-control" name="kin" value="{{$student->kin}}">
+                        <label for="kin">{{('Dân tộc')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="kin"
+                                   class="form-control"
+                                   name="kin"
+                                   value="{{$student->kin}}">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row row-header">
                 <div class="col-md-12">
-                    <h5>Contact</h5>
+                    <h5>{{__('Thông tin liên lạc')}}</h5>
                 </div>
             </div>
             <div class="row row-information">
                 <div class="row w-100">
                     <div class="col-md-6">
-                        <label for="email">Email</label>
-                        <input type="text" id="email" class="form-control" name="email" value="{{$student->email}}">
+                        <label for="email">{{__('Địa chỉ email')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="email"
+                                   class="form-control @if($errors->has('email')) errors @endif"
+                                   name="email"
+                                   value="{{$student->email}}">
+                            @if($errors->has('email'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="phone">Phone</label>
-                        <input type="text" id="phone" class="form-control" name="phone" value="{{$student->phone}}">
+                        <label for="phone">{{__('Số điện thoại')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="phone"
+                                   class="form-control @if($errors->has('phone')) errors @endif"
+                                   name="phone"
+                                   value="{{$student->phone}}">
+                            @if($errors->has('phone'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('phone') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row row-header">
                 <div class="col-md-12">
-                    <h5>Accomodations</h5>
+                    <h5>{{__('Chỗ ở')}}</h5>
                 </div>
             </div>
             <div class="row row-information">
                 <div class="row w-100">
                     <div class="col-md-12">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" class="form-control" name="address" value="{{$student->address}}">
+                        <label for="address">{{__('Địa chỉ thường trú')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="address"
+                                   class="form-control @if($errors->has('address')) errors @endif"
+                                   name="address"
+                                   value="{{$student->address}}">
+                            @if($errors->has('address'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('address') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="row w-100">
                     <div class="col-md-2">
-                        <label for="date_of_dormitory">Date of Dormitory</label>
-                        <input id="date_of_dormitory" class="form-control date-picker" name="date_of_dormitory" value="{{$student->date_of_dormitory}}">
+                        <label for="date_of_dormitory">{{__('Ngày ở ký túc xá')}}</label>
+                        <div>
+                            <input id="date_of_dormitory"
+                                   class="form-control date-picker @if($errors->has('date_of_dormitory')) errors @endif"
+                                   name="date_of_dormitory"
+                                   value="{{$student->date_of_dormitory}}">
+                            @if($errors->has('date_of_dormitory'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('date_of_dormitory') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="col-md-5">
-                        <label for="room_of_dormitory">Room of dormitory</label>
-                        <input id="room_of_dormitory" class="form-control" name="room_of_dormitory" value="{{$student->room_of_dormitory}}">
+                        <label for="room_of_dormitory">{{__('Phòng ký túc xá')}}</label>
+                        <div>
+                            <input id="room_of_dormitory"
+                                   class="form-control"
+                                   name="room_of_dormitory"
+                                   value="{{$student->room_of_dormitory}}">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row row-header">
-                <div class="col-md-12"><h5>Union and Communist</h5></div>
+                <div class="col-md-12"><h5>{{('Thông tin đoàn hội')}}</h5></div>
             </div>
             <div class="row row-information">
                 <div class="row w-100">
                     <div class="col-md-4">
-                        <label for="date_of_union">Date of Joining Union</label>
-                        <input id="date_of_union" class="form-control date-picker" name="date_of_union" type="text" value="{{$student->date_of_union}}">
+                        <label for="date_of_union">{{__('Ngày vào Đoàn')}}</label>
+                        <div>
+                            <input id="date_of_union"
+                                   class="form-control date-picker @if($errors->has('date_of_union')) errors @endif"
+                                   name="date_of_union"
+                                   type="text"
+                                   value="{{$student->date_of_union}}">
+                            @if($errors->has('date_of_union'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('date_of_union') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="date_of_communist">Date of Joining Communist</label>
-                        <input id="date_of_communist" class="form-control date-picker" name="date_of_communist" value="{{$student->date_of_communist}}">
+                        <label for="date_of_communist">{{__('Ngày vào Đảng')}}</label>
+                        <div>
+                            <input id="date_of_communist"
+                                   class="form-control date-picker @if($errors->has('date_of_communist')) errors @endif"
+                                   name="date_of_communist"
+                                   value="{{$student->date_of_communist}}">
+                            @if($errors->has('date_of_communist'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('date_of_communist') }}</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="date_of_student_union">Date of Joining the Union of Student</label>
-                        <input id="date_of_student_union" class="form-control date-picker" name="date_of_student_union" value="{{$student->date_of_student_union}}">
+                        <label for="date_of_student_union">{{__('Ngày vào hội sinh viên')}}</label>
+                        <div>
+                            <input id="date_of_student_union"
+                                   class="form-control date-picker @if($errors->has('date_of_student_union')) errors @endif"
+                                   name="date_of_student_union"
+                                   value="{{$student->date_of_student_union}}">
+                            @if($errors->has('date_of_student_union'))
+                                <div class="errors">
+                                    <strong>{{ $errors->first('date_of_student_union') }}</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="row w-100">
+                    <div class="col-md-6">
+                        <label for="military">{{__('Số năm tham gia bộ đội')}}</label>
+                        <div>
+                            <input type="number"
+                                   name="military"
+                                   id="military"
+                                   class="form-control"
+                                   value="{{$student->military}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="volunteer">{{__('Số năm tham gia tình nguyện')}}</label>
+                        <div>
+                            <input type="number"
+                                   name="volunteer"
+                                   id="volunteer"
+                                   class="form-control"
+                                   value="{{$student->volunteer}}">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row row-header">
-                <div class="col-md-12"><h5>Other Information</h5></div>
+                <div class="col-md-12"><h5>{{__('Thông tin khác')}}</h5></div>
             </div>
             <div class="row row-information">
                 <div class="row w-100">
                     <div class="col-md-12">
-                        <label for="talents">Talents</label>
-                        <input type="text" id="talents" class="form-control" name="talents" value="{{$student->talents}}">
+                        <label for="talents">{{__('Năng khiếu')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="talents"
+                                   class="form-control"
+                                   name="talents"
+                                   value="{{$student->talents}}">
+                        </div>
                     </div>
-                </div>
-                <div class="row w-100">
                     <div class="col-md-6">
-                        <label for="career">Career</label>
-                        <input type="text" id="career" class="form-control" name="career" value="{{$student->career}}">
+                        <label for="career">{{__('Việc làm thêm')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="career"
+                                   class="form-control"
+                                   name="career"
+                                   value="{{$student->career}}">
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="incomes">Incomes</label>
-                        <input type="text" id="incomes" class="form-control" name="incomes" value="{{$student->incomes}}">
+                        <label for="incomes">{{__('Nguồn thu nhập')}}</label>
+                        <div>
+                            <input type="text"
+                                   id="incomes"
+                                   class="form-control"
+                                   name="incomes"
+                                   value="{{$student->incomes}}">
+                        </div>
                     </div>
                 </div>
                 <div class="row w-100">
                     <div class="col-md-12">
-                        <label for="description">Family Background Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="12">
-                            {{$student->description}}
-                        </textarea>
+                        <label for="description">{{('Mô tả hoàn cảnh gia đình')}}</label>
+                        <div>
+                            <textarea class="form-control" id="description" name="description" rows="12">
+                                {{$student->description}}
+                            </textarea>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 mx-auto">
-                    <button type="submit" class="btn btn-primary">Update</button>
+            <div class="row w-100">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary">{{__('Cập nhật')}}</button>
                 </div>
             </div>
         </form>

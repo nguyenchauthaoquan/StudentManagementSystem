@@ -22,7 +22,7 @@ class Student extends Model
         'nationality', 'major', 'talents', 'incomes',
         'career', 'description', 'date_of_union',
         'date_of_communist', 'date_of_student_union', 'date_of_dormitory',
-        'room_of_dormitory'
+        'room_of_dormitory', 'military', 'volunteer'
     ];
 
     public function group() {

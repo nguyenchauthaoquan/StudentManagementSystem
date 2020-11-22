@@ -17,11 +17,9 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Group</th>
-                            <th>Created</th>
-                            <th>Updated</th>
+                            <th>{{__('MSSV')}}</th>
+                            <th>{{__('Họ và tên')}}</th>
+                            <th>{{__('Lớp')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -34,8 +32,6 @@
                                     </a>
                                 </td>
                                 <td>{{$student->group->name}}</td>
-                                <td>{{$student->created_at}}</td>
-                                <td>{{$student->updated_at}}</td>
                                 <td>
                                     <a href="{{url('/admin/students/edit/id='.$student->id)}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                                 </td>

@@ -20,7 +20,8 @@ class Teacher extends Model
         'kin', 'id_number', 'place_of_id_number',
         'nationality', 'talents', 'incomes',
         'career', 'description', 'date_of_union',
-        'date_of_communist', 'date_of_student_union'
+        'date_of_communist', 'date_of_student_union',
+        'military', 'volunteer'
     ];
 
     public function faculty() {

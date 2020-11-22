@@ -17,11 +17,9 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>ID</th>
-                            <th>Admission</th>
-                            <th>Graduate</th>
-                            <th>Created</th>
-                            <th>Updated</th>
+                            <th>{{__('Lớp')}}</th>
+                            <th>{{__('Thời gian tuyển sinh')}}</th>
+                            <th>{{__('Thời gian tốt nghiệp')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -32,8 +30,6 @@
                                 </td>
                                 <td>{{$group->date_admission}}</td>
                                 <td>{{$group->date_graduation}}</td>
-                                <td>{{$group->created_at}}</td>
-                                <td>{{$group->updated_at}}</td>
                                 <td>
                                     <a href="{{url('/admin/groups/edit/id='.$group->id)}}" class="btn btn-success">
                                         <i class="fas fa-edit"></i>

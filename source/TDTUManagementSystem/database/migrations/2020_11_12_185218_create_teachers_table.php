@@ -44,6 +44,8 @@ class CreateTeachersTable extends Migration
             $table->date('date_of_union')->nullable();
             $table->date('date_of_communist')->nullable();
             $table->date('date_of_student_union')->nullable();
+            $table->bigInteger('military')->nullable();
+            $table->bigInteger('volunteer')->nullable();
             $table->timestamps();
         });
     }

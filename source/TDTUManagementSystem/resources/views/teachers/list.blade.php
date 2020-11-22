@@ -17,11 +17,9 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Faculty</th>
-                            <th>Created</th>
-                            <th>Updated</th>
+                            <th>{{__('MSGV')}}</th>
+                            <th>{{__('Họ và tên')}}</th>
+                            <th>{{__('Khoa')}}</th>
                         </tr>
                         </thead>
                         <tbody>
