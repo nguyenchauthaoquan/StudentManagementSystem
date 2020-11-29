@@ -19,6 +19,10 @@ class CreateStudentsTable extends Migration
             $table->foreign('id_group')
                 ->references('id')->on('groups')
                 ->cascadeOnDelete();
+            $table->bigInteger('id_major')->unsigned();
+            $table->foreign('id_major')
+                ->references('id')->on('majors')
+                ->cascadeOnDelete();
             $table->string('avatar')->default('user.png');
             $table->string('firstname');
             $table->string('middlename')->nullable();
@@ -35,7 +39,6 @@ class CreateStudentsTable extends Migration
             $table->string('id_number');
             $table->string('place_of_id_number');
             $table->string('nationality');
-            $table->string('major');
             $table->string('talents')->nullable();
             $table->string('incomes')->nullable();
             $table->string('career')->nullable();
@@ -47,6 +50,7 @@ class CreateStudentsTable extends Migration
             $table->string('room_of_dormitory')->nullable();
             $table->bigInteger('military')->default(0);
             $table->bigInteger('volunteer')->default(0);
+            $table->string('status');
             $table->timestamps();
         });
     }

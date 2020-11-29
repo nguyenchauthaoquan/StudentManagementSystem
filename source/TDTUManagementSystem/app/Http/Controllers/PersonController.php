@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Background;
 use App\Models\Faculty;
 use App\Models\Group;
+use App\Models\Major;
 use App\Models\Policy;
 use App\Models\Student;
 use App\Models\Teacher;
@@ -39,7 +40,6 @@ class PersonController extends Controller
             'id_number' => ['required'],
             'place_of_id_number' => ['required'],
             'nationality' => ['required'],
-            'major' => ['required'],
             'talents' => ['nullable'],
             'incomes' => ['nullable'],
             'career' => ['nullable'],
@@ -67,15 +67,16 @@ class PersonController extends Controller
             'id_number.required' => 'Số CMND không được bỏ trống',
             'place_of_id_number.required' => 'Nơi cấp CMND không được bỏ trống',
             'nationality.required' => 'Quốc tịch không được bỏ trống',
-            'major.required' => ' Nghành của sinh viên không được bỏ trống',
             'date_of_union.date' => 'Thời gian vào đoàn không hợp lệ',
             'date_of_communist.date' => 'Thời gian vào đảng không hợp lệ',
             'date_of_student_union.date' => 'Thơi gian vào hội sinh viên không hợp lệ',
             'date_of_dormitory.date' => 'Thời gian ở ký túc xá không hợp lệ',
         ]);
 
-        $group = Group::where('name', $request['group'])->first();
-        $student = new Student([
+        $major = Major::where('name', $request['major'])->get();
+        $group = Group::where('name', $request['group'])->get();
+
+        $major->students()->attach($group, [
             'id' => $request['id'],
             'firstname' => $request['firstname'],
             'middlename' => $request['middlename'],
@@ -105,13 +106,14 @@ class PersonController extends Controller
             'military' => $request['military'],
             'volunteer' => $request['volunteer']
         ]);
-        $student->group()->associate($group)->save();
 
         return redirect('/admin/students')->with('success', 'A new student is imported');
     }
 
     public function createStudent() {
-        return view('students.create');
+        return view('students.create', [
+            'majors' => Major::all()
+        ]);
     }
 
     public function updateStudent(Request $request, $id) {
@@ -133,7 +135,6 @@ class PersonController extends Controller
             'id_number' => $request['id_number'],
             'place_of_id_number' => $request['place_of_id_number'],
             'nationality' => $request['nationality'],
-            'major' => $request['major'],
             'talents' => $request['talents'],
             'incomes' => $request['incomes'],
             'career' => $request['career'],
@@ -146,11 +147,6 @@ class PersonController extends Controller
             'military' => $request['military'],
             'volunteer' => $request['volunteer']
         ]);
-
-        $group = Group::where('name', $request['group'])->first();
-
-        $student->group()->associate($group);
-        $student->save();
 
         return redirect('/admin/students')->with('success', 'Update Successful');
     }
@@ -217,6 +213,25 @@ class PersonController extends Controller
             'date_of_student_union' => ['nullable'],
             'military' => ['nullable'],
             'volunteer' => ['nullable']
+        ], [
+            'id.required' => 'Mã số giảng viên không được bỏ trống',
+            'firstname.required' => 'Họ tên không được bỏ trống',
+            'lastname.required' => 'Họ tên không được bỏ trống',
+            'faculty.required' => 'Tên khoa không được bỏ trống',
+            'birthday.required' => 'Ngày tháng năm sinh không được bỏ trống',
+            'birthday.date' => 'Ngày tháng năm sinh không hợp lệ',
+            'place_of_birth.required' => 'Nơi sinh không được bỏ trống',
+            'origin.required' => 'Nguyên quán không được bỏ trống',
+            'phone.required' => 'Số điện thoại không được bỏ trống',
+            'address.required' => 'Địa chỉ của giảng viên không được bỏ trống',
+            'email.required' => 'Email không được bỏ trống',
+            'email.email' => 'Email không hợp lệ',
+            'id_number.required' => 'Số CMND không được bỏ trống',
+            'place_of_id_number.required' => 'Nơi cấp CMND không được bỏ trống',
+            'nationality.required' => 'Quốc tịch không được bỏ trống',
+            'date_of_union.date' => 'Thời gian vào đoàn không hợp lệ',
+            'date_of_communist.date' => 'Thời gian vào đảng không hợp lệ',
+            'date_of_student_union.date' => 'Thơi gian vào hội sinh viên không hợp lệ',
         ]);
         $teacher = new Teacher([
             'id' => $request['id'],

@@ -15,8 +15,15 @@ class CreateScoresTable extends Migration
     {
         Schema::create('scores', function (Blueprint $table) {
             $table->id();
-            $table->double('score');
-
+            $table->string('id_subject')->nullable();
+            $table->foreign('id_subject')
+                ->references('id')->on('subjects')
+                ->cascadeOnDelete();
+            $table->string('id_student')->nullable();
+            $table->foreign('id_student')
+                ->references('id')->on('students')
+                ->cascadeOnDelete();
+            $table->double('grade')->nullable();
             $table->timestamps();
         });
     }

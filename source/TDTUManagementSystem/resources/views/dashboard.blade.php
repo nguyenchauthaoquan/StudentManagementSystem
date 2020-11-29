@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Styles -->
         <link href="{{asset('css/styles.css')}}" rel="stylesheet">
@@ -33,7 +33,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="sidebar col-md-3 col-lg-2">
-                        <div class="sidebar-nav">
+                        <div class="sidebar-nav position-sticky">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
@@ -62,7 +62,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{url('/admin/groups')}}" class="nav-link">
-                                        <i class="fas fa-users"></i><span>{{('Quản lý lớp')}}</span>
+                                        <i class="fas fa-users"></i><span>{{('Quản lý Lớp')}}</span>
                                     </a>
                                 </li>
                             </ul>

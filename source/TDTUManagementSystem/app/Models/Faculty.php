@@ -27,4 +27,8 @@ class Faculty extends Model
     public function teachers() {
         return $this->hasMany(Teacher::class, 'id_faculty');
     }
+
+    public function majors() {
+        return $this->hasMany(Major::class, 'id_faculty');
+    }
 }

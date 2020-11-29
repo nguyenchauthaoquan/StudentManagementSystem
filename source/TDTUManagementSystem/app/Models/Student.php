@@ -25,10 +25,6 @@ class Student extends Model
         'room_of_dormitory', 'military', 'volunteer'
     ];
 
-    public function group() {
-        return $this->belongsTo(Group::class, 'id_group');
-    }
-
     public function backgrounds() {
         return $this->hasMany(Background::class, 'id_student');
     }

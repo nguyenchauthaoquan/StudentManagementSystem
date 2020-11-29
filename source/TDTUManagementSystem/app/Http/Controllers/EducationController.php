@@ -107,7 +107,7 @@ class EducationController extends Controller
         );
         $faculty = Faculty::where('name', $request['faculty'])->get();
 
-       $training_program->groups()->attach($faculty, [
+       $training_program->groups()->save($faculty, [
            'name' => $request['name'],
            'date_admission'=> $request['date_admission'],
            'date_graduation' => $request['date_graduation']
