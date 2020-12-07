@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Student extends Model
+class Student extends Pivot
 {
     use HasFactory;
 
     protected $table = 'students';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'id',
@@ -17,26 +19,17 @@ class Student extends Model
         'birthday', 'place_of_birth', 'origin',
         'gender', 'phone', 'address', 'email',
         'religion', 'kin', 'id_number', 'place_of_id_number',
-        'nationality', 'major', 'talents', 'date_of_union',
+        'nationality', 'talents', 'incomes',
+        'career', 'description', 'date_of_union',
         'date_of_communist', 'date_of_student_union', 'date_of_dormitory',
-        'room_of_dormitory'
+        'room_of_dormitory', 'military', 'volunteer', 'status'
     ];
-
-    protected $casts = [
-        'birthday' => 'date:d/m/Y',
-        'created_at' => 'datetime:d/m/Y H:m:s',
-        'updated_at' => 'datetime:d/m/Y H:m:s',
-    ];
-
-    public function group() {
-        return $this->belongsTo(Group::class, 'id_group');
-    }
 
     public function backgrounds() {
         return $this->hasMany(Background::class, 'id_student');
     }
 
     public function policies() {
-        return $this->hasMany(Policies::class, 'id_student');
+        return $this->hasMany(Policy::class, 'id_student');
     }
 }

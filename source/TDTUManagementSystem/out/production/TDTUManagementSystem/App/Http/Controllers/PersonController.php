@@ -5,29 +5,36 @@ namespace App\Http\Controllers;
 use App\Models\Background;
 use App\Models\Faculty;
 use App\Models\Group;
+use App\Models\Major;
+use App\Models\Policy;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\TrainingProgram;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class PersonController extends Controller
 {
     //
+    public function home() {
+        return view('dashboard');
+    }
+
     public function students() {
         return view('students.list', ['students' => Student::all()]);
     }
 
     public function addStudent(Request $request) {
         $this->validate($request, [
-            'id' => ['required', 'unique:App\Model\Student,id'],
+            'id' => ['required', 'unique:App\Models\Student,id'],
             'firstname' => ['required'],
             'middlename' => ['nullable'],
             'lastname' => ['required'],
             'group' => ['required'],
+            'faculty' => ['required'],
+            'program_name' => ['required'],
             'birthday' => ['required', 'date'],
             'place_of_birth' => ['required'],
             'origin' => ['required'],
-            'gender' => ['required'],
             'phone' => ['required'],
             'address' => ['required'],
             'email' => ['required', 'email'],
@@ -36,15 +43,45 @@ class PersonController extends Controller
             'id_number' => ['required'],
             'place_of_id_number' => ['required'],
             'nationality' => ['required'],
-            'major' => ['required'],
             'talents' => ['nullable'],
+            'incomes' => ['nullable'],
+            'career' => ['nullable'],
+            'description' => ['nullable'],
             'date_of_union' => ['nullable', 'date'],
             'date_of_communist' => ['nullable', 'date'],
             'date_of_student_union' => ['nullable', 'date'],
             'date_of_dormitory' => ['nullable', 'date'],
-            'room_of_dormitory' => ['nullable']
+            'room_of_dormitory' => ['nullable'],
+            'military' => ['nullable'],
+            'volunteer' => ['nullable']
+        ], [
+            'id.required' => 'Mã số sinh viên không được bỏ trống',
+            'firstname.required' => 'Họ tên không được bỏ trống',
+            'lastname.required' => 'Họ tên không được bỏ trống',
+            'group.required' => 'Lớp học không được bỏ trống',
+            'faculty.required' => 'Tên khoa không được bỏ trống',
+            'program_name.required' => 'Thông tin chương trình đào tạo không được bỏ trống',
+            'birthday.required' => 'Ngày tháng năm sinh không được bỏ trống',
+            'birthday.date' => 'Ngày tháng năm sinh không hợp lệ',
+            'place_of_birth.required' => 'Nơi sinh không được bỏ trống',
+            'origin.required' => 'Nguyên quán không được bỏ trống',
+            'phone.required' => 'Số điện thoại không được bỏ trống',
+            'address.required' => 'Địa chỉ của sinh viên không được bỏ trống',
+            'email.required' => 'Email không được bỏ trống',
+            'email.email' => 'Email không hợp lệ',
+            'id_number.required' => 'Số CMND không được bỏ trống',
+            'place_of_id_number.required' => 'Nơi cấp CMND không được bỏ trống',
+            'nationality.required' => 'Quốc tịch không được bỏ trống',
+            'date_of_union.date' => 'Thời gian vào đoàn không hợp lệ',
+            'date_of_communist.date' => 'Thời gian vào đảng không hợp lệ',
+            'date_of_student_union.date' => 'Thơi gian vào hội sinh viên không hợp lệ',
+            'date_of_dormitory.date' => 'Thời gian ở ký túc xá không hợp lệ',
         ]);
-        $student = new Student([
+
+        $major = Major::where('name', $request['major'])->get();
+        $group = Group::where('name', $request['group'])->get();
+
+        $group->students()->attach($major, [
             'id' => $request['id'],
             'firstname' => $request['firstname'],
             'middlename' => $request['middlename'],
@@ -63,54 +100,35 @@ class PersonController extends Controller
             'nationality' => $request['nationality'],
             'major' => $request['major'],
             'talents' => $request['talents'],
+            'incomes' => $request['incomes'],
+            'career' => $request['career'],
+            'description' => $request['description'],
             'date_of_union' => $request['date_of_union'],
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_student_union'],
             'date_of_dormitory' => $request['date_of_dormitory'],
-            'room_of_dormitory' => $request['room_of_dormitory']
+            'room_of_dormitory' => $request['room_of_dormitory'],
+            'military' => $request['military'],
+            'volunteer' => $request['volunteer'],
+            'status' => $request['status']
         ]);
-        $group = Group::find($request['group']);
-
-        if ($group) {
-            $student->group()->associate($group);
-            $student->save();
-        }
 
         return redirect('/admin/students')->with('success', 'A new student is imported');
     }
 
     public function createStudent() {
-        return view('students.form');
+        return view('students.create', [
+            'groups' => Group::all(),
+            'majors' => Major::all(),
+            'programs' => TrainingProgram::all(),
+            'faculties' => Faculty::all()
+        ]);
     }
 
     public function updateStudent(Request $request, $id) {
-        $this->validate($request, [
-            'id' => ['required', 'unique:App\Model\Student,id'],
-            'firstname' => ['required'],
-            'middlename' => ['nullable'],
-            'lastname' => ['required'],
-            'group' => ['required'],
-            'birthday' => ['required'],
-            'place_of_birth' => ['required'],
-            'origin' => ['required'],
-            'gender' => ['required'],
-            'phone' => ['required'],
-            'address' => ['required'],
-            'email' => ['nullable', 'email'],
-            'religion' => ['nullable'],
-            'kin' => ['nullable'],
-            'id_number' => ['required'],
-            'place_of_id_number' => ['required'],
-            'nationality' => ['required'],
-            'major' => ['required'],
-            'talents' => ['nullable'],
-            'date_of_union' => ['nullable', 'date'],
-            'date_of_communist' => ['nullable', 'date'],
-            'date_of_student_union' => ['nullable', 'date'],
-            'date_of_dormitory' => ['nullable', 'date'],
-            'room_of_dormitory' => ['nullable']
-        ]);
         $student = Student::find($id);
+        $major = Major::where('name', $request['major'])->get();
+        $group = Group::where('name', $request['group'])->get();
         $student->update([
             'id' => $request['id'],
             'firstname' => $request['firstname'],
@@ -128,40 +146,59 @@ class PersonController extends Controller
             'id_number' => $request['id_number'],
             'place_of_id_number' => $request['place_of_id_number'],
             'nationality' => $request['nationality'],
-            'major' => $request['major'],
             'talents' => $request['talents'],
+            'incomes' => $request['incomes'],
+            'career' => $request['career'],
+            'description' => $request['description'],
             'date_of_union' => $request['date_of_union'],
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_student_union'],
             'date_of_dormitory' => $request['date_of_dormitory'],
-            'room_of_dormitory' => $request['room_of_dormitory']
+            'room_of_dormitory' => $request['room_of_dormitory'],
+            'military' => $request['military'],
+            'volunteer' => $request['volunteer'],
+            'status' => $request['status']
         ]);
-        $group = Group::find($request['group']);
-        if ($group) {
-            $student->group()->associate($group);
-            $student->save();
-        }
+        $group->students()->sync([$major->id => $student]);
 
-        return redirect('/admin/students/profile')->with('success', 'Update Successful');
+        return redirect('/admin/students')->with('success', 'Update Successful');
     }
 
     public function editStudent($id) {
-        return view('students.form', ['id' => $id]);
+        return view('students.update', ['id' => $id, 'student' => Student::find($id)]);
     }
 
     public function viewStudent($id) {
         $student = Student::with(['backgrounds', 'policies', 'group'])->find($id);
 
-        return view('students.profile', ['student' => $student]);
+        return view('students.profile', ['student' => $student, 'id' => $id]);
     }
 
     public function teachers() {
-        return response()->json(Teacher::with('faculty', 'backgrounds', 'policies')->get()->jsonSerialize(), Response::HTTP_OK);
+        return view('teachers.list', [
+            'teachers' =>Teacher::all()
+        ]);
+    }
+
+    public function viewTeacher($id) {
+        return view('teachers.profile', [
+            'teacher' => Teacher::find($id)
+        ]);
+    }
+
+    public function createTeacher() {
+        return view('teachers.create');
+    }
+
+    public function editTeacher($id) {
+        return view('teachers.update', [
+            'teacher' => Teacher::find($id)
+        ]);
     }
 
     public function addTeacher(Request $request) {
         $this->validate($request, [
-            'id' => ['required', ' unique:App\Models\Teacher,id'],
+            'id' => ['required', 'unique:App\Models\Teacher,id'],
             'firstname' => ['required'],
             'middlename' => ['nullable'],
             'lastname' => ['required'],
@@ -181,9 +218,33 @@ class PersonController extends Controller
             'place_of_id_number' => ['required'],
             'nationality' => ['required'],
             'talents' => ['nullable'],
-            'date_of_union' => ['nullable', 'date'],
-            'date_of_communist' => ['nullable', 'date'],
-            'date_of_student_union' => ['nullable', 'date'],
+            'incomes' => ['nullable'],
+            'career' => ['nullable'],
+            'description' => ['nullable'],
+            'date_of_union' => ['nullable'],
+            'date_of_communist' => ['nullable'],
+            'date_of_student_union' => ['nullable'],
+            'military' => ['nullable'],
+            'volunteer' => ['nullable']
+        ], [
+            'id.required' => 'Mã số giảng viên không được bỏ trống',
+            'firstname.required' => 'Họ tên không được bỏ trống',
+            'lastname.required' => 'Họ tên không được bỏ trống',
+            'faculty.required' => 'Tên khoa không được bỏ trống',
+            'birthday.required' => 'Ngày tháng năm sinh không được bỏ trống',
+            'birthday.date' => 'Ngày tháng năm sinh không hợp lệ',
+            'place_of_birth.required' => 'Nơi sinh không được bỏ trống',
+            'origin.required' => 'Nguyên quán không được bỏ trống',
+            'phone.required' => 'Số điện thoại không được bỏ trống',
+            'address.required' => 'Địa chỉ của giảng viên không được bỏ trống',
+            'email.required' => 'Email không được bỏ trống',
+            'email.email' => 'Email không hợp lệ',
+            'id_number.required' => 'Số CMND không được bỏ trống',
+            'place_of_id_number.required' => 'Nơi cấp CMND không được bỏ trống',
+            'nationality.required' => 'Quốc tịch không được bỏ trống',
+            'date_of_union.date' => 'Thời gian vào đoàn không hợp lệ',
+            'date_of_communist.date' => 'Thời gian vào đảng không hợp lệ',
+            'date_of_student_union.date' => 'Thơi gian vào hội sinh viên không hợp lệ',
         ]);
         $teacher = new Teacher([
             'id' => $request['id'],
@@ -206,47 +267,24 @@ class PersonController extends Controller
             'place_of_id_number' => $request['place_of_id_number'],
             'nationality' => $request['nationality'],
             'talents' => $request['talents'],
+            'incomes' => $request['incomes'],
+            'career' => $request['career'],
+            'description' => $request['description'],
             'date_of_union' => $request['date_of_union'],
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_communist'],
+            'military' => $request['military'],
+            'volunteer' => $request['volunteer']
         ]);
 
-        $faculty = Faculty::find($request['faculty']);
+        $faculty = Faculty::where('name', $request['faculty'])->first();
+        $teacher->faculty()->associate($faculty);
+        $teacher->save();
 
-        if ($faculty) {
-            $teacher->faculty()->associate($faculty);
-            $teacher->save();
-        }
-
-        return response()->json($teacher->jsonSerialize(), Response::HTTP_CREATED);
+        return redirect('/admin/teachers');
     }
 
     public function updateTeacher(Request $request, $id) {
-        $this->validate($request, [
-            'id' => ['required', ' unique:App\Models\Teacher,id'],
-            'firstname' => ['required'],
-            'middlename' => ['nullable'],
-            'lastname' => ['required'],
-            'faculty' => ['required'],
-            'birthday' => ['required'],
-            'place_of_birth' => ['required'],
-            'origin' => ['required'],
-            'gender' => ['required'],
-            'phone' => ['required'],
-            'address' => ['required'],
-            'email' => ['nullable', 'email'],
-            'academic_rank' => ['nullable'],
-            'degree' => ['nullable'],
-            'religion' => ['nullable'],
-            'kin' => ['nullable'],
-            'id_number' => ['required'],
-            'place_of_id_number' => ['required'],
-            'nationality' => ['required'],
-            'talents' => ['nullable'],
-            'date_of_union' => ['nullable', 'date'],
-            'date_of_communist' => ['nullable', 'date'],
-            'date_of_student_union' => ['nullable', 'date'],
-        ]);
 
         $teacher = Teacher::find($id);
         $teacher->update([
@@ -270,26 +308,27 @@ class PersonController extends Controller
             'place_of_id_number' => $request['place_of_id_number'],
             'nationality' => $request['nationality'],
             'talents' => $request['talents'],
+            'incomes' => $request['incomes'],
+            'career' => $request['career'],
+            'description' => $request['description'],
             'date_of_union' => $request['date_of_union'],
             'date_of_communist' => $request['date_of_communist'],
             'date_of_student_union' => $request['date_of_communist'],
+            'military' => $request['military'],
+            'volunteer' => $request['volunteer']
         ]);
-        $faculty = Faculty::where('name',$request['faculty'])->get();
+        $faculty = Faculty::where('name',$request['faculty'])->first();
+        $teacher->faculty()->associate($faculty);
+        $teacher->save();
 
-        if ($faculty) {
-            $teacher->faculty()->associate($faculty);
-            $teacher->save();
-        }
-        return response()->json($teacher->jsonSerialize(), Response::HTTP_OK);
+        return redirect('/admin/teachers');
     }
-
-    public function viewTeacher($id) {
-        $teacher = Teacher::with(['backgrounds', 'policies', 'group'])->find($id);
-
-        return response()->json($teacher->jsonSerialize(), Response::HTTP_OK);
+    public function createTeacherBackground($id) {
+        return view('teachers.backgrounds.create', [
+            'teacher' => Teacher::find($id)
+        ]);
     }
-
-    public function addBackground(Request $request, $id) {
+    public function addTeacherBackground(Request $request, $id) {
         $this->validate($request, [
             'name' => ['required'],
             'relationship' => ['required'],
@@ -298,75 +337,11 @@ class PersonController extends Controller
             'job' => ['nullable'],
             'email' => ['nullable', 'email'],
             'resident' => ['nullable'],
-            'workplace' => ['nullable'],
-            'incomes_source' => ['nullable'],
-            'career' => ['nullable'],
-            'description' => ['nullable']
+            'workplace' => ['nullable']
         ]);
-        $student = Student::find($id);
         $teacher = Teacher::find($id);
-
-        if ($student) {
-            $student->backgrounds()->save(
-                new Background([
-                    'name' => $request['name'],
-                    'relationship' => $request['relationship'],
-                    'birthday' => $request['birthday'],
-                    'phone' => $request['phone'],
-                    'job' => $request['job'],
-                    'email' => $request['email'],
-                    'resident' => $request['resident'],
-                    'workplace' => $request['workplace'],
-                    'incomes_source' => $request['incomes_source'],
-                    'career' => $request['career'],
-                    'description' => $request['description']
-                ])
-            );
-
-            return response()->json(Student::with('backgrounds')->get()->jsonSerialize(), Response::HTTP_CREATED);
-        }
-        if ($teacher) {
-            $teacher->backgrounds()->save(
-                new Background([
-                    'name' => $request['name'],
-                    'relationship' => $request['relationship'],
-                    'birthday' => $request['birthday'],
-                    'phone' => $request['phone'],
-                    'job' => $request['job'],
-                    'email' => $request['email'],
-                    'resident' => $request['resident'],
-                    'workplace' => $request['workplace'],
-                    'incomes_source' => $request['incomes_source'],
-                    'career' => $request['career'],
-                    'description' => $request['description']
-                ])
-            );
-
-            return response()->json(Teacher::with('backgrounds')->get()->jsonSerialize(), Response::HTTP_CREATED);
-        }
-
-        return response()->json(null, Response::HTTP_NO_CONTENT);
-    }
-
-    public function updateBackground(Request $request, $id) {
-        $this->validate($request, [
-            'name' => ['required'],
-            'relationship' => ['required'],
-            'birthday' => ['nullable', 'date'],
-            'phone' => ['required'],
-            'job' => ['nullable'],
-            'email' => ['nullable', 'email'],
-            'resident' => ['nullable'],
-            'workplace' => ['nullable'],
-            'incomes_source' => ['nullable'],
-            'career' => ['nullable'],
-            'description' => ['nullable']
-        ]);
-        $student = Student::find($id);
-        $teacher = Teacher::find($id);
-
-        if ($student) {
-            $student->backgrounds()->save(new Background([
+        $teacher->backgrounds()->save(
+            new Background([
                 'name' => $request['name'],
                 'relationship' => $request['relationship'],
                 'birthday' => $request['birthday'],
@@ -374,35 +349,158 @@ class PersonController extends Controller
                 'job' => $request['job'],
                 'email' => $request['email'],
                 'resident' => $request['resident'],
-                'workplace' => $request['workplace'],
-                'incomes_source' => $request['incomes_source'],
-                'career' => $request['career'],
-                'description' => $request['description']
-            ]));
+                'workplace' => $request['workplace']
+            ])
+        );
 
-            return response()->json(Student::with('backgrounds')->get()->jsonSerialize(), Response::HTTP_OK);
-        }
+        return redirect('/admin/teachers/profile/id='.$teacher->id);
+    }
 
-        if ($teacher) {
-            $teacher->backgrounds()->saveMany([
-                new Background([
-                    'name' => $request['name'],
-                    'relationship' => $request['relationship'],
-                    'birthday' => $request['birthday'],
-                    'phone' => $request['phone'],
-                    'job' => $request['job'],
-                    'email' => $request['email'],
-                    'resident' => $request['resident'],
-                    'workplace' => $request['workplace'],
-                    'incomes_source' => $request['incomes_source'],
-                    'career' => $request['career'],
-                    'description' => $request['description']
-                ])
-            ]);
+    public function editTeacherBackground($id) {
+        return view('teachers.backgrounds.update', [
+            'background' => Background::find($id)
+        ]);
+    }
 
-            return response()->json(Teacher::with('backgrounds')->get()->jsonSerialize(), Response::HTTP_OK);
-        }
+    public function updateTeacherBackground(Request $request, $id) {
+        $background = Background::find($id);
+        $background->update([
+            'name' => $request['name'],
+            'relationship' => $request['relationship'],
+            'birthday' => $request['birthday'],
+            'phone' => $request['phone'],
+            'job' => $request['job'],
+            'email' => $request['email'],
+            'resident' => $request['resident'],
+            'workplace' => $request['workplace'],
+        ]);
 
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        return redirect('/admin/teachers/profile/id='.$background->id_teacher);
+    }
+
+    public function createStudentBackground($id) {
+        return view('students.backgrounds.create', [
+            'student' => Student::find($id)
+        ]);
+    }
+
+    public function addStudentBackGround(Request $request, $id) {
+        $this->validate($request, [
+            'name' => ['required'],
+            'relationship' => ['required'],
+            'birthday' => ['nullable', 'date'],
+            'phone' => ['required'],
+            'job' => ['nullable'],
+            'email' => ['nullable', 'email'],
+            'resident' => ['nullable'],
+            'workplace' => ['nullable']
+        ]);
+        $student = Student::find($id);
+        $student->backgrounds()->save(
+            new Background([
+                'name' => $request['name'],
+                'relationship' => $request['relationship'],
+                'birthday' => $request['birthday'],
+                'phone' => $request['phone'],
+                'job' => $request['job'],
+                'email' => $request['email'],
+                'resident' => $request['resident'],
+                'workplace' => $request['workplace']
+            ])
+        );
+
+        return redirect('/admin/students/profile/id='.$student->id);
+    }
+
+    public function editStudentBackground($id) {
+        return view('students.backgrounds.update', [
+            'background' => Background::find($id)
+        ]);
+    }
+
+    public function updateStudentBackground(Request $request, $id) {
+        $background = Background::find($id);
+        $background->update([
+            'name' => $request['name'],
+            'relationship' => $request['relationship'],
+            'birthday' => $request['birthday'],
+            'phone' => $request['phone'],
+            'job' => $request['job'],
+            'email' => $request['email'],
+            'resident' => $request['resident'],
+            'workplace' => $request['workplace'],
+        ]);
+
+        return redirect('/admin/students/profile/id='.$background->id_student);
+    }
+
+    public function createStudentPolicy($id) {
+        return view('students.policy.create', [
+           'student' => Student::find($id)
+        ]);
+    }
+
+    public function addStudentPolicy(Request $request, $id) {
+        $this->validate($request, [
+            'area' => ['nullable'],
+        ]);
+        $student = Student::find($id);
+
+        $student->policies()->save(new Policy([
+            'area' => $request['area'],
+        ]));
+
+        return redirect('/admin/students/profile/id='.$student->id);
+    }
+
+    public function editStudentPolicy($id) {
+        return view('students.policy.update', [
+            'policy' => Policy::find($id)
+        ]);
+    }
+
+    public function updateStudentPolicy(Request $request, $id) {
+        $policy = Policy::find($id);
+
+        $policy->update([
+            'area' => $request['area'],
+        ]);
+
+        return redirect('/admin/students/profile/id='.$policy->id_student);
+    }
+
+    public function createTeacherPolicy($id) {
+        return view('teachers.policy.create', [
+            'teacher' => Teacher::find($id)
+        ]);
+    }
+
+    public function addTeacherPolicy(Request $request, $id) {
+        $this->validate($request, [
+            'area' => ['nullable'],
+        ]);
+        $teacher = Teacher::find($id);
+
+        $teacher->policies()->save(new Policy([
+            'area' => $request['area'],
+        ]));
+
+        return redirect('/admin/teachers/profile/id='.$teacher->id);
+    }
+
+    public function editTeacherPolicy($id) {
+        return view('teachers.policy.update', [
+            'policy' => Policy::find($id)
+        ]);
+    }
+
+    public function updateTeacherPolicy(Request $request, $id) {
+        $policy = Policy::find($id);
+
+        $policy->update([
+            'area' => $request['area'],
+        ]);
+
+        return redirect('/admin/teachers/profile/id='.$policy->id_teacher);
     }
 }

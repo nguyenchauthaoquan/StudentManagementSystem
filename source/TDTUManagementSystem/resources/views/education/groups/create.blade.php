@@ -28,7 +28,11 @@
                                     {{__('Khoa')}}
                                 </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="faculty" class="form-control" name="faculty" value="{{old('faculty')}}">
+                                    <select name="faculty" id="faculty" class="custom-select">
+                                        @foreach($faculties as $faculty)
+                                            <option value="{{$faculty->id}}">{{$faculty->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -36,7 +40,11 @@
                                     {{__('Tên chương trình đào tạo')}}
                                 </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="program_name" class="form-control" name="program_name" value="{{old('program_name')}}">
+                                    <select name="program_name" id="program_name" class="custom-select">
+                                        @foreach($programs->unique('name') as $program)
+                                            <option value="{{$program->name}}">{{$program->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -44,7 +52,11 @@
                                     {{__('Hệ đào tạo')}}
                                 </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="program_system" class="form-control" name="program_system" value="{{old('program_system')}}">
+                                    <select name="program_system" id="program_system" class="custom-select">
+                                        @foreach($programs->unique('system') as $program)
+                                            <option value="{{$program->system}}">{{$program->system}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">

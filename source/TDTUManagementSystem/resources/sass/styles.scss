@@ -40,7 +40,7 @@ html, body {
         }
     }
     .sidebar {
-        width: 260px;
+        width: 300px;
         height: 100%;
         position: fixed;
         top: 0;
@@ -57,10 +57,11 @@ html, body {
             height: calc(100vh - 48px);
             padding-top: 0.5rem;
             overflow: hidden;
-            .sidebar-heading {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
+            #sub-menu {
+                .nav-link {
+                    padding-left: 30px;
+                    font-size: 0.55em;
+                }
             }
             .nav-link {
                 text-align: left;
@@ -72,6 +73,18 @@ html, body {
                 }
                 i {
                     margin-right: 10px;
+                }
+                &[data-toggle="collapse"] {
+                    position: relative;
+                }
+            }
+            .dropdown-toggle {
+                &::after {
+                    display: block;
+                    position: absolute;
+                    top: 50%;
+                    right: 20px;
+                    transform: translateY(-50%);
                 }
             }
         }
@@ -86,6 +99,19 @@ html, body {
                 }
             }
             .sidebar-nav {
+                #sub-menu {
+                    .nav-link {
+                        padding: 10px;
+                    }
+                    .dropdown-toggle {
+                        &::after {
+                            top: auto;
+                            bottom: 10px;
+                            right: 50%;
+                            transform: translateX(50%);
+                        }
+                    }
+                }
                 .nav-link {
                     padding: 20px 10px;
                     text-align: center;
@@ -99,9 +125,6 @@ html, body {
                     span {
                         display: none;
                     }
-                }
-                .sidebar-heading {
-                    display: none;
                 }
             }
         }
@@ -164,11 +187,6 @@ html, body {
 
 @media (max-width: 576px) {
     .wrapper {
-        .navbar {
-            .menu-toggle {
-                display: none;
-            }
-        }
         .sidebar {
             width: 80px;
             text-align: center;
@@ -197,10 +215,17 @@ html, body {
                     display: none;
                 }
             }
+            &.active {
+                width: 0;
+
+            }
         }
 
         .main {
             margin-left: 80px;
+            &.active {
+                margin-left: 0;
+            }
         }
     }
 }

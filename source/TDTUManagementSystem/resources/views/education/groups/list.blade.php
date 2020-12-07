@@ -18,24 +18,30 @@
                         </tr>
                         <tr>
                             <th>{{__('Lớp')}}</th>
+                            <th>{{__('Khoa')}}</th>
                             <th>{{__('Thời gian tuyển sinh')}}</th>
                             <th>{{__('Thời gian tốt nghiệp')}}</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($groups as $group)
-                            <tr>
-                                <td>
-                                    <a href="{{url('/admin/groups/view/id='.$group->id)}}">{{$group->name}}</a>
-                                </td>
-                                <td>{{$group->date_admission}}</td>
-                                <td>{{$group->date_graduation}}</td>
-                                <td>
-                                    <a href="{{url('/admin/groups/edit/id='.$group->id)}}" class="btn btn-success">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                        @foreach($faculties as $faculty)
+                            @foreach($faculty->groups as $group)
+                                <tr>
+                                    <td>
+                                        <a href="{{url('/admin/groups/view/id='.$group->pivot->id)}}">
+                                            {{$group->pivot->name}}
+                                        </a>
+                                    </td>
+                                    <td>{{$faculty->name}}</td>
+                                    <td>{{$group->pivot->date_admission}}</td>
+                                    <td>{{$group->pivot->date_graduation}}</td>
+                                    <td>
+                                        <a href="{{url('/admin/groups/edit/id='.$group->pivot->id)}}" class="btn btn-success">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         @endforeach
                         </tbody>
                     </table>

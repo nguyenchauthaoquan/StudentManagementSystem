@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Background extends Model
 {
     use HasFactory;
+
     protected $table = 'backgrounds';
-    protected $dateFormat = 'd/m/Y';
     protected $fillable = [
         'name', 'relationship', 'birthday',
         'phone', 'job', 'email', 'resident',

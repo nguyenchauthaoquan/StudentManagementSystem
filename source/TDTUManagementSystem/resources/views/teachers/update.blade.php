@@ -8,8 +8,8 @@
         @method('put')
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    {{__('Chỉnh sửa thông tin giảng viên')}}
+                <div class="col-md-12 text-center">
+                    <h3>{{__('Chỉnh sửa thông tin giảng viên')}}</h3>
                 </div>
             </div>
             <div class="row row-header">
@@ -51,10 +51,17 @@
                     </div>
                 </div>
                 <div class="row w-100">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label for="faculty">{{__('Khoa')}}</label>
                         <div>
-                            <input type="text" class="form-control" id="faculty" name="faculty" value="{{$teacher->faculty->name}}">
+                            <select name="faculty" id="faculty" class="form-control">
+                                @foreach($faculties as $faculty)
+                                    <option value="{{$faculty->id}}" @if($faculty->id === $teacher->faculty->id) selected @endif>
+                                        {{$faculty->name}}
+                                    </option>
+                                @endforeach
+
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -69,10 +76,14 @@
                             <input type="text" class="form-control" id="degree" name="degree" value="{{$teacher->degree}}">
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <label for="talents">{{__('Sở thích')}}</label>
+                    <div class="col-md-3">
+                        <label for="status">{{__('Tình trạng')}}</label>
                         <div>
-                            <input type="text" class="form-control" id="talents" name="talents" value="{{$teacher->talents}}">
+                            <select name="status" id="status" class="form-control">
+                                <option selected>{{__('Tình trạng')}}</option>
+                                <option value="Đang công tác" @if($teacher->status === "Đang công tác") selected @endif>{{__('Đang công tác')}}</option>
+                                <option value="Thôi việc" @if($teacher->status === "Thôi việc") selected @endif>{{__('Thôi việc')}}</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -230,6 +241,14 @@
                 <div class="col-md-12"><h5>{{__('Thông tin khác')}}</h5></div>
             </div>
             <div class="row row-information">
+                <div class="row w-100">
+                    <div class="col-md-12">
+                        <label for="talents">{{__('Sở thích')}}</label>
+                        <div>
+                            <input type="text" class="form-control" id="talents" name="talents" value="{{$teacher->talents}}">
+                        </div>
+                    </div>
+                </div>
                 <div class="row w-100">
                     <div class="col-md-6">
                         <label for="career">{{__('Nghề nghiệp khác')}}</label>

@@ -4,26 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Group extends Model
+class Group extends Pivot
 {
     use HasFactory;
 
     protected $table = 'groups';
-    protected $dateFormat = 'd/m/Y';
     protected $fillable = [
-        'id', 'date_admission', 'date_graduation'
+        'id_training', 'id_faculty',
+        'name', 'date_admission', 'date_graduation'
     ];
 
-    public function training_program() {
-        return $this->belongsTo(TrainingProgram::class, 'id_training');
-    }
-
     public function students() {
-        return $this->hasMany(Student::class, 'id_group');
-    }
-
-    public function faculty() {
-        return $this->belongsTo(Faculty::class, 'id_faculty');
+        return $this->belongsToMany(
+            Major::class,
+            'students',
+            'id_group',
+            'id_major'
+        )->withTimestamps();
     }
 }

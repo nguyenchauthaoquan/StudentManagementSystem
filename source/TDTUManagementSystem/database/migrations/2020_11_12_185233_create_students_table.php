@@ -19,7 +19,7 @@ class CreateStudentsTable extends Migration
             $table->foreign('id_group')
                 ->references('id')->on('groups')
                 ->cascadeOnDelete();
-            $table->bigInteger('id_major')->unsigned();
+            $table->string('id_major');
             $table->foreign('id_major')
                 ->references('id')->on('majors')
                 ->cascadeOnDelete();
@@ -50,7 +50,7 @@ class CreateStudentsTable extends Migration
             $table->string('room_of_dormitory')->nullable();
             $table->bigInteger('military')->default(0);
             $table->bigInteger('volunteer')->default(0);
-            $table->string('status');
+            $table->string('status')->default('Còn đi học');
             $table->timestamps();
         });
     }

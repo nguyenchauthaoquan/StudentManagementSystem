@@ -24,7 +24,7 @@
                     <div class="collapse navbar-collapse" id="collapse">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Sign out</a>
+                                <a href="#" class="nav-link">{{__('Sign out')}}</a>
                             </li>
                         </ul>
                     </div>
@@ -42,27 +42,39 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{url('admin/students')}}" class="nav-link">
-                                        <i class="fas fa-school"></i><span>{{__('Quản lý sinh viên')}}</span>
+                                        <i class="fas fa-school"></i><span>{{__('Quản Lý sinh viên')}}</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{url('/admin/teachers')}}" class="nav-link">
-                                        <i class="fas fa-chalkboard-teacher"></i><span>{{__('Quản lý giảng viên')}}</span>
+                                        <i class="fas fa-chalkboard-teacher"></i><span>{{__('Quản Lý giảng viên')}}</span>
                                     </a>
                                 </li>
                             </ul>
-                            <h6 class="sidebar-heading px-3 mt-4 mb-1 text-white">
-                                <span>{{('Chương trình đào tạo')}}</span><i class="fas fa-plus-circle"></i>
-                            </h6>
                             <ul class="nav flex-column mb-2">
                                 <li class="nav-item">
+                                    <a href=".sub-menu"
+                                       class="nav-link dropdown-toggle"
+                                       data-toggle="collapse"
+                                       aria-expanded="false">
+                                        <span>{{__('Chương Trình Đào Tạo')}}</span>
+                                    </a>
+                                    <ul class="sub-menu collapse nav flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{url('/admin/programs')}}" class="nav-link">
+                                                <i class="fas fa-graduation-cap"></i><span>{{__('Quản lý Chương Trình Đào Tạo')}}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{url('/admin/faculties')}}" class="nav-link">
-                                        <i class="fas fa-university"></i><span>{{('Quản lý Khoa')}}</span>
+                                        <i class="fas fa-university"></i><span>{{__('Quản Lý Khoa')}}</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{url('/admin/groups')}}" class="nav-link">
-                                        <i class="fas fa-users"></i><span>{{('Quản lý Lớp')}}</span>
+                                        <i class="fas fa-users"></i><span>{{__('Quản Lý Lớp')}}</span>
                                     </a>
                                 </li>
                             </ul>

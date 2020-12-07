@@ -46,7 +46,7 @@
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-danger text-white mb-4">
                     <div class="card-header">
-                        <i class="fas fa-graduation-cap"></i><span class="pl-1">{{__('Học hàm')}}</span>
+                        <i class="fas fa-graduation-cap"></i><span class="pl-1">{{__('Học vị')}}</span>
                     </div>
                     <div class="card-body">
                         <h5>{{$teacher->degree}}</h5>

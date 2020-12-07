@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Policies extends Model
+class Policy extends Model
 {
     use HasFactory;
 
     protected $table = 'policies';
-    protected $dateFormat = 'd/m/Y';
     protected $fillable = [
-        'area', 'date_of_military', 'year_of_volunteer'
+        'area', 'military', 'volunteer'
     ];
 
     public function student() {

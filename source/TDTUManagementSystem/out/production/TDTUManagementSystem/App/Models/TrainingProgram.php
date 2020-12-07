@@ -10,13 +10,26 @@ class TrainingProgram extends Model
     use HasFactory;
 
     protected $table = 'training_programs';
-    protected $dateFormat = 'd/m/Y';
 
     protected $fillable = [
         'name', 'system'
     ];
 
     public function groups() {
-        return $this->hasMany(Group::class, 'id_group');
+        return $this->belongsToMany(
+            Faculty::class,
+            'groups',
+            'id_training',
+            'id_faculty'
+        )->withTimestamps();
+    }
+
+    public function majors() {
+        return $this->belongsToMany(
+            Faculty::class,
+            'majors',
+            'id_training',
+            'id_faculty'
+        )->withTimestamps();
     }
 }

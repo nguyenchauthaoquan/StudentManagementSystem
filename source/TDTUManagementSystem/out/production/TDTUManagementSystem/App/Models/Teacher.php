@@ -10,7 +10,7 @@ class Teacher extends Model
     use HasFactory;
 
     protected $table = 'teachers';
-    protected $dateFormat = 'd/m/Y';
+    protected $keyType = 'string';
     protected $fillable = [
         'id',
         'firstname', 'middlename', 'lastname',
@@ -18,8 +18,10 @@ class Teacher extends Model
         'gender', 'phone', 'address', 'email',
         'academic_rank', 'degree', 'religion',
         'kin', 'id_number', 'place_of_id_number',
-        'nationality', 'talents', 'date_of_union',
-        'date_of_communist', 'date_of_student_union'
+        'nationality', 'talents', 'incomes',
+        'career', 'description', 'date_of_union',
+        'date_of_communist', 'date_of_student_union',
+        'military', 'volunteer'
     ];
 
     public function faculty() {
@@ -31,6 +33,6 @@ class Teacher extends Model
     }
 
     public function policies() {
-        return $this->hasMany(Policies::class, 'id_teacher');
+        return $this->hasMany(Policy::class, 'id_teacher');
     }
 }

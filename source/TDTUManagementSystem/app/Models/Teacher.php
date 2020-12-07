@@ -21,7 +21,7 @@ class Teacher extends Model
         'nationality', 'talents', 'incomes',
         'career', 'description', 'date_of_union',
         'date_of_communist', 'date_of_student_union',
-        'military', 'volunteer'
+        'military', 'volunteer', 'status'
     ];
 
     public function faculty() {

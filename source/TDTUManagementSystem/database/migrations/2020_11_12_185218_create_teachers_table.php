@@ -46,6 +46,7 @@ class CreateTeachersTable extends Migration
             $table->date('date_of_student_union')->nullable();
             $table->bigInteger('military')->default(0);
             $table->bigInteger('volunteer')->default(0);
+            $table->string('status')->default('Đang công tác');
             $table->timestamps();
         });
     }

@@ -17,22 +17,36 @@
                 <th>{{__('MSSV')}}</th>
                 <th>{{__('Họ và tên')}}</th>
                 <th>{{__('Lớp')}}</th>
+                <th>{{__('Tình trạng')}}</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($students as $student)
-                <tr>
-                    <td>{{$student->id}}</td>
-                    <td>
-                        <a href="{{url('admin/students/profile/id='.$student->id)}}">
-                            {{$student->firstname . ' '.$student->middlename.' '.$student->lastname}}
-                        </a>
-                    </td>
-                    <td>{{$student->group->name}}</td>
-                    <td>
-                        <a href="{{url('/admin/students/edit/id='.$student->id)}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                    </td>
-                </tr>
+            @foreach($groups as $group)
+                @foreach($group->students as $student)
+                    <tr>
+                        <td>{{$student->pivot->id}}</td>
+                        <td>
+                            <a href="{{url('admin/students/profile/id='.$student->pivot->id)}}">
+                                {{$student->pivot->firstname . ' '.$student->pivot->middlename.' '.$student->pivot->lastname}}
+                            </a>
+                        </td>
+                        <td>{{$group->name}}</td>
+                        <td class=" @if($student->pivot->status === 'Thôi học') bg-danger text-white @endif
+                                    @if($student->pivot->status === 'Đi học' || $student->pivot->status === 'Tốt nghiệp') bg-success text-white @endif
+                                    d-flex align-items-center justify-content-center"
+                        >
+                            {{$student->pivot->status}}
+                        </td>
+                        <td>
+                            <a href="{{url('/admin/students/edit/id='.$student->pivot->id)}}" class="btn btn-success">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{{url('/admin/students/delete/id='.$student->pivot->id)}}" class="btn btn-danger">
+                                <i class="fas fa-minus"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
             @endforeach
             </tbody>
         </table>

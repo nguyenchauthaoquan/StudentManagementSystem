@@ -55,7 +55,12 @@
                     <div class="col-md-2">
                         <label for="faculty">{{__('Khoa')}}</label>
                         <div>
-                            <input type="text" class="form-control" id="faculty" name="faculty" value="{{old('faculty')}}">
+                            <select name="faculty" id="faculty" class="form-control">
+                                <option selected>{{__('Khoa')}}</option>
+                                @foreach($faculties as $faculty)
+                                    <option value="{{$faculty->name}}">{{$faculty->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -70,10 +75,14 @@
                             <input type="text" class="form-control" id="degree" name="degree" value="{{old('degree')}}">
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <label for="talents">{{__('Sở thích')}}</label>
+                    <div class="col-md-3">
+                        <label for="status">{{__('Tình trạng')}}</label>
                         <div>
-                            <input type="text" class="form-control" id="talents" name="talents" value="{{old('talents')}}">
+                            <select name="status" id="status">
+                                <option selected>{{__('Tình trạng')}}</option>
+                                <option value="Đang công tác">{{__('Đang công tác')}}</option>
+                                <option value="Thôi việc">{{__('Thôi việc')}}</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -173,7 +182,7 @@
                                    name="military"
                                    id="military"
                                    class="form-control"
-                                   value="{{old('military')}}">
+                                   value="{{old('military') ? old('military') : 0}}">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -183,7 +192,7 @@
                                    name="volunteer"
                                    id="volunteer"
                                    class="form-control"
-                                   value="{{old('volunteer')}}">
+                                   value="{{old('volunteer') ? old('volunteer') : 0}}">
                         </div>
                     </div>
                 </div>
@@ -205,6 +214,14 @@
                 <div class="col-md-12"><h5>{{__('Thông tin khác')}}</h5></div>
             </div>
             <div class="row row-information">
+                <div class="row w-100">
+                    <div class="col-md-12">
+                        <label for="talents">{{__('Sở thích')}}</label>
+                        <div>
+                            <input type="text" class="form-control" id="talents" name="talents" value="{{old('talents')}}">
+                        </div>
+                    </div>
+                </div>
                 <div class="row w-100">
                     <div class="col-md-6">
                         <label for="career">{{__('Nghề nghiệp khác')}}</label>

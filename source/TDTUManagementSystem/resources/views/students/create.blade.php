@@ -82,23 +82,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row w-100">
-                <div class="col-md-4">
-                    <label for="major">{{__('Nghành')}}</label>
-                    <div>
-                        <input type="text"
-                               id="major"
-                               class="form-control @if($errors->has('major')) errors @endif"
-                               name="major"
-                               value="{{old('major')}}">
-                        @if($errors->has('major'))
-                            <div class="errors">
-                                <strong>{{ $errors->first('major') }}</strong>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="row row-header">
             <div class="col-md-12">
@@ -108,17 +91,84 @@
         <div class="row row-information">
             <div class="row w-100">
                 <div class="col-md-4">
+                    <label for="major">{{__('Nghành')}}</label>
+                    <div>
+                        <select type="text"
+                                id="major"
+                                class="form-control @if($errors->has('major')) errors @endif"
+                                name="major">
+                            <option selected>{{__('Nghành')}}</option>
+                            @foreach($majors->unique('name') as $major)
+                                <option value="{{$major->name}}">{{$major->name}}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('major'))
+                            <div class="errors">
+                                <strong>{{ $errors->first('group') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="program_name">{{__('Chương trình đào tạo')}}</label>
+                    <div>
+                        <select type="text"
+                                id="program_name"
+                                class="form-control @if($errors->has('program_name')) errors @endif"
+                                name="program_name">
+                            <option selected>{{__('Chương trình đào tạo')}}</option>
+                            @foreach($programs->unique('name') as $program)
+                                <option value="{{$program->name}}">{{$program->name}}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('program_name'))
+                            <div class="errors">
+                                <strong>{{ $errors->first('group') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <label for="group">{{__('Lớp')}}</label>
                     <div>
-                        <input type="text"
-                               class="form-control @if($errors->has('group')) errors @endif"
-                               id="group"
-                               name="group" value="{{old('group')}}">
+                        <select class="form-control @if($errors->has('group')) errors @endif"
+                                id="group"
+                                name="group">
+                            <option selected>{{__('Lớp')}}</option>
+                            @foreach($groups->unique('name') as $group)
+                                <option value="{{$group->name}}">{{$group->name}}</option>
+                            @endforeach
+                        </select>
                         @if($errors->has('group'))
                             <div class="errors">
                                 <strong>{{ $errors->first('group') }}</strong>
                             </div>
                         @endif
+                    </div>
+                </div>
+            </div>
+            <div class="row w-100">
+                <div class="col-md-4">
+                    <label for="faculty">{{__('Khoa')}}</label>
+                    <div>
+                        <select name="faculty" id="faculty" class="form-control">
+                            <option selected>{{__('Khoa')}}</option>
+                            @foreach($faculties->unique('name') as $faculty)
+                                <option value="{{$faculty->name}}">{{$faculty->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="status">{{__('Tình trạng')}}</label>
+                    <div>
+                        <select name="status" id="status" class="form-control">
+                            <option value="Đi học">{{__('Đi học')}}</option>
+                            <option value="Thôi học">
+                                {{__('Thôi học')}}
+                            </option>
+                            <option value="Tốt nghiệp">{{__('Tốt nghiệp')}}</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -133,8 +183,8 @@
                 <div class="col-md-2">
                     <label for="gender">{{__('Giới tính')}}</label>
                     <select name="gender" id="gender" class="form-control">
-                        <option value="Male">{{__('Nam')}}</option>
-                        <option value="Female">{{__('Nữ')}}</option>
+                        <option value="Nam">{{__('Nam')}}</option>
+                        <option value="Nữ">{{__('Nữ')}}</option>
                     </select>
                 </div>
                 <div class="col-md-2">

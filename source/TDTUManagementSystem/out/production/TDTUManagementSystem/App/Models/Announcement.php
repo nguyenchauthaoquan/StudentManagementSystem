@@ -10,9 +10,13 @@ class Announcement extends Model
     use HasFactory;
 
     protected $table = 'announcements';
-    protected $dateFormat = 'd/m/Y';
 
     protected $fillable = [
-      'title', 'description'
+        'title', 'description'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:d/m/Y H:m:s',
+        'updated_at' => 'datetime:d/m/Y H:m:s'
     ];
 }

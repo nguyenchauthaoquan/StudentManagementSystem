@@ -20,8 +20,10 @@ class Faculty extends Model
             TrainingProgram::class,
             'groups',
             'id_faculty',
-        'id_training')->using(Group::class)
-            ->withPivot('name', 'date_admission', 'date_graduation')->withTimestamps();
+        'id_training'
+        )->using(Group::class)
+            ->withPivot('id','name', 'date_admission', 'date_graduation')
+            ->withTimestamps();
     }
 
     public function teachers() {
@@ -29,6 +31,11 @@ class Faculty extends Model
     }
 
     public function majors() {
-        return $this->hasMany(Major::class, 'id_faculty');
+        return $this->belongsToMany(
+            TrainingProgram::class,
+            'majors',
+            'id_faculty',
+        'id_training'
+        )->using(Major::class)->withPivot( 'id', 'name')->withTimestamps();
     }
 }

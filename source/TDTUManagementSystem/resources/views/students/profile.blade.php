@@ -35,7 +35,7 @@
                         <i class="fas fa-book-open"></i><span class="pl-1">{{__('Lớp')}}</span>
                     </div>
                     <div class="card-body">
-                        <h5>{{$student->group->name }}</h5>
+                        <h5>{{$group->name }}</h5>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                     </div>
@@ -47,7 +47,7 @@
                         <i class="fas fa-graduation-cap"></i><span class="pl-1">{{__('Nghành')}}</span>
                     </div>
                     <div class="card-body">
-                        <h5>{{$student->major}}</h5>
+                        <h5>{{$major->name}}</h5>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                     </div>
@@ -161,7 +161,7 @@
         </div>
         <div class="row row-header">
             <div class="col-md-12">
-                <h5>{{('Thông tin lý lịch')}}</h5>
+                <h5>{{('Lý lịch cá nhân')}}</h5>
             </div>
         </div>
         <div class="row row-information">
