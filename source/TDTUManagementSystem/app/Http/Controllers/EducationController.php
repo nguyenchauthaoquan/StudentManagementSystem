@@ -25,7 +25,8 @@ class EducationController extends Controller
     }
     public function addTrainingProgram(Request $request) {
         $this->validate($request,[
-            'name' => ['required']
+            'name' => ['required'],
+            'system' => ['required']
         ],[
             'name.required' => 'Tên chương trình đào tạo không được bỏ trống'
         ]);
@@ -93,8 +94,13 @@ class EducationController extends Controller
 
     public function addFaculty(Request $request) {
         $this->validate($request, [
-            'id' => ['required', 'max:2'],
-            'name' => ['required']
+            'id' => ['required', 'unique:App\Models\Faculty,id'],
+            'name' => ['required', 'unique:App\Models\Faculty,name']
+        ], [
+            'id.required' => 'Mã Khoa hay mã phòng ban không được bỏ trống',
+            'id.unique' => 'Mã Khoa hay mã phòng ban đã tồn tại',
+            'name.required' => 'Tên Khoa hay tên phòng ban không được bỏ trống',
+            'name.unique' => 'Tên Khoa hay tên phòng ban không được bỏ trống',
         ]);
 
         Faculty::create([
@@ -108,8 +114,13 @@ class EducationController extends Controller
 
     public function updateFaculty(Request $request, $id) {
         $this->validate($request, [
-            'id' => ['required', 'max:2'],
-            'name' => ['required']
+            'id' => ['required', 'unique:App\Models\Faculty,id'],
+            'name' => ['required', 'unique:App\Models\Faculty,name']
+        ], [
+            'id.required' => 'Mã Khoa hay mã phòng ban không được bỏ trống',
+            'id.unique' => 'Mã Khoa hay mã phòng ban đã tồn tại',
+            'name.required' => 'Tên Khoa hay tên phòng ban không được bỏ trống',
+            'name.unique' => 'Tên Khoa hay tên phòng ban không được bỏ trống',
         ]);
 
         $faculty = Faculty::find($id);
@@ -218,6 +229,15 @@ class EducationController extends Controller
             'program_system' => ['required'],
             'date_admission' => ['required', 'date'],
             'date_graduation' => ['required', 'date']
+        ], [
+            'name.required' => 'Tên lớp không được bỏ trống',
+            'faculty.required' => 'Tên khoa không được bỏ trống',
+            'program_name.required' => 'Tên chương trình đào tạo không được bỏ trống',
+            'program_system.required' => 'Hệ đào tạo không được bỏ trống',
+            'date_admission.required' => 'Thời gian tuyển sinh không được bỏ trống',
+            'date_admission.date' => 'Thời gian tuyển sinh không hợp lệ',
+            'date_graduation.required' => 'Thời gian tốt nghiệp không được bỏ trống',
+            'date_graduation.date' => 'Thời gian tốt nghiệp không hợp lệ',
         ]);
         $training_program = TrainingProgram::where('name', $request['program_name'])
                                             ->where('system', $request['program_system'])

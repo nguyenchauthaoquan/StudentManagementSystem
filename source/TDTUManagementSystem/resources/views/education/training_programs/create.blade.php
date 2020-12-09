@@ -15,7 +15,16 @@
                         {{__('Tên chương trình đào tạo')}}
                     </label>
                     <div class="col-md-6">
-                        <input type="text" id="name" class="form-control" name="name" value="{{old('name')}}">
+                        <input type="text"
+                               id="name"
+                               class="form-control @if($errors->has('name')) errors @endif"
+                               name="name"
+                               value="{{old('name')}}">
+                        @if($errors->has('name'))
+                            <div class="errors">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="form-group row">
@@ -23,11 +32,19 @@
                         {{__('Hệ đào tạo')}}
                     </label>
                     <div class="col-md-6">
-                        <select id="system" name="system" class="custom-select">
+                        <select id="system"
+                                name="system"
+                                class="form-control @if($errors->has('system')) errors @endif">
+                            <option selected>{{__('Hệ đào tạo')}}</option>
                             <option value="Đại học">{{__('Đại học')}}</option>
                             <option value="Cao đẳng">{{__('Cao đẳng')}}</option>
                             <option value="Trung cấp">{{__('Trung cấp')}}</option>
                         </select>
+                        @if($errors->has('system'))
+                            <div class="errors">
+                                <strong>{{ $errors->first('system') }}</strong>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="form-group row">
@@ -35,10 +52,17 @@
                         {{__('Tình trạng')}}
                     </label>
                     <div class="col-md-6">
-                        <select id="status" name="status" class="custom-select">
+                        <select id="status"
+                                name="status"
+                                class="form-control @if($errors->has('status')) errors @endif">
                             <option value="Đang mở">{{__('Đang mở')}}</option>
                             <option value="Đóng lại">{{__('Đóng lại')}}</option>
                         </select>
+                        @if($errors->has('status'))
+                            <div class="errors">
+                                <strong>{{ $errors->first('system') }}</strong>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="form-group row mb-0">

@@ -72,6 +72,7 @@
                         <th>{{__('ID')}}</th>
                         <th>{{__('Name')}}</th>
                         <th>{{__('Nghành')}}</th>
+                        <th>{{__('Tình trạng')}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -84,6 +85,9 @@
                                 </a>
                             </td>
                             <td>{{$student->name}}</td>
+                            <td class="@if($student->pivot->status === 'Thôi học') bg-danger text-white @endif d-flex align-items-center justify-content-center">
+                                {{$student->pivot->status}}
+                            </td>
                             <td>
                                 <a href="{{url('/admin/students/edit/id='.$student->pivot->id)}}" class="btn btn-success">
                                     <i class="fas fa-edit"></i>

@@ -61,6 +61,7 @@ class PersonController extends Controller
             'volunteer' => ['nullable']
         ], [
             'id.required' => 'Mã số sinh viên không được bỏ trống',
+            'id.unique' => 'Mã số sinh viên đã tồn tại',
             'firstname.required' => 'Họ tên không được bỏ trống',
             'lastname.required' => 'Họ tên không được bỏ trống',
             'group.required' => 'Lớp học không được bỏ trống',
@@ -82,13 +83,18 @@ class PersonController extends Controller
             'date_of_student_union.date' => 'Thơi gian vào hội sinh viên không hợp lệ',
             'date_of_dormitory.date' => 'Thời gian ở ký túc xá không hợp lệ',
         ]);
-        $faculty = Faculty::where('name', $request['faculty'])->first();
-        $program = TrainingProgram::where('name', $request['program_name'])->first();
-        $major = Major::where('id_faculty', $faculty->id)
-            ->where('id_training', $program->id)->where('name', $request['major'])->first();
-
+        $program = TrainingProgram::where('name', $request['program_name'])
+                                    ->where('system', $request['program_system'])
+                                    ->first();
+        $faculty = Faculty::find($request['faculty']);
         $group = Group::where('id_training', $program->id)
-            ->where('id_faculty', $faculty->id)->where('name', $request['group'])->first();
+                        ->where('id_faculty', $faculty->id)
+                        ->where('name', $request['group'])
+                        ->first();
+        $major = Major::where('id_training', $program->id)
+                        ->where('id_faculty', $faculty->id)
+                        ->where('name', $request['major'])
+                        ->first();
         $group->students()->attach($major->id, [
             'id' => $request['id'],
             'firstname' => $request['firstname'],
@@ -568,7 +574,8 @@ class PersonController extends Controller
 
     public function users() {
         return view('users.list', [
-            'users' => User::all()
+            'users' => User::all(),
+            'roles' => Role::all()
         ]);
     }
 
@@ -585,13 +592,32 @@ class PersonController extends Controller
         ]);
     }
 
+    public function createRole() {
+        return view('users.roles.create');
+    }
+
+    public function editRole($id) {
+        return view('users.roles.update', [
+            'id' => $id,
+            'role' => Role::find($id)
+        ]);
+    }
+
+    public function addRole(Request $request) {
+        Role::create([
+            'name' => $request['name']
+        ]);
+
+        return redirect('/admin/users');
+    }
+
     public function addUser(Request $request) {
         $user = User::create([
             'id' => $request['id'],
             'password' => Hash::make($request['password'])
         ]);
 
-        $user->roles()->attach($request['role']);
+        $user->roles()->attach($request['roles']);
 
         return redirect('/admin/users');
     }

@@ -3,15 +3,12 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                {{__('Thêm lớp mới')}}
-            </div>
-        </div>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{__('Nhập thông tin lớp mới')}}</div>
+                    <div class="card-header">
+                        <h4>{{__('Nhập thông tin lớp mới')}}</h4>
+                    </div>
                     <div class="card-body">
                         <form action="{{url('/admin/groups/add')}}" method="post">
                             @csrf
@@ -20,7 +17,16 @@
                                     {{__('Tên lớp')}}
                                 </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="name" class="form-control" name="name" value="{{old('name')}}">
+                                    <input type="text"
+                                           id="name"
+                                           class="form-control @if($errors->has('name')) errors @endif"
+                                           name="name"
+                                           value="{{old('name')}}">
+                                    @if($errors->has('name'))
+                                        <div class="errors">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -28,11 +34,20 @@
                                     {{__('Khoa')}}
                                 </label>
                                 <div class="col-md-6">
-                                    <select name="faculty" id="faculty" class="custom-select">
+                                    <select name="faculty"
+                                            id="faculty"
+                                            class="form-control @if($errors->has('faculty')) errors @endif">
                                         @foreach($faculties as $faculty)
-                                            <option value="{{$faculty->id}}">{{$faculty->name}}</option>
+                                            <option value="{{$faculty->id}}">
+                                                {{$faculty->name}}
+                                            </option>
                                         @endforeach
                                     </select>
+                                    @if($errors->has('faculty'))
+                                        <div class="errors">
+                                            <strong>{{ $errors->first('faculty') }}</strong>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -40,11 +55,20 @@
                                     {{__('Tên chương trình đào tạo')}}
                                 </label>
                                 <div class="col-md-6">
-                                    <select name="program_name" id="program_name" class="custom-select">
+                                    <select name="program_name"
+                                            id="program_name"
+                                            class="form-control @if($errors->has('program_name')) errors @endif">
                                         @foreach($programs->unique('name') as $program)
-                                            <option value="{{$program->name}}">{{$program->name}}</option>
+                                            <option value="{{$program->name}}">
+                                                {{$program->name}}
+                                            </option>
                                         @endforeach
                                     </select>
+                                    @if($errors->has('program_name'))
+                                        <div class="errors">
+                                            <strong>{{ $errors->first('program_name') }}</strong>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -52,11 +76,18 @@
                                     {{__('Hệ đào tạo')}}
                                 </label>
                                 <div class="col-md-6">
-                                    <select name="program_system" id="program_system" class="custom-select">
+                                    <select name="program_system"
+                                            id="program_system"
+                                            class="form-control @if($errors->has('program_system')) errors @endif">
                                         @foreach($programs->unique('system') as $program)
                                             <option value="{{$program->system}}">{{$program->system}}</option>
                                         @endforeach
                                     </select>
+                                    @if($errors->has('program_system'))
+                                        <div class="errors">
+                                            <strong>{{ $errors->first('program_system') }}</strong>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -64,7 +95,16 @@
                                     {{__('Ngày tuyển sinh')}}
                                 </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="date_admission" class="form-control date-picker" name="date_admission" value="{{old('date_admission')}}">
+                                    <input type="text"
+                                           id="date_admission"
+                                           class="form-control @if($errors->has('date_admission')) errors @endif date-picker"
+                                           name="date_admission"
+                                           value="{{old('date_admission')}}">
+                                    @if($errors->has('date_admission'))
+                                        <div class="errors">
+                                            <strong>{{ $errors->first('date_admission') }}</strong>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -72,7 +112,16 @@
                                     {{__('Ngày tốt nghiệp')}}
                                 </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="date_graduation" class="form-control date-picker" name="date_graduation" value="{{old('date_graduation')}}">
+                                    <input type="text"
+                                           id="date_graduation"
+                                           class="form-control @if($errors->has('date_graduation')) errors @endif date-picker"
+                                           name="date_graduation"
+                                           value="{{old('date_graduation')}}">
+                                    @if($errors->has('date_graduation'))
+                                        <div class="errors">
+                                            <strong>{{ $errors->first('date_graduation') }}</strong>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 

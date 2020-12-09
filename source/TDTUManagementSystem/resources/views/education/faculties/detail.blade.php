@@ -29,7 +29,7 @@
         </div><div class="col-md-6 col-xl-4">
             <div class="card bg-danger text-white mb-4">
                 <div class="card-header">
-                    <i class="fas fa-file-signature"></i><span class="pl-3">{{__('Nghành đào tạo')}}</span>
+                    <i class="fas fa-file-signature"></i><span class="pl-3">{{__('Số Nghành đào tạo')}}</span>
                 </div>
                 <div class="card-body">
                     <h5>{{count($faculty->majors)}}</h5>
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="row row-header">
-        <div class="col-md-12"><h5>{{__('Danh sách Nghành')}}</h5></div>
+        <div class="col-md-12"><h5>{{__('Danh sách Nghành Đào Tạo')}}</h5></div>
     </div>
     <div class="row row-information">
         <div class="table-responsive">

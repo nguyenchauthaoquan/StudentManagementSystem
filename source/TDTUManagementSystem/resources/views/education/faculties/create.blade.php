@@ -6,7 +6,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{__('Thêm thông tin khoa mới')}}</div>
+                <div class="card-header">
+                    <h4>{{__('Thêm thông tin khoa mới')}}</h4>
+                </div>
                 <div class="card-body">
                     <form action="{{url('/admin/faculties/add')}}" method="post">
                         @csrf
@@ -15,7 +17,16 @@
                                 {{__('Mã khoa')}}
                             </label>
                             <div class="col-md-6">
-                                <input type="text" id="id" class="form-control" name="id" value="{{old('id')}}">
+                                <input type="text"
+                                       id="id"
+                                       class="form-control @if($errors->has('id')) errors @endif"
+                                       name="id"
+                                       value="{{old('id')}}">
+                                @if($errors->has('id'))
+                                    <div class="errors">
+                                        <strong>{{ $errors->first('id') }}</strong>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group row">
@@ -23,7 +34,16 @@
                                 {{__('Tên khoa')}}
                             </label>
                             <div class="col-md-6">
-                                <input type="text" id="name" class="form-control" name="name" value="{{old('name')}}">
+                                <input type="text"
+                                       id="name"
+                                       class="form-control @if($errors->has('name')) errors @endif"
+                                       name="name"
+                                       value="{{old('name')}}">
+                                @if($errors->has('name'))
+                                    <div class="errors">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group row mb-0">

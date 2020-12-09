@@ -38,4 +38,7 @@ class Faculty extends Model
         'id_training'
         )->using(Major::class)->withPivot( 'id', 'name')->withTimestamps();
     }
+    public function subjects() {
+        return $this->hasMany(Subject::class, 'id_faculty');
+    }
 }

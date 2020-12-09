@@ -24,7 +24,7 @@
                     <div class="collapse navbar-collapse" id="collapse">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">{{__('Sign out')}}</a>
+                                <a href="#" class="nav-link">{{__('Đăng xuất')}}</a>
                             </li>
                         </ul>
                     </div>
@@ -32,7 +32,7 @@
             </nav>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="sidebar col-md-3 col-lg-2">
+                    <div class="sidebar col-md-4 col-lg-2">
                         <div class="sidebar-nav position-sticky">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
@@ -42,30 +42,20 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{url('admin/students')}}" class="nav-link">
-                                        <i class="fas fa-school"></i><span>{{__('Quản Lý sinh viên')}}</span>
+                                        <i class="fas fa-school"></i><span>{{__('Quản Lý Sinh Viên')}}</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{url('/admin/teachers')}}" class="nav-link">
-                                        <i class="fas fa-chalkboard-teacher"></i><span>{{__('Quản Lý giảng viên')}}</span>
+                                        <i class="fas fa-chalkboard-teacher"></i><span>{{__('Quản Lý Giảng Viên')}}</span>
                                     </a>
                                 </li>
                             </ul>
                             <ul class="nav flex-column mb-2">
                                 <li class="nav-item">
-                                    <a href=".sub-menu"
-                                       class="nav-link dropdown-toggle"
-                                       data-toggle="collapse"
-                                       aria-expanded="false">
-                                        <span>{{__('Chương Trình Đào Tạo')}}</span>
+                                    <a href="{{url('/admin/programs')}}" class="nav-link">
+                                        <i class="fas fa-graduation-cap"></i><span>{{__('Quản lý Chương Trình Đào Tạo')}}</span>
                                     </a>
-                                    <ul class="sub-menu collapse nav flex-column">
-                                        <li class="nav-item">
-                                            <a href="{{url('/admin/programs')}}" class="nav-link">
-                                                <i class="fas fa-graduation-cap"></i><span>{{__('Quản lý Chương Trình Đào Tạo')}}</span>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{url('/admin/faculties')}}" class="nav-link">
@@ -80,7 +70,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="main col-md-9 col-lg-10">
+                    <div class="main col-md-8 col-lg-10">
                         @yield('content')
                     </div>
                 </div>

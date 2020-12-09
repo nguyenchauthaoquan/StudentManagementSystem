@@ -30,7 +30,8 @@ Route::prefix('admin')->group(function () {
         Route::get('update/id={id}', [PersonController::class, 'editUser']);
     });
     Route::prefix('roles')->group(function () {
-
+        Route::get('create', [PersonController::class, 'createRole']);
+        Route::post('add', [PersonController::class, 'addRole']);
     });
 
     Route::prefix('teachers')->group(function () {
