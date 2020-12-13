@@ -21,6 +21,7 @@ class CreateSubjectsTable extends Migration
                 ->cascadeOnDelete();
             $table->string('name');
             $table->bigInteger('credits');
+            $table->string('status')->default('Đang mở');
             $table->timestamps();
         });
     }

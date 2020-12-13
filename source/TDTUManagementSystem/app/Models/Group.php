@@ -13,7 +13,8 @@ class Group extends Pivot
     protected $table = 'groups';
     protected $fillable = [
         'id_training', 'id_faculty',
-        'name', 'date_admission', 'date_graduation'
+        'name', 'date_admission', 'date_graduation',
+        'status'
     ];
 
     public function students() {

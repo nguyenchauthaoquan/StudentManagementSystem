@@ -5,58 +5,105 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-primary text-white mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-id-card"></i><span class="pl-1">{{__('MSSV')}}</span>
-                    </div>
-                    <div class="card-body">
-                        <h5>{{$student->id}}</h5>
-                    </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-success text-white mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-file-signature"></i><span class="pl-1">{{__('Họ và tên')}}</span>
-                    </div>
-                    <div class="card-body">
-                        <h5>{{$student->firstname . ' ' . $student->middlename . ' ' . $student->lastname}}</h5>
-                    </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
+            <div class="col-md-6 col-lg-4 mt-1">
+                <div class="card">
+                    <div class="card-body bg-primary text-white">
+                        <div class="row">
+                            <div class="col-3">
+                                <i class="fas fa-id-card fa-5x"></i>
+                            </div>
+                            <div class="col-9 text-right">
+                                <h2>{{__('MSSV')}}</h2>
+                                <h5>{{$student->id}}</h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-info text-white mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-book-open"></i><span class="pl-1">{{__('Lớp')}}</span>
-                    </div>
-                    <div class="card-body">
-                        <h5>{{$group->name }}</h5>
-                    </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
+            <div class="col-md-6 col-lg-4 mt-1">
+                <div class="card">
+                    <div class="card-body bg-success text-white">
+                        <div class="row">
+                            <div class="col-3">
+                                <i class="fas fa-file-signature fa-5x"></i>
+                            </div>
+                            <div class="col-9 text-right">
+                                <h2>{{__('Họ và tên')}}</h2>
+                                <h5>
+                                    {{$student->firstname . ' ' . $student->middlename . ' ' . $student->lastname}}
+                                </h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-danger text-white mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-graduation-cap"></i><span class="pl-1">{{__('Nghành')}}</span>
+            <div class="col-md-6 col-xl-4 mt-1">
+                <div class="card">
+                    <div class="card-body bg-info text-white">
+                        <div class="row">
+                            <div class="col-3">
+                                <i class="fas fa-book-open fa-5x"></i>
+                            </div>
+                            <div class="col-9 text-right">
+                                <h2>{{__('Lớp')}}</h2>
+                                <h5>{{$group->name}}</h5>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h5>{{$major->name}}</h5>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 mt-1">
+                <div class="card">
+                    <div class="card-body bg-danger text-white">
+                        <div class="row">
+                            <div class="col-3">
+                                <i class="fas fa-graduation-cap fa-5x"></i>
+                            </div>
+                            <div class="col-9 text-right">
+                                <h2>{{__('Nghành')}}</h2>
+                                <h5>{{$major->name}}</h5>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 mt-1">
+                <div class="card">
+                    <div class="card-body bg-secondary text-white">
+                        <div class="row">
+                            <div class="col-3">
+                                <i class="fas fa-envelope-open fa-5x"></i>
+                            </div>
+                            <div class="col-9 text-right">
+                                <h2>{{__('Email')}}</h2>
+                                <h5 style="font-size: 12px">{{$student->email}}</h5>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 mt-1">
+                <div class="card">
+                    <div class="card-body bg-dark text-white">
+                        <div class="row">
+                            <div class="col-3">
+                                <i class="fas fa-phone-alt fa-5x"></i>
+                            </div>
+                            <div class="col-9 text-right">
+                                <h2>{{__('Số điện thoại')}}</h2>
+                                <h5>{{$student->phone}}</h5>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row row-header">
             <div class="col-md-12">
                 <h5>{{__('Thông tin cá nhân')}}</h5>
@@ -144,23 +191,6 @@
         </div>
         <div class="row row-header">
             <div class="col-md-12">
-                <h5>{{__('Thông tin liên lạc')}}</h5>
-            </div>
-        </div>
-        <div class="row row-information">
-            <div class="col-md-12">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                        <h5 class="mb-0">Email:</h5><span class="text-secondary">{{$student->email}}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                        <h5 class="mb-0">Phone</h5><span class="text-secondary">{{$student->phone}}</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="row row-header">
-            <div class="col-md-12">
                 <h5>{{('Lý lịch cá nhân')}}</h5>
             </div>
         </div>
@@ -203,6 +233,9 @@
                     </tbody>
                 </table>
             </div>
+            <nav>
+                <ul class="pagination justify-content-center"></ul>
+            </nav>
             <div class="col-md-12">
                 <h3>{{__('Hoàn cảnh gia đình')}}</h3>
             </div>
@@ -242,6 +275,9 @@
                     </tbody>
                 </table>
             </div>
+            <nav>
+                <ul class="pagination justify-content-center"></ul>
+            </nav>
         </div>
     </div>
 @endsection

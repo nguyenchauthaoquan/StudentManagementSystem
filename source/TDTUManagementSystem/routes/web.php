@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PersonController;
@@ -20,19 +21,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('login', [AuthController::class, 'login']);
 
 Route::prefix('admin')->group(function () {
-    Route::get('/', [PersonController::class, 'home']);
-
-    Route::prefix('users')->group(function () {
-        Route::get('/', [PersonController::class, 'users']);
-        Route::get('create', [PersonController::class, 'createUser']);
-        Route::get('update/id={id}', [PersonController::class, 'editUser']);
-    });
-    Route::prefix('roles')->group(function () {
-        Route::get('create', [PersonController::class, 'createRole']);
-        Route::post('add', [PersonController::class, 'addRole']);
-    });
+    Route::get('dashboard', [PersonController::class, 'home']);
 
     Route::prefix('teachers')->group(function () {
         Route::get('/', [PersonController::class, 'teachers']);
@@ -96,11 +88,13 @@ Route::prefix('admin')->group(function () {
         Route::get('edit/id={id}', [EducationController::class, 'editFaculty']);
         Route::post('add', [EducationController::class, 'addFaculty']);
         Route::put('update/id={id}', [EducationController::class, 'updateFaculty']);
+        Route::get('delete/id={id}', [EducationController::class, 'deleteFaculty']);
         Route::prefix('majors')->group(function () {
             Route::get('create/id={id}', [EducationController::class, 'createMajor']);
             Route::get('edit/id={id}', [EducationController::class, 'editMajor']);
             Route::post('add/id={id}', [EducationController::class, 'addMajor']);
             Route::put('update/id={id}', [EducationController::class, 'updateMajor']);
+            Route::get('delete/id={id}', [EducationController::class, 'deleteMajor']);
         });
 
     });
@@ -112,9 +106,12 @@ Route::prefix('admin')->group(function () {
         Route::post('add', [EducationController::class, 'addGroup']);
         Route::put('update/id={id}', [EducationController::class, 'updateGroup']);
     });
-
+    Route::prefix('subjects')->group(function () {
+        Route::get('/', [EducationController::class, 'subjects']);
+        Route::get('create', [EducationController::class, 'createSubject']);
+        Route::get('view/id={id}', [EducationController::class, 'viewSubject']);
+        Route::get('edit/id={id}', [EducationController::class, 'editSubject']);
+        Route::post('add', [EducationController::class, 'addSubject']);
+        Route::put('update/id={id}', [EducationController::class, 'updateSubject']);
+    });
 });
-
-Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');

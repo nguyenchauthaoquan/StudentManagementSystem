@@ -46,6 +46,24 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="status" class="col-md-4 col-form-label">
+                                {{__('Tình trạng')}}
+                            </label>
+                            <div class="col-md-6">
+                                <select id="status"
+                                        name="status"
+                                        class="form-control @if($errors->has('status')) errors @endif">
+                                    <option value="Đang mở">{{__('Đang mở')}}</option>
+                                    <option value="Đóng lại">{{__('Đóng lại')}}</option>
+                                </select>
+                                @if($errors->has('status'))
+                                    <div class="errors">
+                                        <strong>{{ $errors->first('status') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

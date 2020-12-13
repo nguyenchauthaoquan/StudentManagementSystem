@@ -17,7 +17,7 @@ class CreateTrainingProgramsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('system');
-            $table->string('status');
+            $table->string('status')->default('Đang mở');
             $table->timestamps();
         });
     }

@@ -31,9 +31,12 @@
                                 {{__('Tên chương trình đào tạo')}}
                             </label>
                             <div class="col-md-6">
-                                <select name="program_name" id="program_name" class="custom-select">
+                                <select name="program_name" id="program_name" class="form-control">
+                                    <option selected>{{__('Chương trình đào tạo')}}</option>
                                     @foreach($programs->unique('name') as $program)
-                                        <option value="{{$program->name}}">{{$program->name}}</option>
+                                        <option value="{{$program->name}}">
+                                            {{$program->name}}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -43,11 +46,32 @@
                                 {{__('Hệ đào tạo')}}
                             </label>
                             <div class="col-md-6">
-                                <select name="program_system" id="program_system" class="custom-select">
+                                <select name="program_system" id="program_system" class="form-control">
+                                    <option selected>{{__('Hệ đào tạo')}}</option>
                                     @foreach($programs->unique('system') as $program)
-                                        <option value="{{$program->system}}">{{$program->system}}</option>
+                                        <option value="{{$program->system}}">
+                                            {{$program->system}}
+                                        </option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="status" class="col-md-4 col-form-label">
+                                {{__('Tình trạng')}}
+                            </label>
+                            <div class="col-md-6">
+                                <select id="status"
+                                        name="status"
+                                        class="form-control @if($errors->has('status')) errors @endif">
+                                    <option value="Đang mở">{{__('Đang mở')}}</option>
+                                    <option value="Đóng lại">{{__('Đóng lại')}}</option>
+                                </select>
+                                @if($errors->has('status'))
+                                    <div class="errors">
+                                        <strong>{{ $errors->first('status') }}</strong>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group row mb-0">

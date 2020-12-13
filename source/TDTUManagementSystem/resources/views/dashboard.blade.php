@@ -8,7 +8,7 @@
         <link href="{{asset('css/styles.css')}}" rel="stylesheet">
         <title>Student Management System</title>
     </head>
-    <body>
+    <body class="antialiased">
         <div class="wrapper">
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
                 <div class="container-fluid">
@@ -36,7 +36,7 @@
                         <div class="sidebar-nav position-sticky">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{url('/admin/dashboard')}}" class="nav-link">
                                         <i class="fas fa-chart-line"></i><span>{{__('Dashboard')}}</span>
                                     </a>
                                 </li>
@@ -50,8 +50,6 @@
                                         <i class="fas fa-chalkboard-teacher"></i><span>{{__('Quản Lý Giảng Viên')}}</span>
                                     </a>
                                 </li>
-                            </ul>
-                            <ul class="nav flex-column mb-2">
                                 <li class="nav-item">
                                     <a href="{{url('/admin/programs')}}" class="nav-link">
                                         <i class="fas fa-graduation-cap"></i><span>{{__('Quản lý Chương Trình Đào Tạo')}}</span>
@@ -60,6 +58,11 @@
                                 <li class="nav-item">
                                     <a href="{{url('/admin/faculties')}}" class="nav-link">
                                         <i class="fas fa-university"></i><span>{{__('Quản Lý Khoa')}}</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{url('/admin/subjects')}}" class="nav-link">
+                                        <i class="fas fa-chart-line"></i><span>{{__('Quản lý môn học')}}</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">

@@ -22,34 +22,36 @@
             </thead>
             <tbody>
                 @foreach($programs as $program)
-                        <tr>
-                            <td>{{$program->id}}</td>
-                            <td>{{$program->name}}</td>
-                            <td>{{$program->system}}</td>
-                            <td class="@if($program->status === 'Đóng lại') bg-danger text-white @endif
-                                       @if($program->status === 'Đang mở') bg-success text-white @endif
-                                       d-flex align-items-center justify-content-center"
+                    <tr>
+                        <td>{{$program->id}}</td>
+                        <td>{{$program->name}}</td>
+                        <td>{{$program->system}}</td>
+                        <td class="@if($program->status === 'Đóng lại') bg-danger text-white @endif
+                                    @if($program->status === 'Đang mở') bg-success text-white @endif
+                            d-flex align-items-center justify-content-center"
+                        >
+                            {{$program->status}}
+                        </td>
+                        <td>
+                            <a href="{{url('/admin/programs/edit/id='.$program->id)}}"
+                               class="btn btn-success">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a
+                                class="btn btn-danger"
+                                href="{{url('/admin/programs/delete/id='.$program->id)}}"
                             >
-                                {{$program->status}}
-                            </td>
-                            <td>
-                                <a href="{{url('/admin/programs/edit/id='.$program->id)}}"
-                                   class="btn btn-success">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a
-                                    class="btn btn-danger"
-                                    href="{{url('/admin/programs/delete/id='.$program->id)}}"
-                                >
-                                    <i class="fas fa-minus"></i>
-                                </a>
+                                <i class="fas fa-minus"></i>
+                            </a>
 
-                            </td>
-                        </tr>
+                        </td>
+                    </tr>
                 @endforeach
 
             </tbody>
         </table>
     </div>
-
+    <nav>
+        <ul class="pagination justify-content-center"></ul>
+    </nav>
 @endsection

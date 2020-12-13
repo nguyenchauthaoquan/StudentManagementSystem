@@ -11,8 +11,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $dateFormat = 'd/m/Y';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -29,8 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password'
     ];
 
     /**
@@ -49,7 +46,7 @@ class User extends Authenticatable
      */
     public function roles() {
         return $this->belongsToMany(
-            User::class,
+            Role::class,
             'users_roles',
             'id_user',
             'id_role'

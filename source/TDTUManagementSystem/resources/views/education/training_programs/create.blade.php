@@ -60,7 +60,7 @@
                         </select>
                         @if($errors->has('status'))
                             <div class="errors">
-                                <strong>{{ $errors->first('system') }}</strong>
+                                <strong>{{ $errors->first('status') }}</strong>
                             </div>
                         @endif
                     </div>

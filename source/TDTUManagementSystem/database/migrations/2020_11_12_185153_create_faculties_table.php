@@ -16,6 +16,7 @@ class CreateFacultiesTable extends Migration
         Schema::create('faculties', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name')->unique();
+            $table->string('status')->default('Đang mở');
             $table->timestamps();
         });
     }

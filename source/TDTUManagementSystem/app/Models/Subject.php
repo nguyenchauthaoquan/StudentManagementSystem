@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class Subject extends Model
 {
@@ -11,10 +12,6 @@ class Subject extends Model
     protected $fillable = [
         'id', 'name', 'credits'
     ];
-
-    public function faculty() {
-        return $this->belongsTo(Faculty::class, 'id_faculty');
-    }
 
     public function scores() {
         return $this->belongsToMany(
@@ -24,6 +21,28 @@ class Subject extends Model
             'id_student'
         )->using(Score::class)->withPivot(
             'grade'
+        );
+    }
+
+    public function faculty() {
+        return $this->belongsTo(Faculty::class, 'id_faculty');
+    }
+
+    public function programs() {
+        return $this->belongsToMany(
+            TrainingProgram::class,
+            'programs_subjects',
+            'id_subject',
+            'id_training'
+        );
+    }
+
+    public function majors() {
+        return $this->belongsToMany(
+            Major::class,
+            'majors_subjects',
+            'id_subject',
+            'id_major'
         );
     }
 }

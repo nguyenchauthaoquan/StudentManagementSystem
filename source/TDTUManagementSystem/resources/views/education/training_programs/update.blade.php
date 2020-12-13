@@ -14,7 +14,16 @@
                         {{__('Tên chương trình đào tạo')}}
                     </label>
                     <div class="col-md-6">
-                        <input type="text" id="name" class="form-control" name="name" value="{{$program->name}}">
+                        <input type="text"
+                               id="name"
+                               class="form-control @if($errors->has('name')) errors @endif"
+                               name="name"
+                               value="{{$program->name}}">
+                        @if($errors->has('name'))
+                            <div class="errors">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="form-group row">
@@ -22,17 +31,31 @@
                         {{__('Hệ đào tạo')}}
                     </label>
                     <div class="col-md-6">
-                        <select id="system" name="system" class="custom-select">
-                            <option value="Đại học" @if($program->system === "Đại học") selected @endif>
+                        <select id="system"
+                                name="system"
+                                class="form-control @if($errors->has('system')) errors @endif"
+                        >
+                            <option value="Đại học"
+                                    @if($program->system === "Đại học") selected @endif
+                            >
                                 {{__('Đại học')}}
                             </option>
-                            <option value="Cao đẳng" @if($program->system === "Cao đẳng") selected @endif>
+                            <option value="Cao đẳng"
+                                    @if($program->system === "Cao đẳng") selected @endif
+                            >
                                 {{__('Cao đẳng')}}
                             </option>
-                            <option value="Trung cấp" @if($program->system === "Trung cấp") selected @endif>
+                            <option value="Trung cấp"
+                                    @if($program->system === "Trung cấp") selected @endif
+                            >
                                 {{__('Trung cấp')}}
                             </option>
                         </select>
+                        @if($errors->has('system'))
+                            <div class="errors">
+                                <strong>{{ $errors->first('system') }}</strong>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="form-group row">

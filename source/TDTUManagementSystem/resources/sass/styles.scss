@@ -147,6 +147,14 @@ html, body {
             margin-left: 80px;
             width: 80px;
         }
+
+        .card-body-icon {
+            position: absolute;
+            z-index: 0;
+            top: -25px;
+            right: -25px;
+            font-size: 5rem;
+        }
     }
 }
 

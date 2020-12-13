@@ -7,8 +7,8 @@
         @csrf
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    {{__('Thêm giảng viên mới')}}
+                <div class="col-md-12 text-center">
+                    <h2>{{__('Thêm giảng viên mới')}}</h2>
                 </div>
             </div>
             <div class="row row-header">
@@ -78,8 +78,7 @@
                     <div class="col-md-3">
                         <label for="status">{{__('Tình trạng')}}</label>
                         <div>
-                            <select name="status" id="status">
-                                <option selected>{{__('Tình trạng')}}</option>
+                            <select name="status" id="status" class="form-control">
                                 <option value="Đang công tác">{{__('Đang công tác')}}</option>
                                 <option value="Thôi việc">{{__('Thôi việc')}}</option>
                             </select>

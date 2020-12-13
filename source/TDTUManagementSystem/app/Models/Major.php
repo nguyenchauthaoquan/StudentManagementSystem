@@ -12,7 +12,7 @@ class Major extends Pivot
     protected $table = 'majors';
     protected $fillable = [
         'id_faculty', 'id_training',
-        'id', 'name'
+        'id', 'name', 'status'
     ];
 
     public function students() {
@@ -32,5 +32,14 @@ class Major extends Pivot
             'date_of_communist', 'date_of_student_union', 'date_of_dormitory',
             'room_of_dormitory', 'military', 'volunteer', 'status'
         )->withTimestamps();
+    }
+
+    public function subjects() {
+        return $this->belongsToMany(
+            Subject::class,
+            'majors_subjects',
+            'id_major',
+            'id_subject'
+        );
     }
 }

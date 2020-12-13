@@ -19,7 +19,12 @@ class PersonController extends Controller
 {
     //
     public function home() {
-        return view('dashboard');
+        return view('dashboard_home', [
+            'students' => Student::all(),
+            'teachers' => Teacher::all(),
+            'faculties' => Faculty::all(),
+            'groups' => Group::all()
+        ]);
     }
 
     public function students() {
@@ -125,6 +130,19 @@ class PersonController extends Controller
             'volunteer' => $request['volunteer'],
             'status' => $request['status']
         ]);
+
+        $role = Role::firstOrCreate(
+            ['name' => 'Student'],
+            ['name' => 'Student']
+        );
+        User::create(
+            [
+                'id' => $request['id'],
+                'password' => Hash::make($request['id'])
+            ]
+        );
+        User::find($request['id'])->roles()->attach($role->id);
+
 
         return redirect('/admin/students')->with('success', 'A new student is imported');
     }
@@ -345,7 +363,6 @@ class PersonController extends Controller
     }
 
     public function updateTeacher(Request $request, $id) {
-
         $teacher = Teacher::find($id);
         $teacher->update([
             'id' => $request['id'],
@@ -580,35 +597,14 @@ class PersonController extends Controller
     }
 
     public function createUser() {
-        return view('users.create', [
-            'roles' => Role::all()
-        ]);
+        return view('users.create');
     }
 
     public function editUser($id) {
         return view('users.update', [
             'id' => $id,
-            'user' => User::find($id)
+            'user' => User::find($id),
         ]);
-    }
-
-    public function createRole() {
-        return view('users.roles.create');
-    }
-
-    public function editRole($id) {
-        return view('users.roles.update', [
-            'id' => $id,
-            'role' => Role::find($id)
-        ]);
-    }
-
-    public function addRole(Request $request) {
-        Role::create([
-            'name' => $request['name']
-        ]);
-
-        return redirect('/admin/users');
     }
 
     public function addUser(Request $request) {
@@ -621,4 +617,5 @@ class PersonController extends Controller
 
         return redirect('/admin/users');
     }
+
 }

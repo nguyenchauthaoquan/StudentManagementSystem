@@ -26,6 +26,7 @@ class CreateGroupsTable extends Migration
                 ->cascadeOnDelete();
             $table->date('date_graduation');
             $table->date('date_admission');
+            $table->string('status')->default('Đang mở');
             $table->timestamps();
         });
     }

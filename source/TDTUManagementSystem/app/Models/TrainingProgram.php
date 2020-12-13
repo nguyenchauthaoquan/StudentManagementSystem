@@ -21,7 +21,9 @@ class TrainingProgram extends Model
             'groups',
             'id_training',
             'id_faculty'
-        )->withTimestamps();
+        )->using(Group::class)
+            ->withPivot('id','name', 'date_admission', 'date_graduation', 'status')
+            ->withTimestamps();
     }
 
     public function majors() {
@@ -30,6 +32,17 @@ class TrainingProgram extends Model
             'majors',
             'id_training',
             'id_faculty'
-        )->withTimestamps();
+        )->using(Group::class)
+            ->withPivot('id','name', 'status')
+            ->withTimestamps();
+    }
+
+    public function subjects() {
+        return $this->belongsToMany(
+            Subject::class,
+            'programs_subjects',
+            'id_training',
+            'id_subject'
+        );
     }
 }

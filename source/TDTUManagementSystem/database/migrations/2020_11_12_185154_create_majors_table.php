@@ -24,6 +24,7 @@ class CreateMajorsTable extends Migration
                 ->references('id')->on('training_programs')
                 ->cascadeOnDelete();
             $table->string('name');
+            $table->string('status')->default('Đang mở');
             $table->timestamps();
         });
     }

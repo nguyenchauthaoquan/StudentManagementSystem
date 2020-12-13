@@ -12,7 +12,7 @@ class Faculty extends Model
     protected $table = 'faculties';
     protected $keyType = 'string';
     protected $fillable = [
-        'id', 'name'
+        'id', 'name', 'status'
     ];
 
     public function groups() {
@@ -22,7 +22,7 @@ class Faculty extends Model
             'id_faculty',
         'id_training'
         )->using(Group::class)
-            ->withPivot('id','name', 'date_admission', 'date_graduation')
+            ->withPivot('id','name', 'date_admission', 'date_graduation', 'status')
             ->withTimestamps();
     }
 
@@ -36,9 +36,15 @@ class Faculty extends Model
             'majors',
             'id_faculty',
         'id_training'
-        )->using(Major::class)->withPivot( 'id', 'name')->withTimestamps();
+        )->using(Major::class)
+            ->withPivot( 'id', 'name', 'status')
+            ->withTimestamps();
     }
+
     public function subjects() {
-        return $this->hasMany(Subject::class, 'id_faculty');
+        return $this->hasMany(
+            Subject::class,
+            'id_faculty'
+        );
     }
 }

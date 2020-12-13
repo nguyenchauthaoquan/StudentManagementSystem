@@ -47,8 +47,10 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
-                    <th colspan="5">
-                        <a href="{{url('/admin/faculties/majors/create/id='.$faculty->id)}}" class="btn btn-primary">
+                    <th colspan="6">
+                        <a href="{{url('/admin/faculties/majors/create/id='.$faculty->id)}}"
+                           class="btn btn-outline-primary rounded-circle"
+                        >
                             <i class="fas fa-plus"></i>
                         </a>
                     </th>
@@ -58,6 +60,7 @@
                     <th>{{__('Tên nghành')}}</th>
                     <th>{{__('Chương trình đào tạo')}}</th>
                     <th>{{__('Hệ đào tạo')}}</th>
+                    <th>{{__('Tình trạng')}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -67,13 +70,30 @@
                         <td>{{$major->pivot->name}}</td>
                         <td>{{$major->name}}</td>
                         <td>{{$major->system}}</td>
+                        <td class="@if($major->pivot->status === 'Đóng lại') bg-danger text-white @endif
+                        @if($major->pivot->status === 'Đang mở') bg-success text-white @endif
+                            d-flex align-items-center justify-content-center">
+                            {{$major->pivot->status}}
+                        </td>
                         <td>
-                            <a href="{{url('/admin/faculties/majors/edit/id='.$major->pivot->id)}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                            <a href="{{url('/admin/faculties/majors/edit/id='.$major->pivot->id)}}"
+                               class="btn btn-outline-success rounded-circle"
+                            >
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{{url('/admin/faculties/majors/delete/id='.$major->pivot->id)}}"
+                               class="btn btn-outline-danger rounded-circle"
+                            >
+                                <i class="fas fa-minus-circle"></i>
+                            </a>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
+            <nav>
+                <ul class="pagination justify-content-center"></ul>
+            </nav>
         </div>
     </div>
     <div class="row row-header">
@@ -104,6 +124,9 @@
                 @endforeach
                 </tbody>
             </table>
+            <nav>
+                <ul class="pagination justify-content-center"></ul>
+            </nav>
         </div>
     </div>
     <div class="row row-header">
@@ -138,6 +161,9 @@
                 </tbody>
 
             </table>
+            <nav>
+                <ul class="pagination justify-content-center"></ul>
+            </nav>
         </div>
     </div>
     <div class="row row-header">
@@ -165,6 +191,9 @@
                 @endforeach
                 </tbody>
             </table>
+            <nav>
+                <ul class="pagination justify-content-center"></ul>
+            </nav>
         </div>
     </div>
 

@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-primary text-white mb-4">
@@ -12,8 +12,6 @@
                     </div>
                     <div class="card-body">
                         <h5>{{$teacher->id}}</h5>
-                    </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
                     </div>
                 </div>
             </div>
@@ -27,8 +25,6 @@
                             {{$teacher->firstname . ' ' . $teacher->middlename . ' ' . $teacher->lastname}}
                         </h5>
                     </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-xl-3">
@@ -39,8 +35,6 @@
                     <div class="card-body">
                         <h5>{{$teacher->faculty->name }}</h5>
                     </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-xl-3">
@@ -50,8 +44,6 @@
                     </div>
                     <div class="card-body">
                         <h5>{{$teacher->degree}}</h5>
-                    </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
                     </div>
                 </div>
             </div>
