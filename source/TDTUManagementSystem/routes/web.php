@@ -22,6 +22,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::post('login', [AuthController::class, 'login']);
+Route::get('home', function () {
+    return view('home');
+});
 
 Route::prefix('admin')->group(function () {
     Route::get('dashboard', [PersonController::class, 'home']);

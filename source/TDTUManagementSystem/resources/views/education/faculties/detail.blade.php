@@ -141,6 +141,7 @@
                     <th>{{__('Họ và tên')}}</th>
                     <th>{{__('Email cá nhân')}}</th>
                     <th>{{__('Số điện thoại')}}</th>
+                    <th>{{__('Tình trạng')}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -155,6 +156,23 @@
                             </td>
                             <td>{{$student->pivot->email}}</td>
                             <td>{{$student->pivot->phone}}</td>
+                            <td class="
+                               @if($student->pivot->status === 'Đi học')
+                                    bg-success text-white
+                               @else
+                                    bg-danger text-white
+                                @endif
+                                d-flex align-items-center justify-content-center">
+                                {{$student->pivot->status}}
+                            </td>
+                            <td>
+                                <a href="{{url('/admin/students/edit/id='.$student->pivot->id)}}" class="btn btn-outline-success rounded-circle">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{{url('/admin/students/delete/id='.$student->pivot->id)}}" class="btn btn-outline-danger rounded-circle">
+                                    <i class="fas fa-minus"></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 @endforeach
@@ -178,16 +196,33 @@
                 <tr>
                     <th>{{__('MSGV')}}</th>
                     <th>{{__('Họ và tên')}}</th>
+                    <th>{{__('Email')}}</th>
+                    <th>{{__('Số Điện Thoại')}}</th>
+                    <th>{{__('Tình trạng')}}</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($faculty->teachers as $teacher)
-                    <td>{{$teacher->id}}</td>
-                    <td>
-                        <a href="{{url('admin/teachers/profile/id='.$teacher->id)}}">
-                            {{$teacher->firstname . ' '.$teacher->middlename.' '.$teacher->lastname}}
-                        </a>
-                    </td>
+                    <tr>
+                        <td>{{$teacher->id}}</td>
+                        <td>
+                            <a href="{{url('admin/teachers/profile/id='.$teacher->id)}}">
+                                {{$teacher->firstname . ' '.$teacher->middlename.' '.$teacher->lastname}}
+                            </a>
+                        </td>
+                        <td>{{$teacher->email}}</td>
+                        <td>{{$teacher->phone}}</td>
+                        <td class="
+                               @if($teacher->status === 'Đang công tác')
+                                    bg-success text-white
+                               @else
+                                    bg-danger text-white
+                               @endif
+                               d-flex align-items-center justify-content-center"
+                        >
+                            {{$teacher->status}}
+                        </td>
+                    </tr>
                 @endforeach
                 </tbody>
             </table>

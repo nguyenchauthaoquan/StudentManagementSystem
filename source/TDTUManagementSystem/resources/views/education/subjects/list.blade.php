@@ -6,7 +6,7 @@
             <thead>
             <tr>
                 <th colspan="5">
-                    <a href="{{url('/admin/subjects/create')}}" class="btn btn-primary">
+                    <a href="{{url('/admin/subjects/create')}}" class="btn btn-outline-primary rounded-circle">
                         <i class="fas fa-plus"></i>
                     </a>
                 </th>
@@ -33,7 +33,7 @@
                     </td>
                     <td>
                         <a href="{{url('/admin/subjects/edit/id='.$subject->id)}}"
-                           class="btn btn-success">
+                           class="btn btn-outline-success rounded-circle">
                             <i class="fas fa-edit"></i>
                         </a>
                     </td>

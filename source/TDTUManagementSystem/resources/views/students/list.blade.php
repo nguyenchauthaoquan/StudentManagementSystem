@@ -8,7 +8,7 @@
             <thead>
             <tr>
                 <th colspan="6">
-                    <a href="{{url('/admin/students/create')}}" class="btn btn-primary">
+                    <a href="{{url('/admin/students/create')}}" class="btn btn-outline-primary rounded-circle">
                         <i class="fas fa-plus"></i>
                     </a>
                 </th>
@@ -41,10 +41,12 @@
                                 {{$student->pivot->status}}
                             </td>
                             <td>
-                                <a href="{{url('/admin/students/edit/id='.$student->pivot->id)}}" class="btn btn-success">
+                                <a href="{{url('/admin/students/edit/id='.$student->pivot->id)}}"
+                                   class="btn btn-outline-success rounded-circle">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{{url('/admin/students/delete/id='.$student->pivot->id)}}" class="btn btn-danger">
+                                <a href="{{url('/admin/students/delete/id='.$student->pivot->id)}}"
+                                   class="btn btn-outline-danger rounded-circle">
                                     <i class="fas fa-minus"></i>
                                 </a>
                             </td>

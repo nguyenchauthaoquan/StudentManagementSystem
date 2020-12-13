@@ -196,7 +196,8 @@
         </div>
         <div class="row row-information">
             <div class="col-md-12">
-                <a href="{{url('/admin/students/backgrounds/create/id='.$student->id)}}" class="btn btn-primary">
+                <a href="{{url('/admin/students/backgrounds/create/id='.$student->id)}}"
+                   class="btn btn-outline-primary rounded-circle">
                     <i class="far fa-address-book"></i>
                 </a>
             </div>
@@ -217,8 +218,8 @@
                     <tbody>
                     @foreach($student->backgrounds as $background)
                         <tr>
-                            <td>{{$background->name}}</td>
                             <td>{{$background->relationship}}</td>
+                            <td>{{$background->name}}</td>
                             <td>{{$background->birthday}}</td>
                             <td>{{$background->phone}}</td>
                             <td>{{$background->job}}</td>
@@ -226,16 +227,19 @@
                             <td>{{$background->resident}}</td>
                             <td>{{$background->workplace}}</td>
                             <td>
-                                <a href="{{url('/admin/students/backgrounds/edit/id='.$background->id)}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                <a href="{{url('/admin/students/backgrounds/edit/id='.$background->id)}}"
+                                   class="btn btn-outline-success rounded-circle"><i class="fas fa-edit"></i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+                <nav>
+                    <ul class="pagination justify-content-center"></ul>
+                </nav>
             </div>
-            <nav>
-                <ul class="pagination justify-content-center"></ul>
-            </nav>
+
             <div class="col-md-12">
                 <h3>{{__('Hoàn cảnh gia đình')}}</h3>
             </div>
@@ -251,7 +255,8 @@
         <div class="row row-information">
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <a href="{{url('/admin/students/policies/create/id='.$student->id)}}" class="btn btn-primary">
+                    <a href="{{url('/admin/students/policies/create/id='.$student->id)}}"
+                       class="btn btn-outline-primary rounded-circle">
                         <i class="far fa-address-book"></i>
                     </a>
                 </div>
@@ -268,16 +273,20 @@
                         <tr>
                             <td>{{$policy->area}}</td>
                             <td>
-                                <a href="{{url('/admin/students/policies/edit/id='.$policy->id)}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                <a href="{{url('/admin/students/policies/edit/id='.$policy->id)}}"
+                                   class="btn btn-outline-success rounded-circle">
+                                    <i class="fas fa-edit"></i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+                <nav>
+                    <ul class="pagination justify-content-center"></ul>
+                </nav>
             </div>
-            <nav>
-                <ul class="pagination justify-content-center"></ul>
-            </nav>
+
         </div>
     </div>
 @endsection

@@ -323,6 +323,7 @@ class PersonController extends Controller
             'date_of_communist.date' => 'Thời gian vào đảng không hợp lệ',
             'date_of_student_union.date' => 'Thơi gian vào hội sinh viên không hợp lệ',
         ]);
+
         $teacher = new Teacher([
             'id' => $request['id'],
             'firstname' => $request['firstname'],
@@ -355,9 +356,21 @@ class PersonController extends Controller
             'status' => $request['status']
         ]);
 
-        $faculty = Faculty::where('name', $request['faculty'])->first();
-        $teacher->faculty()->associate($faculty);
-        $teacher->save();
+        $faculty = Faculty::find($request['faculty']);
+        $faculty->teachers()->save($teacher);
+
+        $role = Role::firstOrCreate(
+            ['name' => 'Teacher'],
+            ['name' => 'Teacher']
+        );
+        $user = User::firstOrCreate(
+            ['id' => $request['id']],
+            [
+                'id' => $request['id'],
+                'password' => Hash::make($request['id'])
+            ]
+        );
+        $role->users()->attach($user->id);
 
         return redirect('/admin/teachers');
     }

@@ -8,7 +8,8 @@
             <thead>
             <tr>
                 <th colspan="5">
-                    <a href="{{url('/admin/teachers/create')}}" class="btn btn-primary">
+                    <a href="{{url('/admin/teachers/create')}}"
+                       class="btn btn-outline-primary rounded-circle">
                         <i class="fas fa-plus"></i>
                     </a>
                 </th>
@@ -37,8 +38,10 @@
                         {{$teacher->status}}
                     </td>
                     <td>
-                        <a href="{{url('/admin/teachers/edit/id='.$teacher->id)}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                        <a href="{{url('/admin/teachers/delete/id='.$teacher->id)}}" class="btn btn-danger">
+                        <a href="{{url('/admin/teachers/edit/id='.$teacher->id)}}"
+                           class="btn btn-outline-success rounded-circle"><i class="fas fa-edit"></i></a>
+                        <a href="{{url('/admin/teachers/delete/id='.$teacher->id)}}"
+                           class="btn btn-outline-danger rounded-circle">
                             <i class="fas fa-minus"></i>
                         </a>
                     </td>

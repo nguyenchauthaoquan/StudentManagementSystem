@@ -52,7 +52,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{url('/admin/programs')}}" class="nav-link">
-                                        <i class="fas fa-graduation-cap"></i><span>{{__('Quản lý Chương Trình Đào Tạo')}}</span>
+                                        <i class="fas fa-graduation-cap"></i><span>{{__('Quản Lý Chương Trình Đào Tạo')}}</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -62,7 +62,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{url('/admin/subjects')}}" class="nav-link">
-                                        <i class="fas fa-chart-line"></i><span>{{__('Quản lý môn học')}}</span>
+                                        <i class="fas fa-chart-line"></i><span>{{__('Quản Lý Môn Học')}}</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">

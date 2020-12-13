@@ -8,7 +8,8 @@
             <thead>
                 <tr>
                     <th colspan="5">
-                        <a href="{{url('/admin/programs/create')}}" class="btn btn-primary">
+                        <a href="{{url('/admin/programs/create')}}"
+                           class="btn btn-outline-primary rounded-circle">
                             <i class="fas fa-plus"></i>
                         </a>
                     </th>
@@ -34,11 +35,11 @@
                         </td>
                         <td>
                             <a href="{{url('/admin/programs/edit/id='.$program->id)}}"
-                               class="btn btn-success">
+                               class="btn btn-outline-success rounded-circle">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <a
-                                class="btn btn-danger"
+                                class="btn btn-outline-danger rounded-circle"
                                 href="{{url('/admin/programs/delete/id='.$program->id)}}"
                             >
                                 <i class="fas fa-minus"></i>

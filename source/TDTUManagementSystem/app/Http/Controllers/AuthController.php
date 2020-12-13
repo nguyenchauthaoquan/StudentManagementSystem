@@ -22,8 +22,8 @@ class AuthController extends Controller
             'password' => $request['password']
         ];
 
-        if (Auth::attempt($credential)) {
-            return redirect()->back()->with('Success', 'Đăng nhập thành công');
+        if (Auth::attempt($credential, $request['remember'])) {
+            return redirect('/home')->with('Success', 'Đăng nhập thành công');
         }
         return redirect()->back()->with('Failure', 'Đăng nhập thất bại');
     }
