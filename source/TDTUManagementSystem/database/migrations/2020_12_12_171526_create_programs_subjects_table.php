@@ -24,7 +24,6 @@ class CreateProgramsSubjectsTable extends Migration
                 ->references('id')
                 ->on('subjects')
                 ->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 

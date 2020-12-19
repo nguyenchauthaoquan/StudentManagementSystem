@@ -37,6 +37,7 @@
                                     <select name="faculty"
                                             id="faculty"
                                             class="form-control @if($errors->has('faculty')) errors @endif">
+                                        <option selected>{{__('Khoa')}}</option>
                                         @foreach($faculties as $faculty)
                                             <option value="{{$faculty->id}}">
                                                 {{$faculty->name}}
@@ -58,10 +59,13 @@
                                     <select name="program_name"
                                             id="program_name"
                                             class="form-control @if($errors->has('program_name')) errors @endif">
+                                        <option selected>{{__('Tên Chương Trình Đào Tạo')}}</option>
                                         @foreach($programs->unique('name') as $program)
-                                            <option value="{{$program->name}}">
-                                                {{$program->name}}
-                                            </option>
+                                            @if ($program->status === 'Đang Mở')
+                                                <option value="{{$program->name}}">
+                                                    {{$program->name}}
+                                                </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     @if($errors->has('program_name'))
@@ -79,8 +83,11 @@
                                     <select name="program_system"
                                             id="program_system"
                                             class="form-control @if($errors->has('program_system')) errors @endif">
+                                        <option selected>{{__('Hệ đào tạo')}}</option>
                                         @foreach($programs->unique('system') as $program)
-                                            <option value="{{$program->system}}">{{$program->system}}</option>
+                                            @if($program->status === 'Đang Mở')
+                                                <option value="{{$program->system}}">{{$program->system}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     @if($errors->has('program_system'))
@@ -132,8 +139,7 @@
                                     <select id="status"
                                             name="status"
                                             class="form-control @if($errors->has('status')) errors @endif">
-                                        <option value="Đang mở">{{__('Đang mở')}}</option>
-                                        <option value="Đóng lại">{{__('Đóng lại')}}</option>
+                                        <option value="Đang Mở">{{__('Đang Mở')}}</option>
                                     </select>
                                     @if($errors->has('status'))
                                         <div class="errors">

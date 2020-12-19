@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Faculty;
 use App\Models\Group;
 use App\Models\Major;
+use App\Models\Student;
 use App\Models\Subject;
 use App\Models\TrainingProgram;
+
 use Illuminate\Http\Request;
 
 class EducationController extends Controller
@@ -43,14 +45,6 @@ class EducationController extends Controller
     }
 
     public function updateTrainingProgram(Request $request, $id) {
-        $this->validate($request,[
-            'name' => ['unique:App\Models\TrainingProgram,name'],
-            'system' => ['in:"Đại học","Cao đẳng", "Trung cấp"']
-        ],[
-            'name.unique' => 'Nhập tên chương trình đào tạo mới',
-            'system.unique' => 'Xin vui lòng chọn hệ đào tạo mới',
-        ]);
-
         $training_program = TrainingProgram::find($id);
         $training_program->update([
             'name' => $request['name'],
@@ -58,15 +52,57 @@ class EducationController extends Controller
             'status' => $request['status']
         ]);
 
+        switch ($training_program->status) {
+            case "Đang Mở": {
+                Group::where('id_training', $training_program->id)->update([
+                    'status' => 'Đang Mở'
+                ]);
+
+                Major::where('id_training', $training_program->id)->update([
+                    'status' => 'Đang Mở'
+                ]);
+                $group = Group::where('id_training', $training_program->id)->first();
+                if ($group) {
+                    Student::where('id_group', $group->id)
+                        ->update([
+                            'status' => 'Đi Học'
+                        ]);
+                }
+
+                break;
+            }
+            case "Đang Đóng": {
+                $this->deleteTrainingProgram($id);
+                break;
+            }
+        }
+
         return redirect('admin/programs');
     }
 
     public function deleteTrainingProgram($id) {
-        TrainingProgram::find($id)->update([
-            'status' => 'Đóng lại'
+        $program = TrainingProgram::find($id);
+        $program->update([
+            'status' => 'Đang Đóng'
         ]);
 
-        return redirect('/admin/programs');
+        Group::where('id_training', $program->id)->update([
+            'status' => 'Đang Đóng'
+        ]);
+
+        Major::where('id_training', $program->id)->update([
+            'status' => 'Đang Đóng'
+        ]);
+        $group = Group::where('id_training', $program->id)->first();
+        if ($group) {
+            Student::where('id_group', $group->id)
+                ->update([
+                    'status' => 'Thôi Học'
+                ]);
+        }
+
+
+        return redirect()->back();
     }
 
     public function faculties() {
@@ -132,10 +168,10 @@ class EducationController extends Controller
 
     public function deleteFaculty($id) {
         Faculty::find($id)->update([
-            'status' => 'Đóng lại'
+            'status' => 'Đang Đóng'
         ]);
 
-        return redirect('/admin/faculties');
+        return redirect()->back();
     }
 
     public function createMajor($id) {
@@ -190,12 +226,34 @@ class EducationController extends Controller
             'status' => $request['status']
         ]);
 
+        switch ($major->status) {
+            case "Đang Mở": {
+                Student::where('id_major', $major->id)->update([
+                    'status' => 'Đi Học'
+                ]);
+                break;
+            }
+            case "Đang Đóng": {
+                Student::where('id_major', $major->id)->update([
+                    'status' => 'Thôi Học'
+                ]);
+                break;
+            }
+        }
+
         return redirect('/admin/faculties/view/id='.$faculty->id);
     }
 
     public function deleteMajor($id) {
-        Major::find($id)->update([
-            'status' => 'Đóng lại'
+        $major = Major::find($id);
+        $major->update([
+            'status' => 'Đang Đóng'
+        ]);
+        Group::where('id_training', $major->id_training)->update([
+           'status' => 'Đang Đóng'
+        ]);
+        Student::where('id_major', $major->id)->update([
+            'status' => 'Thôi Học'
         ]);
 
         return redirect()->back();
@@ -282,10 +340,43 @@ class EducationController extends Controller
             'id_faculty' => $faculty->id,
             'name' => $request['name'],
             'date_admission' => $request['date_admission'],
-            'date_graduation' => $request['date_graduation']
+            'date_graduation' => $request['date_graduation'],
+            'status' => $request['status']
         ]);
 
+        switch ($group->status) {
+            case "Đang Mở": {
+                Student::where('id_group', $group->id)->where('status', 'Thôi Học')->update([
+                    'status' => 'Đi Học'
+                ]);
+                break;
+            }
+            case "Tốt Nghiệp": {
+                Student::where('id_group', $group->id)->where('status', 'Đi Học')->update([
+                    'status' => 'Tốt Nghiệp'
+                ]);
+                break;
+            }
+            case "Đang Đóng": {
+                Student::where('id_group', $group->id)->where('status', 'Đi Học')->update([
+                    'status' => 'Thôi Học'
+                ]);
+                break;
+            }
+        }
+
         return redirect('/admin/groups')->with('success', 'Update successful');
+    }
+
+    public function deleteGroup($id) {
+        Group::find($id)->update([
+            'status' => 'Đang Đóng'
+        ]);
+        Student::where('status', 'Đi Học')->update([
+            'status' => 'Thôi Học'
+        ]);
+
+        return redirect()->back();
     }
 
     public function subjects() {
@@ -299,54 +390,64 @@ class EducationController extends Controller
 
         return view('education.subjects.detail', [
             'subject' => $subject,
+
         ]);
     }
 
     public function createSubject() {
-        return view('education.subjects.create');
+        $faculties = Faculty::all();
+        $programs = TrainingProgram::all();
+
+        return view('education.subjects.create', [
+            'faculties' => $faculties,
+            'programs' => $programs
+        ]);
     }
 
     public function editSubject($id) {
         $subject = Subject::find($id);
 
         return view('education.subjects.update', [
-            'subject' => $subject
+            'id' => $id,
+            'subject' => $subject,
+            'faculties' => Faculty::all(),
+            'programs' => TrainingProgram::all()
         ]);
     }
 
     public function addSubject(Request $request) {
         $this->validate($request, [
             'id' => ['required', 'unique:App\Models\Subject,id'],
-            'name' => ['required', 'unique:App\Models\Subject,name'],
+            'name' => ['required'],
             'credits' => ['required']
         ], [
             'id.required' => 'Mã môn học không được bỏ trống',
             'id.unique' => 'Mã môn học đã tồn tại',
             'name.required' => 'Tên môn học không được bỏ trống',
             'name.unique' => 'Tên môn học đã tồn tại',
-            'credits' => 'Số tín chỉ của môn học không được bỏ trống'
+            'credits.required' => 'Số tín chỉ của môn học không được bỏ trống'
         ]);
 
         $faculty = Faculty::find($request['faculty']);
-        $program = TrainingProgram::where('name', $request['program_name'])
-                                    ->where('system', $request['program_system'])
-                                    ->first();
+        $subject = $faculty->subjects()->create([
+            'id' => $request['id'],
+            'name' => $request['name'],
+            'credits' => $request['credits'],
+            'status' => $request['status'],
+        ]);
+        $programs = TrainingProgram::whereIn('name', $request['program_name'])
+            ->whereIn('system', $request['system'])
+            ->get();
+
+        foreach ($programs as $program) {
+            $program->subjects()->attach($subject->id);
+        }
+
 
         return redirect('/admin/subjects');
     }
 
     public function updateSubject(Request $request, $id) {
-        $this->validate($request, [
-            'id' => ['required', 'unique:App\Models\Subject,id'],
-            'name' => ['required', 'unique:App\Models\Subject,name'],
-            'credits' => ['required']
-        ], [
-            'id.required' => 'Mã môn học không được bỏ trống',
-            'id.unique' => 'Mã môn học đã tồn tại',
-            'name.required' => 'Tên môn học không được bỏ trống',
-            'name.unique' => 'Tên môn học đã tồn tại',
-            'credits' => 'Số tín chỉ của môn học không được bỏ trống'
-        ]);
 
         $subject = Subject::find($id);
         $faculty = Faculty::find($request['faculty']);

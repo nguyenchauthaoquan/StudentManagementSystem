@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-6 col-xl-4">
+        <div class="col-md-6 col-lg-4">
             <div class="card bg-primary text-white mb-4">
                 <div class="card-header">
                     <i class="fas fa-file-signature"></i><span class="pl-3">{{__('Mã Khoa')}}</span>
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-xl-4">
+        <div class="col-md-6 col-lg-4">
             <div class="card bg-success text-white mb-4">
                 <div class="card-header">
                     <i class="fas fa-file-signature"></i><span class="pl-3">{{__('Tên Khoa')}}</span>
@@ -26,13 +26,19 @@
                 <div class="card-footer d-flex align-items-center justify-content-between">
                 </div>
             </div>
-        </div><div class="col-md-6 col-xl-4">
+        </div><div class="col-md-6 col-lg-4">
             <div class="card bg-danger text-white mb-4">
                 <div class="card-header">
                     <i class="fas fa-file-signature"></i><span class="pl-3">{{__('Số Nghành đào tạo')}}</span>
                 </div>
                 <div class="card-body">
-                    <h5>{{count($faculty->majors)}}</h5>
+                    <?php $count = 0 ?>
+                    @foreach($faculty->majors as $major)
+                        @if ($major->pivot->status === 'Đang Mở')
+                            <?php $count += 1 ?>
+                        @endif
+                    @endforeach
+                    <h5>{{$count}}</h5>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
                 </div>
@@ -53,6 +59,11 @@
                         >
                             <i class="fas fa-plus"></i>
                         </a>
+                        <a href="#deleted-majors"
+                           data-toggle="modal"
+                           class="btn btn-outline-danger rounded-circle">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </th>
                 </tr>
                 <tr>
@@ -65,29 +76,30 @@
                 </thead>
                 <tbody>
                 @foreach($faculty->majors as $major)
-                    <tr>
-                        <td>{{$major->pivot->id}}</td>
-                        <td>{{$major->pivot->name}}</td>
-                        <td>{{$major->name}}</td>
-                        <td>{{$major->system}}</td>
-                        <td class="@if($major->pivot->status === 'Đóng lại') bg-danger text-white @endif
-                        @if($major->pivot->status === 'Đang mở') bg-success text-white @endif
-                            d-flex align-items-center justify-content-center">
-                            {{$major->pivot->status}}
-                        </td>
-                        <td>
-                            <a href="{{url('/admin/faculties/majors/edit/id='.$major->pivot->id)}}"
-                               class="btn btn-outline-success rounded-circle"
-                            >
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="{{url('/admin/faculties/majors/delete/id='.$major->pivot->id)}}"
-                               class="btn btn-outline-danger rounded-circle"
-                            >
-                                <i class="fas fa-minus-circle"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    @if($major->pivot->status === 'Đang Mở')
+                        <tr>
+                            <td>{{$major->pivot->id}}</td>
+                            <td>{{$major->pivot->name}}</td>
+                            <td>{{$major->name}}</td>
+                            <td>{{$major->system}}</td>
+                            <td class="@if($major->pivot->status === 'Đang Mở') bg-success text-white @endif
+                                d-flex align-items-center justify-content-center">
+                                {{$major->pivot->status}}
+                            </td>
+                            <td>
+                                <a href="{{url('/admin/faculties/majors/edit/id='.$major->pivot->id)}}"
+                                   class="btn btn-outline-success rounded-circle"
+                                >
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{{url('/admin/faculties/majors/delete/id='.$major->pivot->id)}}"
+                                   class="btn btn-outline-danger rounded-circle"
+                                >
+                                    <i class="fas fa-minus-circle"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
                 </tbody>
             </table>
@@ -104,23 +116,51 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
+                    <th colspan="8">
+                        <a href="#deleted-groups" data-toggle="modal" class="btn btn-outline-danger rounded-circle">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </th>
+                </tr>
+                <tr>
                     <th>{{__('Lớp')}}</th>
+                    <th>{{__('Chương trình đào tạo')}}</th>
+                    <th>{{__('Hệ đào tạo')}}</th>
                     <th>{{__('Thời gian tuyển sinh')}}</th>
                     <th>{{__('Thời gian tốt nghiệp')}}</th>
+                    <th>{{__('Tình Trạng')}}</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($groups as $group)
-                    <tr>
-                        <td>
-                            <a href="{{url('/admin/groups/view/id='.$group->id)}}">
-                                {{$group->name}}
-                            </a>
-                        </td>
-                        <td>{{$group->date_admission}}</td>
-                        <td>{{$group->date_graduation}}</td>
-                    </tr>
-
+                @foreach($faculty->groups as $group)
+                    @if($group->pivot->status === 'Đang Mở' || $group->pivot->status === 'Tốt Nghiệp')
+                        <tr>
+                            <td>
+                                <a href="{{url('/admin/groups/view/id='.$group->pivot->id)}}">
+                                    {{$group->pivot->name}}
+                                </a>
+                            </td>
+                            <td>{{$group->name}}</td>
+                            <td>{{$group->system}}</td>
+                            <td>{{$group->pivot->date_admission}}</td>
+                            <td>{{$group->pivot->date_graduation}}</td>
+                            <td class="@if ($group->pivot->status === 'Đang Mở') bg-success text-white @endif
+                                       @if ($group->pivot->status === 'Tốt Nghiệp') bg-primary text-white @endif
+                                       d-flex justify-content-center align-items-center">
+                                {{$group->pivot->status}}
+                            </td>
+                            <td>
+                                <a href="{{url('/admin/groups/edit/id='.$group->pivot->id)}}"
+                                   class="btn btn-outline-success rounded-circle">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{{url('/admin/groups/delete/id='.$group->pivot->id)}}"
+                                   class="btn btn-outline-danger rounded-circle">
+                                    <i class="fas fa-minus-circle"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
                 </tbody>
             </table>
@@ -137,6 +177,15 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
+                    <th colspan="6">
+                        <a href="#deleted-students"
+                           data-toggle="modal"
+                           class="btn btn-outline-danger rounded-circle">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </th>
+                </tr>
+                <tr>
                     <th>{{__('MSSV')}}</th>
                     <th>{{__('Họ và tên')}}</th>
                     <th>{{__('Email cá nhân')}}</th>
@@ -147,33 +196,36 @@
                 <tbody>
                 @foreach($groups as $group)
                     @foreach($group->students as $student)
-                        <tr>
-                            <td>{{$student->pivot->id}}</td>
-                            <td>
-                                <a href="{{url('admin/students/profile/id='.$student->id)}}">
-                                    {{$student->pivot->firstname.' '.$student->pivot->middlename.' '.$student->pivot->lastname}}
-                                </a>
-                            </td>
-                            <td>{{$student->pivot->email}}</td>
-                            <td>{{$student->pivot->phone}}</td>
-                            <td class="
-                               @if($student->pivot->status === 'Đi học')
+                        @if(($student->pivot->status === 'Đi Học') || ($student->pivot->status === 'Tốt Nghiệp'))
+                            <tr>
+                                <td>{{$student->pivot->id}}</td>
+                                <td>
+                                    <a href="{{url('admin/students/profile/id='.$student->id)}}">
+                                        {{$student->pivot->firstname.' '.$student->pivot->middlename.' '.$student->pivot->lastname}}
+                                    </a>
+                                </td>
+                                <td>{{$student->pivot->email}}</td>
+                                <td>{{$student->pivot->phone}}</td>
+                                <td class="
+                               @if($student->pivot->status === 'Đi Học')
                                     bg-success text-white
-                               @else
-                                    bg-danger text-white
-                                @endif
-                                d-flex align-items-center justify-content-center">
-                                {{$student->pivot->status}}
-                            </td>
-                            <td>
-                                <a href="{{url('/admin/students/edit/id='.$student->pivot->id)}}" class="btn btn-outline-success rounded-circle">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="{{url('/admin/students/delete/id='.$student->pivot->id)}}" class="btn btn-outline-danger rounded-circle">
-                                    <i class="fas fa-minus"></i>
-                                </a>
-                            </td>
-                        </tr>
+                               @endif
+                               @if($student->pivot->status === 'Tốt Nghiệp')
+                                    bg-primary text-white
+                               @endif
+                                    d-flex align-items-center justify-content-center">
+                                    {{$student->pivot->status}}
+                                </td>
+                                <td>
+                                    <a href="{{url('/admin/students/edit/id='.$student->pivot->id)}}" class="btn btn-outline-success rounded-circle">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{{url('/admin/students/delete/id='.$student->pivot->id)}}" class="btn btn-outline-danger rounded-circle">
+                                        <i class="fas fa-minus"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                 @endforeach
                 </tbody>
@@ -231,6 +283,163 @@
             </nav>
         </div>
     </div>
+    <div class="modal fade" id="deleted-majors" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{__('Nghành đã xóa')}}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>{{__('STT')}}</th>
+                                <th>{{__('Tên nghành')}}</th>
+                                <th>{{__('Chương trình đào tạo')}}</th>
+                                <th>{{__('Hệ đào tạo')}}</th>
+                                <th>{{__('Tình trạng')}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($faculty->majors as $major)
+                                @if($major->pivot->status === 'Đang Đóng')
+                                    <tr>
+                                        <td>{{$major->pivot->id}}</td>
+                                        <td>{{$major->pivot->name}}</td>
+                                        <td>{{$major->name}}</td>
+                                        <td>{{$major->system}}</td>
+                                        <td class="@if($major->pivot->status === 'Đang Đóng') bg-danger text-white @endif
+                                            d-flex align-items-center justify-content-center">
+                                            {{$major->pivot->status}}
+                                        </td>
+                                        <td>
+                                            <a href="{{url('/admin/faculties/majors/edit/id='.$major->pivot->id)}}"
+                                               class="btn btn-outline-success rounded-circle"
+                                            >
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <nav>
+                            <ul class="pagination justify-content-center"></ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
+    <div class="modal fade" id="deleted-students" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{__('Nghành đã xóa')}}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>{{__('MSSV')}}</th>
+                                <th>{{__('Họ và tên')}}</th>
+                                <th>{{__('Email cá nhân')}}</th>
+                                <th>{{__('Số điện thoại')}}</th>
+                                <th>{{__('Tình trạng')}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($groups as $group)
+                                @foreach($group->students as $student)
+                                    @if($student->pivot->status === 'Thôi Học')
+                                        <tr>
+                                            <td>{{$student->pivot->id}}</td>
+                                            <td>
+                                                {{$student->pivot->firstname.' '.$student->pivot->middlename.' '.$student->pivot->lastname}}
+                                            </td>
+                                            <td>{{$student->pivot->email}}</td>
+                                            <td>{{$student->pivot->phone}}</td>
+                                            <td class="
+                                                @if($student->pivot->status === 'Thôi Học')
+                                                    bg-danger text-white
+                                                @endif
+                                                d-flex align-items-center justify-content-center">
+                                                {{$student->pivot->status}}
+                                            </td>
+                                            <td>
+                                                <a href="{{url('/admin/students/edit/id='.$student->pivot->id)}}" class="btn btn-outline-success rounded-circle">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <nav>
+                            <ul class="pagination justify-content-center"></ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleted-groups" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{__('Lớp đã xóa')}}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>{{__('Lớp')}}</th>
+                                <th>{{__('Chương trình đào tạo')}}</th>
+                                <th>{{__('Hệ đào tạo')}}</th>
+                                <th>{{__('Thời gian tuyển sinh')}}</th>
+                                <th>{{__('Thời gian tốt nghiệp')}}</th>
+                                <th>{{__('Tình trạng')}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($faculty->groups as $group)
+                                @if($group->pivot->status === 'Đang Đóng')
+                                    <tr>
+                                        <td>
+                                            {{$group->pivot->name}}
+                                        </td>
+                                        <td>{{$group->name}}</td>
+                                        <td>{{$group->system}}</td>
+                                        <td>{{$group->pivot->date_admission}}</td>
+                                        <td>{{$group->pivot->date_graduation}}</td>
+                                        <td class="@if ($group->pivot->status === 'Đang Đóng') bg-danger text-white @endif
+                                            d-flex justify-content-center align-items-center">
+                                            {{$group->pivot->status}}
+                                        </td>
+                                        <td>
+                                            <a href="{{url('/admin/groups/edit/id='.$group->pivot->id)}}"
+                                               class="btn btn-outline-success rounded-circle">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

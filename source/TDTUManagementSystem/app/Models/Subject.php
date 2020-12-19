@@ -12,6 +12,7 @@ class Subject extends Model
     protected $fillable = [
         'id', 'name', 'credits'
     ];
+    public $incrementing = false;
 
     public function scores() {
         return $this->belongsToMany(
@@ -34,15 +35,6 @@ class Subject extends Model
             'programs_subjects',
             'id_subject',
             'id_training'
-        );
-    }
-
-    public function majors() {
-        return $this->belongsToMany(
-            Major::class,
-            'majors_subjects',
-            'id_subject',
-            'id_major'
         );
     }
 }

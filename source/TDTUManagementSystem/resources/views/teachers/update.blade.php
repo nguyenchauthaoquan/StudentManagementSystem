@@ -81,8 +81,8 @@
                         <div>
                             <select name="status" id="status" class="form-control">
                                 <option selected>{{__('Tình trạng')}}</option>
-                                <option value="Đang công tác" @if($teacher->status === "Đang công tác") selected @endif>{{__('Đang công tác')}}</option>
-                                <option value="Thôi việc" @if($teacher->status === "Thôi việc") selected @endif>{{__('Thôi việc')}}</option>
+                                <option value="Đang Công Tác" @if($teacher->status === "Đang Công Tác") selected @endif>{{__('Đang Công Tác')}}</option>
+                                <option value="Thôi Việc" @if($teacher->status === "Thôi Việc") selected @endif>{{__('Thôi Việc')}}</option>
                             </select>
                         </div>
                     </div>

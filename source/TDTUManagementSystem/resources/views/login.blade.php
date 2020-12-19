@@ -15,12 +15,12 @@
                             <div class="col-md-6">
                                 <input id="id"
                                        type="text"
-                                       class="form-control @if($errors->has('id')) errors @endif"
-                                       name="id" value="{{ old('id') }}">
+                                       class="form-control @if($errors->has('account')) errors @endif"
+                                       name="account" value="{{ old('account') }}">
 
-                                @if ($errors->has('id'))
+                                @if ($errors->has('account'))
                                     <div class="errors">
-                                        <strong>{{ $errors->first('id') }}</strong>
+                                        <strong>{{ $errors->first('account') }}</strong>
                                     </div>
                                 @endif
                             </div>

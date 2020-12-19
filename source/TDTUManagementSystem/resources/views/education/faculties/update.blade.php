@@ -54,8 +54,16 @@
                                             name="status"
                                             class="form-control @if($errors->has('status')) errors @endif"
                                             >
-                                        <option value="Đang mở" @if($faculty->status === "Đang mở") selected @endif>{{__('Đang mở')}}</option>
-                                        <option value="Đóng lại" @if($faculty->status === "Đóng lại") selected @endif>{{__('Đóng lại')}}</option>
+                                        <option value="Đang Mở"
+                                                @if($faculty->status === "Đang Mở") selected @endif
+                                        >
+                                            {{__('Đang Mở')}}
+                                        </option>
+                                        <option value="Đang Đóng"
+                                                @if($faculty->status === "Đang Đóng") selected @endif
+                                        >
+                                            {{__('Đang Đóng')}}
+                                        </option>
                                     </select>
                                     @if($errors->has('status'))
                                         <div class="errors">

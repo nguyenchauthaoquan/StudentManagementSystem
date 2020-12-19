@@ -20,10 +20,10 @@ class PersonController extends Controller
     //
     public function home() {
         return view('dashboard_home', [
-            'students' => Student::all(),
-            'teachers' => Teacher::all(),
-            'faculties' => Faculty::all(),
-            'groups' => Group::all()
+            'students' => Student::whereNotIn('status', ['Thôi Học'])->get(),
+            'teachers' => Teacher::whereNotIn('status', ['Thôi Việc'])->get(),
+            'faculties' => Faculty::whereNotIn('status', ['Đang Đóng'])->get(),
+            'groups' => Group::whereNotIn('status', ['Đang Đóng'])->get()
         ]);
     }
 
@@ -39,10 +39,8 @@ class PersonController extends Controller
             'firstname' => ['required'],
             'middlename' => ['nullable'],
             'lastname' => ['required'],
-            'group' => ['required', 'not_in:0'],
-            'faculty' => ['required', 'not_in:0'],
-            'program_name' => ['required', 'not_in:0'],
             'birthday' => ['required', 'date'],
+            'gender' => ['in:"Nam", "Nữ"'],
             'place_of_birth' => ['required'],
             'origin' => ['required'],
             'phone' => ['required'],
@@ -69,11 +67,9 @@ class PersonController extends Controller
             'id.unique' => 'Mã số sinh viên đã tồn tại',
             'firstname.required' => 'Họ tên không được bỏ trống',
             'lastname.required' => 'Họ tên không được bỏ trống',
-            'group.required' => 'Lớp học không được bỏ trống',
-            'faculty.required' => 'Tên khoa không được bỏ trống',
-            'program_name.required' => 'Thông tin chương trình đào tạo không được bỏ trống',
             'birthday.required' => 'Ngày tháng năm sinh không được bỏ trống',
             'birthday.date' => 'Ngày tháng năm sinh không hợp lệ',
+            'gender.in' => 'Vui lòng chọn giới tính',
             'place_of_birth.required' => 'Nơi sinh không được bỏ trống',
             'origin.required' => 'Nguyên quán không được bỏ trống',
             'phone.required' => 'Số điện thoại không được bỏ trống',
@@ -92,14 +88,22 @@ class PersonController extends Controller
                                     ->where('system', $request['program_system'])
                                     ->first();
         $faculty = Faculty::find($request['faculty']);
+
         $group = Group::where('id_training', $program->id)
                         ->where('id_faculty', $faculty->id)
                         ->where('name', $request['group'])
                         ->first();
+        if (!$group) {
+            return redirect()->back()->with('Fail', 'Không tìm thấy lớp');
+        }
         $major = Major::where('id_training', $program->id)
                         ->where('id_faculty', $faculty->id)
                         ->where('name', $request['major'])
                         ->first();
+        if (!$major) {
+            return redirect()->back()->with('Fail', 'Không tìm thấy nghành');
+        }
+
         $group->students()->attach($major->id, [
             'id' => $request['id'],
             'firstname' => $request['firstname'],
@@ -135,16 +139,17 @@ class PersonController extends Controller
             ['name' => 'Student'],
             ['name' => 'Student']
         );
-        User::create(
+        $user = User::firstOrCreate(
+            ['account' => $request['id']],
             [
-                'id' => $request['id'],
+                'account' => $request['id'],
                 'password' => Hash::make($request['id'])
             ]
         );
-        User::find($request['id'])->roles()->attach($role->id);
+        $user->roles()->attach($role->id);
 
 
-        return redirect('/admin/students')->with('success', 'A new student is imported');
+        return redirect('/admin/students')->with('success', 'Sinh viên mới được thêm vào');
     }
 
     public function createStudent() {
@@ -158,11 +163,18 @@ class PersonController extends Controller
 
     public function updateStudent(Request $request, $id) {
         $student = Student::find($id);
-        //$faculty = Faculty::where('name', $request['faculty'])->first();
-        // $program = TrainingProgram::where('name', $request['program_name'])->first();
-        $major = Major::where('name', $request['major'])->first();
-
-        $group = Group::where('name', $request['group'])->first();
+        $faculty = Faculty::find($request['faculty']);;
+        $program = TrainingProgram::where('name', $request['program_name'])
+                                    ->where('system', $request['program_system'])
+                                    ->first();
+        $group = Group::where('id_training', $program->id)
+                        ->where('id_faculty', $faculty->id)
+                        ->where('name', $request['group'])
+                        ->first();
+        $major = Major::where('id_training', $program->id)
+                        ->where('id_faculty', $faculty->id)
+                        ->where('name', $request['major'])
+                        ->first();
 
         $student->update([
             'id' => $request['id'],
@@ -242,7 +254,7 @@ class PersonController extends Controller
         $student = Student::find($id);
 
         $student->update([
-            'status' => 'Thôi học'
+            'status' => 'Thôi Học'
         ]);
 
         return redirect('/admin/students');
@@ -279,14 +291,14 @@ class PersonController extends Controller
             'firstname' => ['required'],
             'middlename' => ['nullable'],
             'lastname' => ['required'],
-            'faculty' => ['required'],
+            'faculty' => ['in:App\Models\Faculty,id'],
             'birthday' => ['required'],
             'place_of_birth' => ['required'],
             'origin' => ['required'],
-            'gender' => ['required'],
+            'gender' => ['in: "Nam", "Nữ"'],
             'phone' => ['required'],
             'address' => ['required'],
-            'email' => ['nullable', 'email'],
+            'email' => ['required', 'email'],
             'academic_rank' => ['nullable'],
             'degree' => ['nullable'],
             'religion' => ['nullable'],
@@ -307,11 +319,12 @@ class PersonController extends Controller
             'id.required' => 'Mã số giảng viên không được bỏ trống',
             'firstname.required' => 'Họ tên không được bỏ trống',
             'lastname.required' => 'Họ tên không được bỏ trống',
-            'faculty.required' => 'Tên khoa không được bỏ trống',
+            'faculty.in' => 'Vui lòng chọn Khoa',
             'birthday.required' => 'Ngày tháng năm sinh không được bỏ trống',
             'birthday.date' => 'Ngày tháng năm sinh không hợp lệ',
             'place_of_birth.required' => 'Nơi sinh không được bỏ trống',
             'origin.required' => 'Nguyên quán không được bỏ trống',
+            'gender.in' => 'Giới tính không được bỏ trống',
             'phone.required' => 'Số điện thoại không được bỏ trống',
             'address.required' => 'Địa chỉ của giảng viên không được bỏ trống',
             'email.required' => 'Email không được bỏ trống',
@@ -364,13 +377,13 @@ class PersonController extends Controller
             ['name' => 'Teacher']
         );
         $user = User::firstOrCreate(
-            ['id' => $request['id']],
+            ['account' => $request['id']],
             [
-                'id' => $request['id'],
+                'account' => $request['id'],
                 'password' => Hash::make($request['id'])
             ]
         );
-        $role->users()->attach($user->id);
+        $user->roles()->attach($role->id);
 
         return redirect('/admin/teachers');
     }
@@ -416,7 +429,7 @@ class PersonController extends Controller
     }
     public function deleteTeacher($id) {
         Teacher::find($id)->update([
-            'status' => 'Thôi việc'
+            'status' => 'Thôi Việc'
         ]);
 
         return redirect('/admin/teachers');

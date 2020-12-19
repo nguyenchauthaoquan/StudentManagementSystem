@@ -64,8 +64,14 @@
                     </label>
                     <div class="col-md-6">
                         <select id="status" name="status" class="custom-select">
-                            <option value="Đang mở" @if($program->status === "Đang mở") selected @endif>{{__('Đang mở')}}</option>
-                            <option value="Đóng lại" @if($program->status === "Đóng lại") selected @endif>{{__('Đóng lại')}}</option>
+                            <option value="Đang Mở"
+                                    @if($program->status === "Đang Mở") selected @endif>
+                                {{__('Đang Mở')}}
+                            </option>
+                            <option value="Đang Đóng"
+                                    @if($program->status === "Đang Đóng") selected @endif>
+                                {{__('Đang Đóng')}}
+                            </option>
                         </select>
                     </div>
                 </div>

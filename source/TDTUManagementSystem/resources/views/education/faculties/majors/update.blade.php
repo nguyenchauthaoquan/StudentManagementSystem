@@ -48,7 +48,10 @@
                             <div class="col-md-6">
                                 <select name="program_system" id="program_system" class="form-control">
                                     @foreach($programs->unique('system') as $program)
-                                        <option value="{{$program->system}}" @if($program->system === $program_major->system) selected @endif>{{$program->system}}</option>
+                                        <option value="{{$program->system}}"
+                                                @if($program->system === $program_major->system) selected @endif>
+                                            {{$program->system}}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -61,8 +64,14 @@
                                 <select id="status"
                                         name="status"
                                         class="form-control @if($errors->has('status')) errors @endif">
-                                    <option value="Đang mở" @if($major->status === "Đang mở") selected @endif>{{__('Đang mở')}}</option>
-                                    <option value="Đóng lại" @if($major->status === "Đóng lại") selected @endif>{{__('Đóng lại')}}</option>
+                                    <option value="Đang Mở"
+                                            @if($major->status === "Đang Mở") selected @endif>
+                                        {{__('Đang Mở')}}
+                                    </option>
+                                    <option value="Đang Đóng"
+                                            @if($major->status === "Đang Đóng") selected @endif>
+                                        {{__('Đang Đóng')}}
+                                    </option>
                                 </select>
                                 @if($errors->has('status'))
                                     <div class="errors">
@@ -72,7 +81,7 @@
                             </div>
                         </div>
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                            <div class="col-md-8 offset-md-4 justify-content-center">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Chỉnh sửa') }}
                                 </button>

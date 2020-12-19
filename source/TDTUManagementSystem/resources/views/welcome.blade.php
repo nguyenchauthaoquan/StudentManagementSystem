@@ -27,7 +27,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ __('TDTU') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#colapse" aria-controls="collapse" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
@@ -40,20 +40,20 @@
                             <div class="card-header">{{ __('Đăng nhập') }}</div>
 
                             <div class="card-body">
-                                <form method="POST" action="{{url('/login')}}">
+                                <form method="get" action="{{url('/login')}}">
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="id" class="col-md-4 col-form-label text-md-right">{{ __('ID Đăng Nhập') }}</label>
+                                        <label for="account" class="col-md-4 col-form-label text-md-right">{{ __('ID Đăng Nhập') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="id"
+                                            <input id="account"
                                                    type="text"
-                                                   class="form-control @if($errors->has('id')) errors @endif"
-                                                   name="id" value="{{ old('id') }}">
+                                                   class="form-control @if($errors->has('account')) errors @endif"
+                                                   name="account" value="{{ old('account') }}">
 
-                                            @if ($errors->has('id'))
+                                            @if ($errors->has('account'))
                                                 <div class="errors">
-                                                    <strong>{{ $errors->first('id') }}</strong>
+                                                    <strong>{{ $errors->first('account') }}</strong>
                                                 </div>
                                             @endif
                                         </div>
@@ -87,7 +87,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+{{session('Failure')}}
                                     <div class="form-group row mb-0">
                                         <div class="col-md-8 offset-md-4">
                                             <button type="submit" class="btn btn-primary">

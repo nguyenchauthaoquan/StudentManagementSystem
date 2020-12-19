@@ -28,7 +28,7 @@
                             >
                             @if($errors->has('id'))
                                 <div class="errors">
-                                    <strong>{{ $errors->first('id') }}</strong>
+                                    <span>{{ $errors->first('id') }}</span>
                                 </div>
                             @endif
                         </div>
@@ -44,9 +44,9 @@
                                    id="firstname"
                                    value="{{old('firstname')}}"
                             >
-                            @if($errors->has('id'))
+                            @if($errors->has('firstname'))
                                 <div class="errors">
-                                    <strong>{{ $errors->first('firstname') }}</strong>
+                                    <span>{{ $errors->first('firstname') }}</span>
                                 </div>
                             @endif
                         </div>
@@ -75,7 +75,7 @@
                                    value="{{old('lastname')}}">
                             @if($errors->has('lastname'))
                                 <div class="errors">
-                                    <strong>{{ $errors->first('lastname') }}</strong>
+                                    <span>{{ $errors->first('lastname') }}</span>
                                 </div>
                             @endif
                         </div>
@@ -99,12 +99,15 @@
                                 name="major">
                             <option selected>{{__('Nghành')}}</option>
                             @foreach($majors->unique('name') as $major)
-                                <option value="{{$major->name}}">{{$major->name}}</option>
+                                @if ($major->status === 'Đang Mở')
+                                    <option value="{{$major->name}}">{{$major->name}}</option>
+                                @endif
+
                             @endforeach
                         </select>
                         @if($errors->has('major'))
                             <div class="errors">
-                                <strong>{{ $errors->first('major') }}</strong>
+                                <span>{{ $errors->first('major') }}</span>
                             </div>
                         @endif
                     </div>
@@ -118,12 +121,14 @@
                                 name="program_name">
                             <option selected>{{__('Chương trình đào tạo')}}</option>
                             @foreach($programs->unique('name') as $program)
-                                <option value="{{$program->name}}">{{$program->name}}</option>
+                                @if ($program->status === 'Đang Mở')
+                                    <option value="{{$program->name}}">{{$program->name}}</option>
+                                @endif
                             @endforeach
                         </select>
                         @if($errors->has('program_name'))
                             <div class="errors">
-                                <strong>{{ $errors->first('program_name') }}</strong>
+                                <span>{{ $errors->first('program_name') }}</span>
                             </div>
                         @endif
                     </div>
@@ -137,14 +142,16 @@
                                 name="program_system">
                             <option selected>{{__('Hệ đào tạo')}}</option>
                             @foreach($programs->unique('system') as $program)
+                                @if ($program->status === 'Đang Mở')
                                 <option value="{{$program->system}}">
                                     {{$program->system}}
                                 </option>
+                                @endif
                             @endforeach
                         </select>
                         @if($errors->has('program_system'))
                             <div class="errors">
-                                <strong>{{ $errors->first('program_system') }}</strong>
+                                <span>{{ $errors->first('program_system') }}</span>
                             </div>
                         @endif
                     </div>
@@ -156,15 +163,18 @@
                     <div>
                         <select class="form-control @if($errors->has('group')) errors @endif"
                                 id="group"
-                                name="group">
+                                name="group"
+                        >
                             <option selected>{{__('Lớp')}}</option>
                             @foreach($groups->unique('name') as $group)
-                                <option value="{{$group->name}}">{{$group->name}}</option>
+                                @if ($group->status === 'Đang Mở')
+                                    <option value="{{$group->name}}">{{$group->name}}</option>
+                                @endif
                             @endforeach
                         </select>
                         @if($errors->has('group'))
                             <div class="errors">
-                                <strong>{{ $errors->first('group') }}</strong>
+                                <span>{{ $errors->first('group') }}</span>
                             </div>
                         @endif
                     </div>
@@ -172,25 +182,28 @@
                 <div class="col-md-4">
                     <label for="faculty">{{__('Khoa')}}</label>
                     <div>
-                        <select name="faculty" id="faculty" class="form-control">
+                        <select name="faculty" id="faculty" class="form-control @if($errors->has('faculty')) errors @endif">
                             <option selected>{{__('Khoa')}}</option>
                             @foreach($faculties as $faculty)
-                                <option value="{{$faculty->id}}">{{$faculty->name}}</option>
+                                @if($faculty->status === 'Đang Mở')
+                                    <option value="{{$faculty->id}}">{{$faculty->name}}</option>
+                                @endif
                             @endforeach
                         </select>
+                        @if($errors->has('faculty'))
+                            <div class="errors">
+                                <span>{{ $errors->first('faculty') }}</span>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label for="status">{{__('Tình trạng')}}</label>
                     <div>
                         <select name="status" id="status" class="form-control">
-                            <option value="Đi học">
-                                {{__('Đi học')}}
+                            <option value="Đi Học">
+                                {{__('Đi Học')}}
                             </option>
-                            <option value="Thôi học">
-                                {{__('Thôi học')}}
-                            </option>
-                            <option value="Tốt nghiệp">{{__('Tốt nghiệp')}}</option>
                         </select>
                     </div>
                 </div>
@@ -205,10 +218,16 @@
             <div class="row w-100">
                 <div class="col-md-2">
                     <label for="gender">{{__('Giới tính')}}</label>
-                    <select name="gender" id="gender" class="form-control">
+                    <select name="gender" id="gender" class="form-control @if($errors->has('gender')) errors @endif">
+                        <option selected>{{__('Giới Tính')}}</option>
                         <option value="Nam">{{__('Nam')}}</option>
                         <option value="Nữ">{{__('Nữ')}}</option>
                     </select>
+                    @if($errors->has('gender'))
+                        <div class="errors">
+                            <span>{{ $errors->first('gender') }}</span>
+                        </div>
+                    @endif
                 </div>
                 <div class="col-md-2">
                     <label for="birthday">{{__('Ngày sinh')}}</label>
@@ -220,7 +239,7 @@
                                value="{{old('birthday')}}">
                         @if($errors->has('birthday'))
                             <div class="errors">
-                                <strong>{{ $errors->first('birthday') }}</strong>
+                                <span>{{ $errors->first('birthday') }}</span>
                             </div>
                         @endif
                     </div>
@@ -235,7 +254,7 @@
                                value="{{old('origin')}}">
                         @if($errors->has('origin'))
                             <div class="errors">
-                                <strong>{{ $errors->first('origin') }}</strong>
+                                <span>{{ $errors->first('origin') }}</span>
                             </div>
                         @endif
                     </div>
@@ -250,7 +269,7 @@
                                value="{{old('id_number')}}">
                         @if($errors->has('id_number'))
                             <div class="errors">
-                                <strong>{{ $errors->first('id_number') }}</strong>
+                                <span>{{ $errors->first('id_number') }}</span>
                             </div>
                         @endif
                     </div>
@@ -265,7 +284,7 @@
                                value="{{old('place_of_id_number')}}">
                         @if($errors->has('place_of_id_number'))
                             <div class="errors">
-                                <strong>{{ $errors->first('place_of_id_number') }}</strong>
+                                <span>{{ $errors->first('place_of_id_number') }}</span>
                             </div>
                         @endif
                     </div>
@@ -282,7 +301,7 @@
                                value="{{old('place_of_birth')}}">
                         @if($errors->has('place_of_birth'))
                             <div class="errors">
-                                <strong>{{ $errors->first('place_of_birth') }}</strong>
+                                <span>{{ $errors->first('place_of_birth') }}</span>
                             </div>
                         @endif
                     </div>
@@ -297,7 +316,7 @@
                                value="{{old('nationality')}}">
                         @if($errors->has('nationality'))
                             <div class="errors">
-                                <strong>{{ $errors->first('nationality') }}</strong>
+                                <span>{{ $errors->first('nationality') }}</span>
                             </div>
                         @endif
                     </div>
@@ -342,7 +361,7 @@
                                value="{{old('email')}}">
                         @if($errors->has('email'))
                             <div class="errors">
-                                <strong>{{ $errors->first('email') }}</strong>
+                                <span>{{ $errors->first('email') }}</span>
                             </div>
                         @endif
                     </div>
@@ -357,7 +376,7 @@
                                value="{{old('phone')}}">
                         @if($errors->has('phone'))
                             <div class="errors">
-                                <strong>{{ $errors->first('phone') }}</strong>
+                                <span>{{ $errors->first('phone') }}</span>
                             </div>
                         @endif
                     </div>
@@ -366,13 +385,13 @@
         </div>
         <div class="row row-header">
             <div class="col-md-12">
-                <h5>{{__('Chỗ ở')}}</h5>
+                <h5>{{__('Chỗ ở Hiện Tại')}}</h5>
             </div>
         </div>
         <div class="row row-information">
             <div class="row w-100">
                 <div class="col-md-12">
-                    <label for="address">{{__('Địa chỉ thường trú')}}</label>
+                    <label for="address">{{__('Địa chỉ')}}</label>
                     <div>
                         <input type="text"
                                id="address"
@@ -381,14 +400,21 @@
                                value="{{old('address')}}">
                         @if($errors->has('address'))
                             <div class="errors">
-                                <strong>{{ $errors->first('address') }}</strong>
+                                <span>{{ $errors->first('address') }}</span>
                             </div>
                         @endif
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row row-header">
+            <div class="col-md-12">
+                <h5>{{__('Thông Tin Chỗ Ở (Ký Túc Xá Tại Trường)')}}</h5>
+            </div>
+        </div>
+        <div class="row row-information">
             <div class="row w-100">
-                <div class="col-md-2">
+                <div class="col-md">
                     <label for="date_of_dormitory">{{__('Ngày ở ký túc xá')}}</label>
                     <div>
                         <input id="date_of_dormitory"
@@ -397,12 +423,12 @@
                                value="{{old('date_of_dormitory')}}">
                         @if($errors->has('date_of_dormitory'))
                             <div class="errors">
-                                <strong>{{ $errors->first('date_of_dormitory') }}</strong>
+                                <span>{{ $errors->first('date_of_dormitory') }}</span>
                             </div>
                         @endif
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md">
                     <label for="room_of_dormitory">{{__('Phòng ký túc xá')}}</label>
                     <div>
                         <input id="room_of_dormitory"
@@ -428,7 +454,7 @@
                                value="{{old('date_of_union')}}">
                         @if($errors->has('date_of_union'))
                             <div class="errors">
-                                <strong>{{ $errors->first('date_of_union') }}</strong>
+                                <span>{{ $errors->first('date_of_union') }}</span>
                             </div>
                         @endif
                     </div>
@@ -442,7 +468,7 @@
                                value="{{old('date_of_communist')}}">
                         @if($errors->has('date_of_communist'))
                             <div class="errors">
-                                <strong>{{ $errors->first('date_of_communist') }}</strong>
+                                <span>{{ $errors->first('date_of_communist') }}</span>
                             </div>
                         @endif
                     </div>
@@ -456,7 +482,7 @@
                                value="{{old('date_of_student_union')}}">
                         @if($errors->has('date_of_student_union'))
                             <div class="errors">
-                                <strong>{{ $errors->first('date_of_student_union') }}</strong>
+                                <span>{{ $errors->first('date_of_student_union') }}</span>
                             </div>
                         @endif
                     </div>
@@ -538,5 +564,4 @@
             </div>
         </div>
     </form>
-
 @endsection

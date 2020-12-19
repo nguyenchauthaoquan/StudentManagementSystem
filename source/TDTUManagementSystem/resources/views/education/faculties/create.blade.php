@@ -54,8 +54,7 @@
                                 <select id="status"
                                         name="status"
                                         class="form-control @if($errors->has('status')) errors @endif">
-                                    <option value="Đang mở">{{__('Đang mở')}}</option>
-                                    <option value="Đóng lại">{{__('Đóng lại')}}</option>
+                                    <option value="Đang Mở">{{__('Đang Mở')}}</option>
                                 </select>
                                 @if($errors->has('status'))
                                     <div class="errors">

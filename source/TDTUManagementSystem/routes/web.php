@@ -20,11 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('login');
+
 Route::post('login', [AuthController::class, 'login']);
-Route::get('home', function () {
-    return view('home');
-});
+Route::get('home', [AuthController::class, 'home'])->middleware('auth');
+Route::post('logout', [AuthController::class, 'logout']);
 
 Route::prefix('admin')->group(function () {
     Route::get('dashboard', [PersonController::class, 'home']);
@@ -108,6 +108,7 @@ Route::prefix('admin')->group(function () {
         Route::get('edit/id={id}', [EducationController::class, 'editGroup']);
         Route::post('add', [EducationController::class, 'addGroup']);
         Route::put('update/id={id}', [EducationController::class, 'updateGroup']);
+        Route::get('delete/id={id}', [EducationController::class, 'deleteGroup']);
     });
     Route::prefix('subjects')->group(function () {
         Route::get('/', [EducationController::class, 'subjects']);

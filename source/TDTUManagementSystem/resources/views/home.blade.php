@@ -14,9 +14,37 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ __('TDTU') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse" aria-controls="collapse" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="collapse navbar-collapse" id="collapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            @if (Auth::check())
+                                <a href="#"
+                                   class="nav-link dropdown-toggle"
+                                   id="dropdown-link"
+                                   role="button"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    {{$user->lastname}}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-link">
+                                    <div class="dropdown-divider"></div>
+                                    <form action="{{url('/logout')}}" method="post">
+                                        @csrf
+                                        <button type="submit"
+                                                class="dropdown-item">
+                                            {{__('Đăng xuất')}}
+                                        </button>
+                                    </form>
+                                </div>
+
+                            @endif
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
         <main class="py-4">
@@ -33,7 +61,7 @@
                                     </div>
                                 @endif
 
-                                {{ __('Welcome '.Auth::user()->id) }}
+                                {{ __('Welcome '.Auth::user()->account) }}
                             </div>
                         </div>
                     </div>

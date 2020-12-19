@@ -33,13 +33,4 @@ class Major extends Pivot
             'room_of_dormitory', 'military', 'volunteer', 'status'
         )->withTimestamps();
     }
-
-    public function subjects() {
-        return $this->belongsToMany(
-            Subject::class,
-            'majors_subjects',
-            'id_major',
-            'id_subject'
-        );
-    }
 }
