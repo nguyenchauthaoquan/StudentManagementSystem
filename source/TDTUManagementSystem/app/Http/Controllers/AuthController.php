@@ -65,7 +65,7 @@ class AuthController extends Controller
 
     public function grantAccess(Request $request, $id) {
         $user = User::find($id);
-        $user->roles()->sync($request->input('roles'));
+        $user->roles()->sync($request['roles']);
 
         return redirect('/admin/users');
     }

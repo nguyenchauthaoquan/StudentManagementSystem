@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Role;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +27,11 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(300);
+
+        if (Schema::hasTable('roles')) {
+            Role::firstOrCreate(['name' => 'Admin'], [
+                'name' => 'Admin'
+            ]);
+        }
     }
 }

@@ -15,6 +15,7 @@
                 <tr>
                     <td>{{$user->account}}</td>
                     <td>{{$user->email}}</td>
+
                     <td>
                         <form action="{{action('App\Http\Controllers\AuthController@grantAccess', $user->id)}}"
                               method="post"
@@ -27,9 +28,11 @@
                                        value="{{$role->id}}"
                                        id="{{$role->name}}"
                                        class="roles"
-                                       @if($user->roles()->where('name', $role->name)->first() !== null)
-                                       checked
-                                       @endif
+                                       @foreach($user->roles as $user_role)
+                                            @if($user_role->name === $role->name)
+                                                checked
+                                            @endif
+                                       @endforeach
                                 >
                                 <label for="{{$role->name}}">
                                     {{$role->name}}
