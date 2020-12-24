@@ -162,14 +162,76 @@ class EducationController extends Controller
             'status' => $request['status']
         ]);
 
+        switch ($faculty->status) {
+            case "Đang Mở": {
+                $faculty->teachers()->update([
+                    'status' => 'Đang Công Tác'
+                ]);
+
+                $faculty->subjects()->update([
+                    'status' => 'Đang Mở'
+                ]);
+
+                Major::where('id_faculty', $faculty->id)->update([
+                    'status' => 'Đang Mở'
+                ]);
+
+                Group::where('id_faculty', $faculty->id)->update([
+                    'status' => 'Đang Mở'
+                ]);
+
+                $major = Major::where('id_faculty', $faculty->id)->first();
+
+                $group = Group::where('id_faculty', $faculty->id)->first();
+
+                if (($major) || ($group)) {
+                    Student::where('id_major', $major->id)->where('id_group', $group->id)->update([
+                        'status' => 'Đi Học'
+                    ]);
+                }
+                break;
+            }
+            case "Đang Đóng": {
+                $this->deleteFaculty($id);
+                break;
+            }
+        }
+
         return redirect('/admin/faculties')
             ->with('success', 'Faculty has been updated successful');
     }
 
     public function deleteFaculty($id) {
-        Faculty::find($id)->update([
+        $faculty = Faculty::find($id);
+        $faculty->update([
             'status' => 'Đang Đóng'
         ]);
+
+        $faculty->teachers()->update([
+            'status' => 'Thôi Việc'
+        ]);
+
+        $faculty->subjects()->update([
+            'status' => 'Đang Đóng'
+        ]);
+
+        Major::where('id_faculty', $faculty->id)->update([
+            'status' => 'Đang Đóng'
+        ]);
+
+        Group::where('id_faculty', $faculty->id)->update([
+            'status' => 'Đang Đóng'
+        ]);
+
+        $major = Major::where('id_faculty', $faculty->id)->first();
+
+        $group = Group::where('id_faculty', $faculty->id)->first();
+
+        if (($major) || ($group)) {
+            Student::where('id_major', $major->id)->where('id_group', $group->id)->update([
+                'status' => 'Thôi Học'
+            ]);
+        }
 
         return redirect()->back();
     }
@@ -448,16 +510,29 @@ class EducationController extends Controller
     }
 
     public function updateSubject(Request $request, $id) {
-
         $subject = Subject::find($id);
         $faculty = Faculty::find($request['faculty']);
+        $programs = TrainingProgram::whereIn('name', $request->input('program_name'))
+                                    ->whereIn('system', $request->input('system'))
+                                    ->get();
         $subject->update([
             'id' => $request['id'],
             'name' => $request['name'],
-            'credits' => $request['credits']
+            'credits' => $request['credits'],
+            'status' => $request['status'],
         ]);
         $subject->faculty()->associate($faculty);
+        $subject->programs()->sync($programs);
 
-        return redirect('/admin/subjects/id='.$id);
+        return redirect('/admin/subjects/view/id='.$id);
+    }
+
+    public function deleteSubject($id) {
+        $subject = Subject::find($id);
+        $subject->update([
+            'status' => 'Đang Đóng'
+        ]);
+
+        return redirect('/admin/subjects');
     }
 }

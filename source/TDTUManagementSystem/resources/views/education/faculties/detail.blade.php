@@ -46,7 +46,9 @@
         </div>
     </div>
     <div class="row row-header">
-        <div class="col-md-12"><h5>{{__('Danh sách Nghành Đào Tạo')}}</h5></div>
+        <div class="col-md-12">
+            <h5>{{__('Danh sách Nghành Đào Tạo')}}</h5>
+        </div>
     </div>
     <div class="row row-information">
         <div class="table-responsive">
@@ -103,9 +105,7 @@
                 @endforeach
                 </tbody>
             </table>
-            <nav>
-                <ul class="pagination justify-content-center"></ul>
-            </nav>
+
         </div>
     </div>
     <div class="row row-header">
@@ -164,9 +164,6 @@
                 @endforeach
                 </tbody>
             </table>
-            <nav>
-                <ul class="pagination justify-content-center"></ul>
-            </nav>
         </div>
     </div>
     <div class="row row-header">
@@ -229,11 +226,7 @@
                     @endforeach
                 @endforeach
                 </tbody>
-
             </table>
-            <nav>
-                <ul class="pagination justify-content-center"></ul>
-            </nav>
         </div>
     </div>
     <div class="row row-header">
@@ -265,9 +258,10 @@
                         <td>{{$teacher->email}}</td>
                         <td>{{$teacher->phone}}</td>
                         <td class="
-                               @if($teacher->status === 'Đang công tác')
+                               @if($teacher->status === 'Đang Công Tác')
                                     bg-success text-white
-                               @else
+                               @endif
+                               @if($teacher->status === 'Thôi Việc')
                                     bg-danger text-white
                                @endif
                                d-flex align-items-center justify-content-center"
@@ -278,9 +272,6 @@
                 @endforeach
                 </tbody>
             </table>
-            <nav>
-                <ul class="pagination justify-content-center"></ul>
-            </nav>
         </div>
     </div>
     <div class="modal fade" id="deleted-majors" role="dialog">
@@ -326,9 +317,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <nav>
-                            <ul class="pagination justify-content-center"></ul>
-                        </nav>
                     </div>
                 </div>
             </div>
@@ -383,9 +371,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <nav>
-                            <ul class="pagination justify-content-center"></ul>
-                        </nav>
                     </div>
                 </div>
             </div>

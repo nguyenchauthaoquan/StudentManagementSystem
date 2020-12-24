@@ -26,8 +26,14 @@ Route::post('login', [AuthController::class, 'login']);
 Route::get('home', [AuthController::class, 'home'])->middleware('auth');
 Route::post('logout', [AuthController::class, 'logout']);
 
+Route::middleware(['can:admin'])->group(function () {
+
+});
+
 Route::prefix('admin')->group(function () {
     Route::get('dashboard', [PersonController::class, 'home']);
+    Route::get('users', [AuthController::class, 'users']);
+    Route::put('users/grant/id={id}', [AuthController::class, 'grantAccess']);
 
     Route::prefix('teachers')->group(function () {
         Route::get('/', [PersonController::class, 'teachers']);
@@ -117,5 +123,6 @@ Route::prefix('admin')->group(function () {
         Route::get('edit/id={id}', [EducationController::class, 'editSubject']);
         Route::post('add', [EducationController::class, 'addSubject']);
         Route::put('update/id={id}', [EducationController::class, 'updateSubject']);
+        Route::get('delete/id={id}', [EducationController::class, 'deleteSubject']);
     });
 });

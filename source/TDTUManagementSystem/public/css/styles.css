@@ -18740,6 +18740,24 @@ body {
   padding: 0.375rem 0.75rem;
 }
 
+.menu-grid .menu-item {
+  display: block;
+}
+
+.menu-grid .menu-item .menu-image {
+  width: 240px;
+  height: 240px;
+  display: block;
+  transition: all 0.5s;
+  background-size: 100% 100%;
+  box-shadow: 1px 0 5px #888888;
+  filter: brightness(100%);
+}
+
+.menu-grid .menu-item:hover > .menu-image {
+  filter: brightness(80%);
+}
+
 @supports ((position: -webkit-sticky) or (position: sticky)) {
   .sidebar-nav {
     position: -webkit-sticky;

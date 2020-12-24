@@ -161,7 +161,7 @@
                 </a>
             </div>
             <div class="col-md-12 table-responsive">
-                <table class="table table-bordered table-striped table-hover">
+                <table class="table table-bordered table-striped table-hover" data-pagination="true">
                     <thead>
                     <tr>
                         <th>{{__('Họ và tên')}}</th>
@@ -193,6 +193,7 @@
                     </tbody>
                 </table>
             </div>
+
             <div class="col-md-12">
                 <h3>{{__('Hoàn cảnh gia đình')}}</h3>
             </div>
@@ -214,7 +215,7 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-bordered table-striped table-hover">
+                <table class="table table-bordered table-striped table-hover" data-pagination="true">
                     <thead>
                     <tr>
                         <th>{{__('Diện chính sách')}}</th>
@@ -231,6 +232,7 @@
                     @endforeach
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>

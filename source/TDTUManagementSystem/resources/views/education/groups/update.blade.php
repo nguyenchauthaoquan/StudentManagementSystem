@@ -25,7 +25,12 @@
                             <div class="col-md-6">
                                 <select name="faculty" id="faculty" class="form-control">
                                     @foreach($faculties as $faculty)
-                                        <option value="{{$faculty->id}}" @if($faculty->id === $faculty_group->id) selected @endif>{{$faculty->name}}</option>
+                                        @if($faculty->status === 'Đang Mở')
+                                            <option value="{{$faculty->id}}"
+                                                    @if($faculty->id === $faculty_group->id) selected @endif>
+                                                {{$faculty->name}}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -37,10 +42,12 @@
                             <div class="col-md-6">
                                 <select name="program_name" id="program_name" class="form-control">
                                     @foreach($programs->unique('name') as $program)
-                                        <option value="{{$program->name}}"
-                                                @if($program->name === $program_group->name) selected @endif>
-                                            {{$program->name}}
-                                        </option>
+                                        @if ($program->status === 'Đang Mở')
+                                            <option value="{{$program->name}}"
+                                                    @if($program->name === $program_group->name) selected @endif>
+                                                {{$program->name}}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -52,11 +59,12 @@
                             <div class="col-md-6">
                                 <select name="program_system" id="program_system" class="form-control">
                                     @foreach($programs->unique('system') as $program)
+                                        @if($program->status === 'Đang Mở')
                                         <option value="{{$program->system}}"
-                                                @if($program->system === $program_group->system) selected @endif
-                                        >
+                                                @if($program->system === $program_group->system) selected @endif>
                                             {{$program->system}}
                                         </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

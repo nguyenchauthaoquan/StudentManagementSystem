@@ -28,7 +28,7 @@
                                 <i class="fas fa-file-signature fa-5x"></i>
                             </div>
                             <div class="col-9 text-right">
-                                <h2>{{__('Họ và tên')}}</h2>
+                                <h2>{{__('Họ và Tên')}}</h2>
                                 <h5>
                                     {{$student->firstname . ' ' . $student->middlename . ' ' . $student->lastname}}
                                 </h5>
@@ -92,7 +92,7 @@
                                 <i class="fas fa-phone-alt fa-5x"></i>
                             </div>
                             <div class="col-9 text-right">
-                                <h2>{{__('Số điện thoại')}}</h2>
+                                <h2>{{__('Số Điện Thoại')}}</h2>
                                 <h5>{{$student->phone}}</h5>
                             </div>
                         </div>
@@ -106,16 +106,16 @@
     <div class="container mt-5">
         <div class="row row-header">
             <div class="col-md-12">
-                <h5>{{__('Thông tin cá nhân')}}</h5>
+                <h5>{{__('Thông Tin Cá Nhân')}}</h5>
             </div>
         </div>
         <div class="row row-information">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">{{__('Số CMND')}}</h6>
+                                <h5 class="mb-0 font-weight-bold">{{__('Số CMND')}}</h5>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 {{$student->id_number}}
@@ -124,7 +124,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">{{__('Ngày sinh')}}</h6>
+                                <h5 class="mb-0 font-weight-bold">{{__('Ngày sinh')}}</h5>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 {{$student->birthday}}
@@ -133,7 +133,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">{{__('Nơi sinh')}}</h6>
+                                <h5 class="mb-0 font-weight-bold">{{__('Nơi sinh')}}</h5>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 {{$student->place_of_birth}}
@@ -142,7 +142,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">{{__('Nguyên quán')}}</h6>
+                                <h5 class="mb-0 font-weight-bold">{{__('Nguyên quán')}}</h5>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 {{$student->origin}}
@@ -151,7 +151,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">{{__('Giới tính')}}</h6>
+                                <h5 class="mb-0 font-weight-bold">{{__('Giới tính')}}</h5>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 {{$student->gender}}
@@ -160,7 +160,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">{{__('Tôn giáo')}}</h6>
+                                <h5 class="mb-0 font-weight-bold">{{__('Tôn giáo')}}</h5>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 {{$student->religion}}
@@ -169,7 +169,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">{{__('Dân tộc')}}</h6>
+                                <h5 class="mb-0 font-weight-bold">{{__('Dân tộc')}}</h5>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 {{$student->kin}}
@@ -178,7 +178,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">{{__('Nơi cấp CMND')}}</h6>
+                                <h5 class="mb-0 font-weight-bold">{{__('Nơi cấp CMND')}}</h5>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 {{$student->place_of_id_number}}
@@ -235,9 +235,6 @@
                     @endforeach
                     </tbody>
                 </table>
-                <nav>
-                    <ul class="pagination justify-content-center"></ul>
-                </nav>
             </div>
 
             <div class="col-md-12">
@@ -282,11 +279,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                <nav>
-                    <ul class="pagination justify-content-center"></ul>
-                </nav>
             </div>
-
         </div>
     </div>
 @endsection

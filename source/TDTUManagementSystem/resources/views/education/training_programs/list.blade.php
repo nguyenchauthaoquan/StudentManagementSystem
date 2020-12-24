@@ -2,25 +2,29 @@
 
 
 @section('content')
-
-    <div class="table-responsive">
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group" role="group">
+            <a href="{{url('/admin/programs/create')}}"
+               class="btn btn-outline-primary rounded-circle mr-2">
+                <i class="fas fa-plus"></i>
+            </a>
+            <a href="#deleted" data-toggle="modal" class="btn btn-outline-danger rounded-circle mr-2">
+                <i class="fas fa-trash"></i>
+            </a>
+        </div>
+    </div>
+    <div class="table-responsive mt-3">
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
                     <th colspan="5">
-                        <a href="{{url('/admin/programs/create')}}"
-                           class="btn btn-outline-primary rounded-circle">
-                            <i class="fas fa-plus"></i>
-                        </a>
-                        <a href="#deleted" data-toggle="modal" class="btn btn-outline-danger rounded-circle">
-                            <i class="fas fa-trash"></i>
-                        </a>
+                        <h4 class="text-center">{{__('Danh Sách Chương Trình Đào Tạo')}}</h4>
                     </th>
                 </tr>
                 <tr>
-                    <th>{{__('Chương trình đào tạo')}}</th>
-                    <th>{{__('Hệ đào tạo')}}</th>
-                    <th>{{__('Trạng thái')}}</th>
+                    <th>{{__('Chương Trình Đào Tạo')}}</th>
+                    <th>{{__('Hệ Đào Tạo')}}</th>
+                    <th>{{__('Tình Trạng')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,15 +53,11 @@
                             </td>
                         </tr>
                     @endif
-
                 @endforeach
-
             </tbody>
         </table>
-        <nav>
-            <ul class="pagination justify-content-center"></ul>
-        </nav>
     </div>
+
     <div class="modal fade" id="deleted" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -70,9 +70,9 @@
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                             <tr>
-                                <th>{{__('Chương trình đào tạo')}}</th>
-                                <th>{{__('Hệ đào tạo')}}</th>
-                                <th>{{__('Trạng thái')}}</th>
+                                <th>{{__('Chương Trình Đào Tạo')}}</th>
+                                <th>{{__('Hệ Đào Tạo')}}</th>
+                                <th>{{__('Tình Trạng')}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -97,9 +97,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <nav>
-                            <ul class="pagination justify-content-center"></ul>
-                        </nav>
                     </div>
                 </div>
             </div>

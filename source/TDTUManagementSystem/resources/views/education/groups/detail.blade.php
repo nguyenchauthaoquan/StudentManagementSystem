@@ -110,9 +110,6 @@
                 @endforeach
                 </tbody>
             </table>
-            <nav>
-                <ul class="pagination justify-content-center"></ul>
-            </nav>
         </div>
     </div>
     <div class="modal fade" id="graduated" role="dialog">
@@ -160,9 +157,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <nav>
-                            <ul class="pagination justify-content-center"></ul>
-                        </nav>
                     </div>
                 </div>
             </div>

@@ -70,6 +70,11 @@
                                         <i class="fas fa-users"></i><span>{{__('Quản Lý Lớp')}}</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{url('/admin/users')}}" class="nav-link">
+                                        <i class="fas fa-users"></i><span>{{__('Quản Lý Tài Khoản')}}</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>

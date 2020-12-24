@@ -34,9 +34,11 @@
                                 <select name="program_name" id="program_name" class="form-control">
                                     <option selected>{{__('Chương trình đào tạo')}}</option>
                                     @foreach($programs->unique('name') as $program)
-                                        <option value="{{$program->name}}">
-                                            {{$program->name}}
-                                        </option>
+                                        @if($program->status === 'Đang Mở')
+                                            <option value="{{$program->name}}">
+                                                {{$program->name}}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -49,9 +51,11 @@
                                 <select name="program_system" id="program_system" class="form-control">
                                     <option selected>{{__('Hệ đào tạo')}}</option>
                                     @foreach($programs->unique('system') as $program)
-                                        <option value="{{$program->system}}">
-                                            {{$program->system}}
-                                        </option>
+                                        @if ($program->status === 'Đang Mở')
+                                            <option value="{{$program->system}}">
+                                                {{$program->system}}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

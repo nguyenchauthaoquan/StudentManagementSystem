@@ -2,57 +2,58 @@
 
 
 @section('content')
-
-    <div class="table-responsive">
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group" role="group" >
+            <a href="{{url('/admin/faculties/create')}}"
+               class="btn btn-outline-primary rounded-circle mr-2">
+                <i class="fas fa-plus"></i>
+            </a>
+            <a href="#deleted" data-toggle="modal" class="btn btn-outline-danger rounded-circle mr-2">
+                <i class="fas fa-trash"></i>
+            </a>
+        </div>
+    </div>
+    <div class="table-responsive mt-3">
         <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
                 <th colspan="5">
-                    <a href="{{url('/admin/faculties/create')}}"
-                       class="btn btn-outline-primary rounded-circle">
-                        <i class="fas fa-plus-circle"></i>
-                    </a>
-                    <a href="#deleted" data-toggle="modal" class="btn btn-outline-danger rounded-circle">
-                        <i class="fas fa-trash"></i>
-                    </a>
+                    <h4 class="text-center">{{__('Danh Sách Khoa')}}</h4>
                 </th>
             </tr>
             <tr>
-                <th>{{__('Mã khoa')}}</th>
-                <th>{{__('Tên khoa')}}</th>
-                <th>{{__('Trạng thái')}}</th>
+                <th>{{__('Mã Khoa')}}</th>
+                <th>{{__('Tên Khoa')}}</th>
+                <th>{{__('Tình Trạng')}}</th>
             </tr>
             </thead>
             <tbody>
             @foreach($faculties as $faculty)
                 @if($faculty->status === 'Đang Mở')
-                <tr>
-                    <td>{{$faculty->id}}</td>
-                    <td>
-                        <a href="{{url('/admin/faculties/view/id='.$faculty->id)}}">{{$faculty->name}}</a>
-                    </td>
-                    <td class="@if($faculty->status === 'Đang Mở') bg-success text-white @endif
-                        d-flex align-items-center justify-content-center">
-                        {{$faculty->status}}
-                    </td>
-                    <td>
-                        <a href="{{url('/admin/faculties/edit/id='.$faculty->id)}}"
-                           class="btn btn-outline-success rounded-circle">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="{{url('/admin/faculties/delete/id='.$faculty->id)}}"
-                           class="btn btn-outline-danger rounded-circle">
-                            <i class="fas fa-minus-circle"></i>
-                        </a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{$faculty->id}}</td>
+                        <td>
+                            <a href="{{url('/admin/faculties/view/id='.$faculty->id)}}">{{$faculty->name}}</a>
+                        </td>
+                        <td class="@if($faculty->status === 'Đang Mở') bg-success text-white @endif
+                            d-flex align-items-center justify-content-center">
+                            {{$faculty->status}}
+                        </td>
+                        <td>
+                            <a href="{{url('/admin/faculties/edit/id='.$faculty->id)}}"
+                               class="btn btn-outline-success rounded-circle">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{{url('/admin/faculties/delete/id='.$faculty->id)}}"
+                               class="btn btn-outline-danger rounded-circle">
+                                <i class="fas fa-minus-circle"></i>
+                            </a>
+                        </td>
+                    </tr>
                 @endif
             @endforeach
             </tbody>
         </table>
-        <nav>
-            <ul class="pagination justify-content-center"></ul>
-        </nav>
     </div>
 
     <div class="modal fade" id="deleted" role="dialog">
@@ -67,9 +68,9 @@
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                             <tr>
-                                <th>{{__('Mã khoa')}}</th>
-                                <th>{{__('Tên khoa')}}</th>
-                                <th>{{__('Trạng thái')}}</th>
+                                <th>{{__('Mã Khoa')}}</th>
+                                <th>{{__('Tên Khoa')}}</th>
+                                <th>{{__('Tình Trạng')}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -95,9 +96,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <nav>
-                            <ul class="pagination justify-content-center"></ul>
-                        </nav>
                     </div>
                 </div>
             </div>

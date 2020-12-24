@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,5 +54,19 @@ class AuthController extends Controller
         Auth::logout();
 
         return redirect('/');
+    }
+
+    public function users() {
+        return view('users.list', [
+            'users' => User::all(),
+            'roles' => Role::all()
+        ]);
+    }
+
+    public function grantAccess(Request $request, $id) {
+        $user = User::find($id);
+        $user->roles()->sync($request->input('roles'));
+
+        return redirect('/admin/users');
     }
 }

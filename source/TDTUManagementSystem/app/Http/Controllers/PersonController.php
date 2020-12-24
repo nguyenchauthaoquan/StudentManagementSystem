@@ -87,22 +87,18 @@ class PersonController extends Controller
         $program = TrainingProgram::where('name', $request['program_name'])
                                     ->where('system', $request['program_system'])
                                     ->first();
-        $faculty = Faculty::find($request['faculty']);
+
+        $faculty = $program->groups()->find($request['faculty']);
 
         $group = Group::where('id_training', $program->id)
                         ->where('id_faculty', $faculty->id)
                         ->where('name', $request['group'])
                         ->first();
-        if (!$group) {
-            return redirect()->back()->with('Fail', 'Không tìm thấy lớp');
-        }
+
         $major = Major::where('id_training', $program->id)
                         ->where('id_faculty', $faculty->id)
                         ->where('name', $request['major'])
                         ->first();
-        if (!$major) {
-            return redirect()->back()->with('Fail', 'Không tìm thấy nghành');
-        }
 
         $group->students()->attach($major->id, [
             'id' => $request['id'],
@@ -143,6 +139,7 @@ class PersonController extends Controller
             ['account' => $request['id']],
             [
                 'account' => $request['id'],
+                'email' => $request['id']."@student.tdtu.edu.vn",
                 'password' => Hash::make($request['id'])
             ]
         );
@@ -163,7 +160,7 @@ class PersonController extends Controller
 
     public function updateStudent(Request $request, $id) {
         $student = Student::find($id);
-        $faculty = Faculty::find($request['faculty']);;
+        $faculty = Faculty::find($request['faculty']);
         $program = TrainingProgram::where('name', $request['program_name'])
                                     ->where('system', $request['program_system'])
                                     ->first();
@@ -171,6 +168,7 @@ class PersonController extends Controller
                         ->where('id_faculty', $faculty->id)
                         ->where('name', $request['group'])
                         ->first();
+
         $major = Major::where('id_training', $program->id)
                         ->where('id_faculty', $faculty->id)
                         ->where('name', $request['major'])
@@ -291,7 +289,6 @@ class PersonController extends Controller
             'firstname' => ['required'],
             'middlename' => ['nullable'],
             'lastname' => ['required'],
-            'faculty' => ['in:App\Models\Faculty,id'],
             'birthday' => ['required'],
             'place_of_birth' => ['required'],
             'origin' => ['required'],
@@ -319,7 +316,6 @@ class PersonController extends Controller
             'id.required' => 'Mã số giảng viên không được bỏ trống',
             'firstname.required' => 'Họ tên không được bỏ trống',
             'lastname.required' => 'Họ tên không được bỏ trống',
-            'faculty.in' => 'Vui lòng chọn Khoa',
             'birthday.required' => 'Ngày tháng năm sinh không được bỏ trống',
             'birthday.date' => 'Ngày tháng năm sinh không hợp lệ',
             'place_of_birth.required' => 'Nơi sinh không được bỏ trống',
@@ -380,6 +376,7 @@ class PersonController extends Controller
             ['account' => $request['id']],
             [
                 'account' => $request['id'],
+                'email' => $request['id']."@tdtu.edu.vn",
                 'password' => Hash::make($request['id'])
             ]
         );
@@ -613,35 +610,6 @@ class PersonController extends Controller
         ]);
 
         return redirect('/admin/teachers/profile/id='.$policy->id_teacher);
-    }
-
-    public function users() {
-        return view('users.list', [
-            'users' => User::all(),
-            'roles' => Role::all()
-        ]);
-    }
-
-    public function createUser() {
-        return view('users.create');
-    }
-
-    public function editUser($id) {
-        return view('users.update', [
-            'id' => $id,
-            'user' => User::find($id),
-        ]);
-    }
-
-    public function addUser(Request $request) {
-        $user = User::create([
-            'id' => $request['id'],
-            'password' => Hash::make($request['password'])
-        ]);
-
-        $user->roles()->attach($request['roles']);
-
-        return redirect('/admin/users');
     }
 
 }

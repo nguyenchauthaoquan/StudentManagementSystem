@@ -10,7 +10,7 @@ class Subject extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id', 'name', 'credits'
+        'id', 'name', 'credits', 'status'
     ];
     public $incrementing = false;
 

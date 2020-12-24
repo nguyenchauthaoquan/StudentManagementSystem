@@ -40,16 +40,17 @@
                             <div class="card-header">{{ __('Đăng nhập') }}</div>
 
                             <div class="card-body">
-                                <form method="get" action="{{url('/login')}}">
+                                <form method="post" action="{{url('/login')}}">
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="account" class="col-md-4 col-form-label text-md-right">{{ __('ID Đăng Nhập') }}</label>
+                                        <label for="account" class="col-md-4 col-form-label text-md-right">{{ __('Tên Đăng Nhập') }}</label>
 
                                         <div class="col-md-6">
                                             <input id="account"
-                                                   type="text"
+                                                   type="account"
                                                    class="form-control @if($errors->has('account')) errors @endif"
-                                                   name="account" value="{{ old('account') }}">
+                                                   name="account"
+                                                   value="{{ old('account') }}">
 
                                             @if ($errors->has('account'))
                                                 <div class="errors">
@@ -87,7 +88,7 @@
                                             </div>
                                         </div>
                                     </div>
-{{session('Failure')}}
+                                    {{session('Failure')}}
                                     <div class="form-group row mb-0">
                                         <div class="col-md-8 offset-md-4">
                                             <button type="submit" class="btn btn-primary">

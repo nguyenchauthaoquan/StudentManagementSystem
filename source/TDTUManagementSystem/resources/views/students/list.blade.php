@@ -2,18 +2,22 @@
 
 
 @section('content')
-
-    <div class="table-responsive">
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group" role="group">
+            <a href="{{url('/admin/students/create')}}" class="btn btn-outline-primary rounded-circle mr-2">
+                <i class="fas fa-plus"></i>
+            </a>
+            <a href="#deleted" data-toggle="modal" class="btn btn-outline-danger rounded-circle mr-2">
+                <i class="fas fa-trash"></i>
+            </a>
+        </div>
+    </div>
+    <div class="table-responsive mt-3">
         <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
                 <th colspan="6">
-                    <a href="{{url('/admin/students/create')}}" class="btn btn-outline-primary rounded-circle">
-                        <i class="fas fa-plus"></i>
-                    </a>
-                    <a href="#deleted" data-toggle="modal" class="btn btn-outline-danger rounded-circle">
-                        <i class="fas fa-trash"></i>
-                    </a>
+                    <h4 class="text-center">{{__('Danh Sách Sinh Viên')}}</h4>
                 </th>
             </tr>
             <tr>
@@ -61,15 +65,12 @@
             @endforeach
             </tbody>
         </table>
-        <nav>
-            <ul class="pagination justify-content-center"></ul>
-        </nav>
     </div>
     <div class="modal fade" id="deleted" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">{{__('Danh sách sinh viên đã xóa')}}</h4>
+                    <h4 class="modal-title">{{__('Danh Sách Sinh Viên Đã Xóa')}}</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -110,9 +111,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <nav>
-                            <ul class="pagination justify-content-center"></ul>
-                        </nav>
                     </div>
                 </div>
             </div>

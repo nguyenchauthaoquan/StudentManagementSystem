@@ -154,7 +154,8 @@
                         <select id="status"
                                 name="status"
                                 class="form-control @if($errors->has('status')) errors @endif">
-                            <option value="Đang Mở">{{__('Đang Mở')}}</option>
+                            <option value="Đang Mở" @if($subject->status === "Đang Mở") selected @endif>{{__('Đang Mở')}}</option>
+                            <option value="Đang Đóng" @if($subject->status === "Đang Đóng") selected @endif>{{__('Đang Đóng')}}</option>
                         </select>
                         @if($errors->has('status'))
                             <div class="errors">

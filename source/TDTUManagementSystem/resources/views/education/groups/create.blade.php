@@ -39,9 +39,11 @@
                                             class="form-control @if($errors->has('faculty')) errors @endif">
                                         <option selected>{{__('Khoa')}}</option>
                                         @foreach($faculties as $faculty)
-                                            <option value="{{$faculty->id}}">
-                                                {{$faculty->name}}
-                                            </option>
+                                            @if ($faculty->status === "Đang Mở")
+                                                <option value="{{$faculty->id}}">
+                                                    {{$faculty->name}}
+                                                </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     @if($errors->has('faculty'))

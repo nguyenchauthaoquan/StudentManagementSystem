@@ -47,4 +47,6 @@ class Faculty extends Model
             'id_faculty'
         );
     }
+
+
 }
