@@ -50,6 +50,24 @@ class AuthController extends Controller
         ]);
     }
 
+    public function profileStudent() {
+        $user = null;
+        if (Auth::check()) {
+            $student = Student::find(auth()->user()->account);
+            $teacher = Teacher::find(auth()->user()->account);
+
+            if ($student) {
+                $user = $student;
+            } else if ($teacher) {
+                $user = $teacher;
+            }
+        }
+
+        return view('profile', [
+            'user' => $user,
+        ]);
+    }
+
     public function logout() {
         Auth::logout();
 

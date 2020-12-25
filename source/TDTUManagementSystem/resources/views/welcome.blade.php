@@ -47,7 +47,7 @@
 
                                         <div class="col-md-6">
                                             <input id="account"
-                                                   type="account"
+                                                   type="text"
                                                    class="form-control @if($errors->has('account')) errors @endif"
                                                    name="account"
                                                    value="{{ old('account') }}">

@@ -61,7 +61,7 @@
                         </a>
                     </div>
                     <div class="col-md-3">
-                        <a href="#" class="menu-item">
+                        <a href="{{url('/home/profile')}}" class="menu-item">
                             <img src="{{asset('images/qlttsv.png')}}" alt="" class="menu-image"><br>
                         </a>
                     </div>

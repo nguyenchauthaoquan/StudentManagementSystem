@@ -24,6 +24,7 @@ Route::get('/', function () {
 
 Route::post('login', [AuthController::class, 'login']);
 Route::get('home', [AuthController::class, 'home'])->middleware('auth');
+Route::get('home/profile', [AuthController::class, 'profileStudent']);
 Route::post('logout', [AuthController::class, 'logout']);
 
 Route::middleware(['can:admin'])->group(function () {
