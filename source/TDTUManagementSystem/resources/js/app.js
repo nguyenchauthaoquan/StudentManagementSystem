@@ -1,7 +1,7 @@
-require('./bootstrap');
-
 import 'jquery-ui/ui/widgets/datepicker';
 import 'jquery-ui/ui/widgets/accordion';
+
+import './bootstrap';
 
 $('.date-picker').datepicker({
     dateFormat: 'yy-mm-dd'

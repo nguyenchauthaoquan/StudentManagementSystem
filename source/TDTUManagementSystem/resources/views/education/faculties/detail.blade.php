@@ -77,7 +77,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($faculty->majors as $major)
+                @foreach($majors as $major)
                     @if($major->pivot->status === 'Đang Mở')
                         <tr>
                             <td>{{$major->pivot->id}}</td>
@@ -105,7 +105,7 @@
                 @endforeach
                 </tbody>
             </table>
-
+            {{$majors->links('paginator')}}
         </div>
     </div>
     <div class="row row-header">
@@ -132,7 +132,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($faculty->groups as $group)
+                @foreach($groups as $group)
                     @if($group->pivot->status === 'Đang Mở' || $group->pivot->status === 'Tốt Nghiệp')
                         <tr>
                             <td>
@@ -164,6 +164,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{$groups->links('paginator')}}
         </div>
     </div>
     <div class="row row-header">
@@ -191,42 +192,43 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($groups as $group)
-                    @foreach($group->students as $student)
-                        @if(($student->pivot->status === 'Đi Học') || ($student->pivot->status === 'Tốt Nghiệp'))
-                            <tr>
-                                <td>{{$student->pivot->id}}</td>
-                                <td>
-                                    <a href="{{url('admin/students/profile/id='.$student->id)}}">
-                                        {{$student->pivot->firstname.' '.$student->pivot->middlename.' '.$student->pivot->lastname}}
-                                    </a>
-                                </td>
-                                <td>{{$student->pivot->email}}</td>
-                                <td>{{$student->pivot->phone}}</td>
-                                <td class="
-                               @if($student->pivot->status === 'Đi Học')
+                @foreach($students as $student)
+                    @if(($student->status === 'Đi Học') || ($student->pivot->status === 'Tốt Nghiệp'))
+                        <tr>
+                            <td>{{$student->id}}</td>
+                            <td>
+                                <a href="{{url('admin/students/profile/id='.$student->id)}}">
+                                    {{$student->firstname.' '.$student->middlename.' '.$student->lastname}}
+                                </a>
+                            </td>
+                            <td>{{$student->email}}</td>
+                            <td>{{$student->phone}}</td>
+                            <td class="
+                                @if($student->status === 'Đi Học')
                                     bg-success text-white
-                               @endif
-                               @if($student->pivot->status === 'Tốt Nghiệp')
+                                @endif
+                                @if($student->status === 'Tốt Nghiệp')
                                     bg-primary text-white
-                               @endif
-                                    d-flex align-items-center justify-content-center">
-                                    {{$student->pivot->status}}
-                                </td>
-                                <td>
-                                    <a href="{{url('/admin/students/edit/id='.$student->pivot->id)}}" class="btn btn-outline-success rounded-circle">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="{{url('/admin/students/delete/id='.$student->pivot->id)}}" class="btn btn-outline-danger rounded-circle">
-                                        <i class="fas fa-minus"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endif
-                    @endforeach
+                                @endif
+                                d-flex align-items-center justify-content-center">
+                                {{$student->status}}
+                            </td>
+                            <td>
+                                <a href="{{url('/admin/students/edit/id='.$student->id)}}"
+                                   class="btn btn-outline-success rounded-circle">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{{url('/admin/students/delete/id='.$student->id)}}"
+                                   class="btn btn-outline-danger rounded-circle">
+                                    <i class="fas fa-minus"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
                 </tbody>
             </table>
+            {{$students->links()}}
         </div>
     </div>
     <div class="row row-header">
@@ -247,7 +249,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($faculty->teachers as $teacher)
+                @foreach($teachers as $teacher)
                     <tr>
                         <td>{{$teacher->id}}</td>
                         <td>
@@ -272,6 +274,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{$teachers->links()}}
         </div>
     </div>
     <div class="modal fade" id="deleted-majors" role="dialog">
@@ -294,29 +297,28 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($faculty->majors as $major)
-                                @if($major->pivot->status === 'Đang Đóng')
-                                    <tr>
-                                        <td>{{$major->pivot->id}}</td>
-                                        <td>{{$major->pivot->name}}</td>
-                                        <td>{{$major->name}}</td>
-                                        <td>{{$major->system}}</td>
-                                        <td class="@if($major->pivot->status === 'Đang Đóng') bg-danger text-white @endif
-                                            d-flex align-items-center justify-content-center">
-                                            {{$major->pivot->status}}
-                                        </td>
-                                        <td>
-                                            <a href="{{url('/admin/faculties/majors/edit/id='.$major->pivot->id)}}"
-                                               class="btn btn-outline-success rounded-circle"
-                                            >
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endif
+                            @foreach($deletedMajors as $major)
+                                <tr>
+                                    <td>{{$major->id}}</td>
+                                    <td>{{$major->name}}</td>
+                                    <td>{{$major->name}}</td>
+                                    <td>{{$major->system}}</td>
+                                    <td class="@if($major->status === 'Đang Đóng') bg-danger text-white @endif
+                                        d-flex align-items-center justify-content-center">
+                                        {{$major->status}}
+                                    </td>
+                                    <td>
+                                        <a href="{{url('/admin/faculties/majors/edit/id='.$major->id)}}"
+                                           class="btn btn-outline-success rounded-circle"
+                                        >
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
+                        {{$deletedMajors->links()}}
                     </div>
                 </div>
             </div>
@@ -327,7 +329,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">{{__('Nghành đã xóa')}}</h4>
+                    <h4 class="modal-title">{{__('Sinh viên đã xóa')}}</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -343,34 +345,34 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($groups as $group)
-                                @foreach($group->students as $student)
-                                    @if($student->pivot->status === 'Thôi Học')
-                                        <tr>
-                                            <td>{{$student->pivot->id}}</td>
-                                            <td>
-                                                {{$student->pivot->firstname.' '.$student->pivot->middlename.' '.$student->pivot->lastname}}
-                                            </td>
-                                            <td>{{$student->pivot->email}}</td>
-                                            <td>{{$student->pivot->phone}}</td>
-                                            <td class="
-                                                @if($student->pivot->status === 'Thôi Học')
+                            @foreach($students as $student)
+                                @if($student->status === 'Thôi Học')
+                                    <tr>
+                                        <td>{{$student->id}}</td>
+                                        <td>
+                                            {{$student->firstname.' '.$student->middlename.' '.$student->lastname}}
+                                        </td>
+                                        <td>{{$student->email}}</td>
+                                        <td>{{$student->phone}}</td>
+                                        <td class="
+                                                @if($student->status === 'Thôi Học')
                                                     bg-danger text-white
                                                 @endif
-                                                d-flex align-items-center justify-content-center">
-                                                {{$student->pivot->status}}
-                                            </td>
-                                            <td>
-                                                <a href="{{url('/admin/students/edit/id='.$student->pivot->id)}}" class="btn btn-outline-success rounded-circle">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @endforeach
+                                            d-flex align-items-center justify-content-center">
+                                            {{$student->status}}
+                                        </td>
+                                        <td>
+                                            <a href="{{url('/admin/students/edit/id='.$student->id)}}"
+                                               class="btn btn-outline-success rounded-circle">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                             </tbody>
                         </table>
+                        {{$students->links()}}
                     </div>
                 </div>
             </div>
@@ -397,31 +399,30 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($faculty->groups as $group)
-                                @if($group->pivot->status === 'Đang Đóng')
-                                    <tr>
-                                        <td>
-                                            {{$group->pivot->name}}
-                                        </td>
-                                        <td>{{$group->name}}</td>
-                                        <td>{{$group->system}}</td>
-                                        <td>{{$group->pivot->date_admission}}</td>
-                                        <td>{{$group->pivot->date_graduation}}</td>
-                                        <td class="@if ($group->pivot->status === 'Đang Đóng') bg-danger text-white @endif
-                                            d-flex justify-content-center align-items-center">
-                                            {{$group->pivot->status}}
-                                        </td>
-                                        <td>
-                                            <a href="{{url('/admin/groups/edit/id='.$group->pivot->id)}}"
-                                               class="btn btn-outline-success rounded-circle">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endif
+                            @foreach($groups as $group)
+                                <tr>
+                                    <td>
+                                        {{$group->pivot->name}}
+                                    </td>
+                                    <td>{{$group->name}}</td>
+                                    <td>{{$group->system}}</td>
+                                    <td>{{$group->pivot->date_admission}}</td>
+                                    <td>{{$group->pivot->date_graduation}}</td>
+                                    <td class="@if ($group->pivot->status === 'Đang Đóng') bg-danger text-white @endif
+                                        d-flex justify-content-center align-items-center">
+                                        {{$group->pivot->status}}
+                                    </td>
+                                    <td>
+                                        <a href="{{url('/admin/groups/edit/id='.$group->pivot->id)}}"
+                                           class="btn btn-outline-success rounded-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
+                        {{$groups->links()}}
                     </div>
                 </div>
             </div>

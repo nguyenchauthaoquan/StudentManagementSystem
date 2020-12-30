@@ -19,11 +19,16 @@ class PersonController extends Controller
 {
     //
     public function home() {
+        $students = Student::whereNotIn('status', ['Thôi Học'])->get();
+        $teachers = Teacher::whereNotIn('status', ['Thôi Việc'])->get();
+        $faculties = Faculty::whereNotIn('status', ['Đang Đóng'])->get();
+        $groups = Group::whereNotIn('status', ['Đang Đóng'])->get();
+
         return view('dashboard_home', [
-            'students' => Student::whereNotIn('status', ['Thôi Học'])->get(),
-            'teachers' => Teacher::whereNotIn('status', ['Thôi Việc'])->get(),
-            'faculties' => Faculty::whereNotIn('status', ['Đang Đóng'])->get(),
-            'groups' => Group::whereNotIn('status', ['Đang Đóng'])->get()
+            'students' => $students,
+            'teachers' => $teachers,
+            'faculties' => $faculties,
+            'groups' => $groups
         ]);
     }
 

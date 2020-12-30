@@ -7,6 +7,7 @@
         <!-- Styles -->
         <link href="{{asset('css/styles.css')}}" rel="stylesheet">
         <title>Student Management System</title>
+
     </head>
     <body class="antialiased">
         <div class="wrapper">

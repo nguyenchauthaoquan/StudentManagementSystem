@@ -54,6 +54,7 @@
             @endforeach
             </tbody>
         </table>
+        {{$faculties->links('paginator')}}
     </div>
 
     <div class="modal fade" id="deleted" role="dialog">

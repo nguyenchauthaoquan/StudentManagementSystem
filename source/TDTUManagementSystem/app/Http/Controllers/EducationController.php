@@ -15,7 +15,7 @@ class EducationController extends Controller
 {
     public function training_programs() {
         return view('education.training_programs.list',[
-            'programs' => TrainingProgram::all()
+            'programs' => TrainingProgram::paginate(4)
         ]);
     }
     public function createTrainingProgram() {
@@ -61,9 +61,13 @@ class EducationController extends Controller
                 Major::where('id_training', $training_program->id)->update([
                     'status' => 'Đang Mở'
                 ]);
+
                 $group = Group::where('id_training', $training_program->id)->first();
-                if ($group) {
+                $major = Major::where('id_training', $training_program->id)->first();
+
+                if (($group) && ($major)) {
                     Student::where('id_group', $group->id)
+                        ->where('id_major', $major->id)
                         ->update([
                             'status' => 'Đi Học'
                         ]);
@@ -94,10 +98,13 @@ class EducationController extends Controller
             'status' => 'Đang Đóng'
         ]);
         $group = Group::where('id_training', $program->id)->first();
-        if ($group) {
+        $major = Major::where('id_training', $program->id)->first();
+
+        if (($group) && ($major)) {
             Student::where('id_group', $group->id)
+                ->where('id_major', $major->id)
                 ->update([
-                    'status' => 'Thôi Học'
+                    'status' => 'Đi Học'
                 ]);
         }
 
@@ -107,7 +114,7 @@ class EducationController extends Controller
 
     public function faculties() {
         return view('education.faculties.list', [
-            'faculties' => Faculty::all()
+            'faculties' => Faculty::paginate(4)
         ]);
     }
 
@@ -117,11 +124,21 @@ class EducationController extends Controller
 
     public function viewFaculty($id) {
         $faculty = Faculty::find($id);
+        $majors = $faculty->majors()->paginate(5);
+        $groups = $faculty->groups()->paginate(5);
+        $students = Student::where('id_group', Group::where('id_faculty', $faculty->id)->first()->id)
+                            ->whereIn('status', ['Đi Học', 'Tốt Nghiệp'])
+                            ->paginate(5);
+        $teachers = $faculty->teachers()->where('status', 'Đang Công Tác')->paginate(5);
 
         return view('education.faculties.detail', [
             'id' => $id,
             'faculty' => $faculty,
-            'groups' => Group::where('id_faculty', $faculty->id)->get()
+            'majors' => $majors,
+            'groups' => $groups,
+            'students' => $students,
+            'teachers' => $teachers,
+            'deletedMajors' => Major::where('id_faculty', $id)->where('status', 'Đang Đóng')->paginate(5),
         ]);
     }
 
@@ -227,7 +244,7 @@ class EducationController extends Controller
 
         $group = Group::where('id_faculty', $faculty->id)->first();
 
-        if (($major) || ($group)) {
+        if (($major) && ($group)) {
             Student::where('id_major', $major->id)->where('id_group', $group->id)->update([
                 'status' => 'Thôi Học'
             ]);
@@ -323,7 +340,7 @@ class EducationController extends Controller
 
     public function groups() {
         return view('education.groups.list', [
-            'faculties' => Faculty::all()
+            'faculties' => Faculty::paginate(4)
         ]);
     }
 
