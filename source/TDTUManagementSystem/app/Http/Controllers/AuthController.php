@@ -75,6 +75,13 @@ class AuthController extends Controller
     }
 
     public function users() {
+        Role::firstOrCreate(
+            ['name' => 'Admin'],
+            [
+                'name' => 'Admin'
+            ]
+        );
+
         return view('users.list', [
             'users' => User::all(),
             'roles' => Role::all()

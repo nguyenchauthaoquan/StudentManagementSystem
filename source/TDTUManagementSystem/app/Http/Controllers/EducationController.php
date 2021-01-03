@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\Faculty;
 use App\Models\Group;
 use App\Models\Major;
@@ -13,9 +14,61 @@ use Illuminate\Http\Request;
 
 class EducationController extends Controller
 {
+
+    public function viewAnnouncement($id) {
+        $announcement = Announcement::find($id);
+        return view('announcement.view', [
+            'id' => $id,
+            'announcement' => $announcement
+        ]);
+    }
+
+    public function createAccouncement() {
+        return view ('announcement.create');
+    }
+
+    public function editAnnouncement($id) {
+        $announcement = Announcement::find($id);
+        return view('announcement.update', [
+           'id' => $id,
+           'announcement' => $announcement
+        ]);
+    }
+
+    public function addAnnouncement(Request $request) {
+        $this->validate($request, [
+            'title' => ['required'],
+            'description' => ['required'],
+            'to' => ['required']
+        ],[
+            'title.required' => 'Tựa Đề Thông Báo Không Được Bỏ Trống',
+            'description' => 'Thông Báo Không Được Bỏ Trống',
+            'to' => 'Người Gửi Không Hợp Lệ'
+        ]);
+
+        Announcement::create([
+            'title' => $request['title'],
+            'description' => $request['description'],
+            'to' => $request['to']
+        ]);
+
+        return redirect('/admin/dashboard');
+    }
+    public function updateAnnouncement(Request $request, $id) {
+        $announcement = Announcement::find($id);
+        $announcement->update([
+            'title' => $request['title'],
+            'description' => $request['description'],
+            'to' => $request['to']
+        ]);
+
+        return redirect('/admin/dashboard');
+    }
+
     public function training_programs() {
         return view('education.training_programs.list',[
-            'programs' => TrainingProgram::paginate(4)
+            'programs' => TrainingProgram::where('status', 'Đang Mở')->paginate(5),
+            'deletedPrograms' => TrainingProgram::where('status', 'Đang Đóng')->paginate(5)
         ]);
     }
     public function createTrainingProgram() {
@@ -54,23 +107,34 @@ class EducationController extends Controller
 
         switch ($training_program->status) {
             case "Đang Mở": {
-                Group::where('id_training', $training_program->id)->update([
+                Group::where('id_training', $training_program->id)
+                    ->where('status', 'Đang Đóng')
+                    ->update([
                     'status' => 'Đang Mở'
                 ]);
 
-                Major::where('id_training', $training_program->id)->update([
+                Major::where('id_training', $training_program->id)
+                    ->where('status', 'Đang Đóng')
+                    ->update([
                     'status' => 'Đang Mở'
                 ]);
 
-                $group = Group::where('id_training', $training_program->id)->first();
-                $major = Major::where('id_training', $training_program->id)->first();
+                $groups = Group::where('id_training', $training_program->id)->where('status', 'Đang Mở')->get();
+                $majors = Major::where('id_training', $training_program->id)->where('status', 'Đang Mở')->get();
 
-                if (($group) && ($major)) {
-                    Student::where('id_group', $group->id)
-                        ->where('id_major', $major->id)
-                        ->update([
-                            'status' => 'Đi Học'
-                        ]);
+                $training_program->subjects()->where('status', 'Đang Đóng')->update([
+                    'status' => 'Đang Mở'
+                ]);
+
+                foreach ($groups as $group) {
+                    foreach ($majors as $major) {
+                        Student::where('id_group', $group->id)
+                            ->where('id_major', $major->id)
+                            ->where('status', 'Thôi Học')
+                            ->update([
+                                'status' => 'Đi Học'
+                            ]);
+                    }
                 }
 
                 break;
@@ -90,31 +154,42 @@ class EducationController extends Controller
             'status' => 'Đang Đóng'
         ]);
 
-        Group::where('id_training', $program->id)->update([
+        Group::where('id_training', $program->id)
+            ->where('status', 'Đang Mở')
+            ->update([
             'status' => 'Đang Đóng'
         ]);
 
-        Major::where('id_training', $program->id)->update([
+        Major::where('id_training', $program->id)
+            ->where('status', 'Đang Mở')
+            ->update([
             'status' => 'Đang Đóng'
         ]);
-        $group = Group::where('id_training', $program->id)->first();
-        $major = Major::where('id_training', $program->id)->first();
 
-        if (($group) && ($major)) {
-            Student::where('id_group', $group->id)
-                ->where('id_major', $major->id)
-                ->update([
-                    'status' => 'Đi Học'
+        $groups = Group::where('id_training', $program->id)->where('status', 'Đang Đóng')->get();
+        $majors = Major::where('id_training', $program->id)->where('status', 'Đang Đóng')->get();
+        $program->subjects()->where('status', 'Đang Mở')->update([
+            'status' => 'Đang Đóng'
+        ]);
+
+        foreach ($groups as $group) {
+            foreach ($majors as $major) {
+                Student::where('id_group', $group->id)
+                    ->where('id_major', $major->id)
+                    ->where('status', 'Đi Học')
+                    ->update([
+                    'status' => 'Thôi Học'
                 ]);
+            }
         }
-
 
         return redirect()->back();
     }
 
     public function faculties() {
         return view('education.faculties.list', [
-            'faculties' => Faculty::paginate(4)
+            'faculties' => Faculty::where('status', 'Đang Mở')->paginate(5),
+            'deletedFaculties' => Faculty::where('status', 'Đang Đóng')->paginate(5),
         ]);
     }
 
@@ -124,21 +199,10 @@ class EducationController extends Controller
 
     public function viewFaculty($id) {
         $faculty = Faculty::find($id);
-        $majors = $faculty->majors()->paginate(5);
-        $groups = $faculty->groups()->paginate(5);
-        $students = Student::where('id_group', Group::where('id_faculty', $faculty->id)->first()->id)
-                            ->whereIn('status', ['Đi Học', 'Tốt Nghiệp'])
-                            ->paginate(5);
-        $teachers = $faculty->teachers()->where('status', 'Đang Công Tác')->paginate(5);
 
         return view('education.faculties.detail', [
             'id' => $id,
-            'faculty' => $faculty,
-            'majors' => $majors,
-            'groups' => $groups,
-            'students' => $students,
-            'teachers' => $teachers,
-            'deletedMajors' => Major::where('id_faculty', $id)->where('status', 'Đang Đóng')->paginate(5),
+            'faculty' => $faculty
         ]);
     }
 
@@ -189,23 +253,27 @@ class EducationController extends Controller
                     'status' => 'Đang Mở'
                 ]);
 
-                Major::where('id_faculty', $faculty->id)->update([
+                Major::where('id_faculty', $faculty->id)->where('status', 'Đang Đóng')->update([
                     'status' => 'Đang Mở'
                 ]);
-
                 Group::where('id_faculty', $faculty->id)->update([
                     'status' => 'Đang Mở'
                 ]);
 
-                $major = Major::where('id_faculty', $faculty->id)->first();
+                $majors = Major::where('id_faculty', $faculty->id)->get();
+                $groups = Group::where('id_faculty', $faculty->id)->get();
 
-                $group = Group::where('id_faculty', $faculty->id)->first();
-
-                if (($major) || ($group)) {
-                    Student::where('id_major', $major->id)->where('id_group', $group->id)->update([
-                        'status' => 'Đi Học'
-                    ]);
+                foreach ($groups as $group) {
+                    foreach ($majors as $major) {
+                        Student::where('id_group', $group->id)
+                            ->where('id_major', $major->id)
+                            ->where('status', 'Thôi Học')
+                            ->update([
+                                'status' => 'Đi Học'
+                            ]);
+                    }
                 }
+
                 break;
             }
             case "Đang Đóng": {
@@ -240,14 +308,18 @@ class EducationController extends Controller
             'status' => 'Đang Đóng'
         ]);
 
-        $major = Major::where('id_faculty', $faculty->id)->first();
+        $majors = Major::where('id_faculty', $faculty->id)->get();
+        $groups = Group::where('id_faculty', $faculty->id)->get();
 
-        $group = Group::where('id_faculty', $faculty->id)->first();
-
-        if (($major) && ($group)) {
-            Student::where('id_major', $major->id)->where('id_group', $group->id)->update([
-                'status' => 'Thôi Học'
-            ]);
+        foreach ($groups as $group) {
+            foreach ($majors as $major) {
+                Student::where('id_group', $group->id)
+                    ->where('id_major', $major->id)
+                    ->where('status', 'Đi Học')
+                    ->update([
+                        'status' => 'Thôi Học'
+                    ]);
+            }
         }
 
         return redirect()->back();
@@ -271,15 +343,16 @@ class EducationController extends Controller
     }
     public function addMajor(Request $request, $id) {
         $this->validate($request, [
-            'id' => ['required'],
+            'id' => ['required', 'unique:App\Models\Major,id'],
             'name' => ['required']
         ], [
             'id.required' => 'Mã nghành không được bỏ trống',
+            'id.unique' => 'Mã Nghành đã tồn tại',
             'name.required' => 'Tên nghành không được bỏ trống'
         ]);
-
-        $training_program = TrainingProgram::where('name', $request['program_name'])
-            ->where('system', $request['program_system'])
+        $program_name = explode("- Hệ", $request['program']);
+        $training_program = TrainingProgram::where('name', trim($program_name[0]))
+            ->where('system', trim($program_name[1]))
             ->first();
         $faculty = Faculty::find($id);
         $faculty->majors()->attach($training_program->id, [
@@ -294,11 +367,11 @@ class EducationController extends Controller
     public function updateMajor(Request $request, $id) {
         $major = Major::find($id);
         $faculty = Faculty::find($major->id_faculty);
-        $training_program = TrainingProgram::where('name', $request['program_name'])
-            ->where('system', $request['program_system'])
+        $program_name = explode("- Hệ", $request['program']);
+        $training_program = TrainingProgram::where('name', trim($program_name[0]))
+            ->where('system', trim($program_name[1]))
             ->first();
         $major->update([
-            'id_faculty' => $faculty->id,
             'id_training' => $training_program->id,
             'id' => $request['id'],
             'name' => $request['name'],
@@ -307,15 +380,24 @@ class EducationController extends Controller
 
         switch ($major->status) {
             case "Đang Mở": {
-                Student::where('id_major', $major->id)->update([
-                    'status' => 'Đi Học'
+                Group::where('id_training', $major->id_training)->update([
+                    'status' => 'Đang Mở'
                 ]);
+                $groups = Group::where('id_training', $major->id_training)->get();
+
+                foreach ($groups as $group) {
+                    Student::where('id_group', $group->id)
+                        ->where('id_major', $major->id)
+                        ->where('status', 'Thôi Học')
+                        ->update([
+                        'status' => 'Đi Học'
+                        ]);
+                }
+
                 break;
             }
             case "Đang Đóng": {
-                Student::where('id_major', $major->id)->update([
-                    'status' => 'Thôi Học'
-                ]);
+                $this->deleteMajor($id);
                 break;
             }
         }
@@ -331,16 +413,24 @@ class EducationController extends Controller
         Group::where('id_training', $major->id_training)->update([
            'status' => 'Đang Đóng'
         ]);
-        Student::where('id_major', $major->id)->update([
-            'status' => 'Thôi Học'
-        ]);
+
+        $groups = Group::where('id_training', $major->id_training)->get();
+
+        foreach ($groups as $group) {
+            Student::where('id_group', $group->id)
+                ->where('id_major', $major->id)
+                ->where('status', 'Đi Học')
+                ->update([
+                    'status' => 'Thôi Học'
+                ]);
+        }
 
         return redirect()->back();
     }
 
     public function groups() {
         return view('education.groups.list', [
-            'faculties' => Faculty::paginate(4)
+            'faculties' => Faculty::all()
         ]);
     }
 
@@ -448,12 +538,15 @@ class EducationController extends Controller
     }
 
     public function deleteGroup($id) {
-        Group::find($id)->update([
+        $group = Group::find($id);
+        $group->update([
             'status' => 'Đang Đóng'
         ]);
-        Student::where('status', 'Đi Học')->update([
-            'status' => 'Thôi Học'
-        ]);
+        Student::where('id_group', $group->id)
+            ->where('status', 'Đi Học')
+            ->update([
+                'status' => 'Thôi Học'
+            ]);
 
         return redirect()->back();
     }

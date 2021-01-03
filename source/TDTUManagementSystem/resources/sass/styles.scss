@@ -20,6 +20,13 @@ html, body {
     height: 100%;
     font-size: 0.9rem;
 }
+body {
+    font-family: 'Nunito';
+    &.antialiased {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+}
 
 .wrapper {
     width: 100%;

@@ -2,7 +2,18 @@
 
 
 @section('content')
-
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{session('success')}}
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-lg-4 mt-1">

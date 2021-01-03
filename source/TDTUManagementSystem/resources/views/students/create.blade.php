@@ -97,12 +97,14 @@
                                 id="major"
                                 class="form-control @if($errors->has('major')) errors @endif"
                                 name="major">
-                            <option selected>{{__('Nghành')}}</option>
+                            <option value="" selected>{{__('Nghành')}}</option>
                             @foreach($majors->unique('name') as $major)
                                 @if ($major->status === 'Đang Mở')
-                                    <option value="{{$major->name}}">{{$major->name}}</option>
+                                    <option value="{{$major->name}}"
+                                            @if(old('major') === $major->name) selected @endif>
+                                        {{$major->name}}
+                                    </option>
                                 @endif
-
                             @endforeach
                         </select>
                         @if($errors->has('major'))
@@ -113,45 +115,25 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="program_name">{{__('Chương trình đào tạo')}}</label>
+                    <label for="program">{{__('Chương trình đào tạo')}}</label>
                     <div>
                         <select type="text"
-                                id="program_name"
-                                class="form-control @if($errors->has('program_name')) errors @endif"
-                                name="program_name">
-                            <option selected>{{__('Chương trình đào tạo')}}</option>
-                            @foreach($programs->unique('name') as $program)
+                                id="program"
+                                class="form-control @if($errors->has('program')) errors @endif"
+                                name="program">
+                            <option value="" selected>{{__('Chương trình đào tạo')}}</option>
+                            @foreach($programs as $program)
                                 @if ($program->status === 'Đang Mở')
-                                    <option value="{{$program->name}}">{{$program->name}}</option>
+                                    <option value="{{$program->name." - Hệ ".$program->system}}"
+                                            @if(old('program') === ($program->name." - Hệ ".$program->system)) selected @endif>
+                                        {{$program->name." - Hệ ".$program->system}}
+                                    </option>
                                 @endif
                             @endforeach
                         </select>
-                        @if($errors->has('program_name'))
+                        @if($errors->has('program'))
                             <div class="errors">
-                                <span>{{ $errors->first('program_name') }}</span>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="program_system">{{__('Hệ đào tạo')}}</label>
-                    <div>
-                        <select type="text"
-                                id="program_system"
-                                class="form-control @if($errors->has('program_system')) errors @endif"
-                                name="program_system">
-                            <option selected>{{__('Hệ đào tạo')}}</option>
-                            @foreach($programs->unique('system') as $program)
-                                @if ($program->status === 'Đang Mở')
-                                <option value="{{$program->system}}">
-                                    {{$program->system}}
-                                </option>
-                                @endif
-                            @endforeach
-                        </select>
-                        @if($errors->has('program_system'))
-                            <div class="errors">
-                                <span>{{ $errors->first('program_system') }}</span>
+                                <span>{{ $errors->first('program') }}</span>
                             </div>
                         @endif
                     </div>
@@ -165,10 +147,12 @@
                                 id="group"
                                 name="group"
                         >
-                            <option selected>{{__('Lớp')}}</option>
+                            <option value="" selected>{{__('Lớp')}}</option>
                             @foreach($groups->unique('name') as $group)
                                 @if ($group->status === 'Đang Mở')
-                                    <option value="{{$group->name}}">{{$group->name}}</option>
+                                    <option value="{{$group->name}}" @if(old('group') === $group->name) selected @endif>
+                                        {{$group->name}}
+                                    </option>
                                 @endif
                             @endforeach
                         </select>
@@ -183,10 +167,12 @@
                     <label for="faculty">{{__('Khoa')}}</label>
                     <div>
                         <select name="faculty" id="faculty" class="form-control @if($errors->has('faculty')) errors @endif">
-                            <option selected>{{__('Khoa')}}</option>
+                            <option value="" selected>{{__('Khoa')}}</option>
                             @foreach($faculties as $faculty)
                                 @if($faculty->status === 'Đang Mở')
-                                    <option value="{{$faculty->id}}">{{$faculty->name}}</option>
+                                    <option value="{{$faculty->id}}" @if(old('faculty') === $faculty->id) selected @endif>
+                                        {{$faculty->name}}
+                                    </option>
                                 @endif
                             @endforeach
                         </select>
@@ -220,8 +206,8 @@
                     <label for="gender">{{__('Giới tính')}}</label>
                     <select name="gender" id="gender" class="form-control @if($errors->has('gender')) errors @endif">
                         <option selected>{{__('Giới Tính')}}</option>
-                        <option value="Nam">{{__('Nam')}}</option>
-                        <option value="Nữ">{{__('Nữ')}}</option>
+                        <option value="Nam" @if(old('gender') === "Nam") selected @endif>{{__('Nam')}}</option>
+                        <option value="Nữ" @if(old('gender') === "Nữ") selected @endif>{{__('Nữ')}}</option>
                     </select>
                     @if($errors->has('gender'))
                         <div class="errors">

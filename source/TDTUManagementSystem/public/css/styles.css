@@ -18567,6 +18567,15 @@ body {
   font-size: 0.9rem;
 }
 
+body {
+  font-family: "Nunito";
+}
+
+body.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .wrapper {
   width: 100%;
   height: 100%;

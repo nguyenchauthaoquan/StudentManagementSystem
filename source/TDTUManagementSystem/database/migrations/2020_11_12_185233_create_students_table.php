@@ -50,7 +50,7 @@ class CreateStudentsTable extends Migration
             $table->string('room_of_dormitory')->nullable();
             $table->bigInteger('military')->default(0);
             $table->bigInteger('volunteer')->default(0);
-            $table->string('status')->default('Đi học');
+            $table->string('status');
             $table->timestamps();
         });
     }

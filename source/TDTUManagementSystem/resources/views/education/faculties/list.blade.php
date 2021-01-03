@@ -29,28 +29,26 @@
             </thead>
             <tbody>
             @foreach($faculties as $faculty)
-                @if($faculty->status === 'Đang Mở')
-                    <tr>
-                        <td>{{$faculty->id}}</td>
-                        <td>
-                            <a href="{{url('/admin/faculties/view/id='.$faculty->id)}}">{{$faculty->name}}</a>
-                        </td>
-                        <td class="@if($faculty->status === 'Đang Mở') bg-success text-white @endif
-                            d-flex align-items-center justify-content-center">
-                            {{$faculty->status}}
-                        </td>
-                        <td>
-                            <a href="{{url('/admin/faculties/edit/id='.$faculty->id)}}"
-                               class="btn btn-outline-success rounded-circle">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="{{url('/admin/faculties/delete/id='.$faculty->id)}}"
-                               class="btn btn-outline-danger rounded-circle">
-                                <i class="fas fa-minus-circle"></i>
-                            </a>
-                        </td>
-                    </tr>
-                @endif
+                <tr>
+                    <td>{{$faculty->id}}</td>
+                    <td>
+                        <a href="{{url('/admin/faculties/view/id='.$faculty->id)}}">{{$faculty->name}}</a>
+                    </td>
+                    <td class="@if($faculty->status === 'Đang Mở') bg-success text-white @endif
+                        d-flex align-items-center justify-content-center">
+                        {{$faculty->status}}
+                    </td>
+                    <td>
+                        <a href="{{url('/admin/faculties/edit/id='.$faculty->id)}}"
+                           class="btn btn-outline-success rounded-circle">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="{{url('/admin/faculties/delete/id='.$faculty->id)}}"
+                           class="btn btn-outline-danger rounded-circle">
+                            <i class="fas fa-minus-circle"></i>
+                        </a>
+                    </td>
+                </tr>
             @endforeach
             </tbody>
         </table>
@@ -75,8 +73,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($faculties as $faculty)
-                                @if($faculty->status === 'Đang Đóng')
+                            @foreach($deletedFaculties as $faculty)
                                 <tr>
                                     <td>{{$faculty->id}}</td>
                                     <td>
@@ -93,10 +90,10 @@
                                         </a>
                                     </td>
                                 </tr>
-                                @endif
                             @endforeach
                             </tbody>
                         </table>
+                        {{$deletedFaculties->links('paginator')}}
                     </div>
                 </div>
             </div>

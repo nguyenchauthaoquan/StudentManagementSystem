@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\Background;
 use App\Models\Faculty;
 use App\Models\Group;
@@ -28,7 +29,8 @@ class PersonController extends Controller
             'students' => $students,
             'teachers' => $teachers,
             'faculties' => $faculties,
-            'groups' => $groups
+            'groups' => $groups,
+            'announcements' => Announcement::all()
         ]);
     }
 
@@ -44,6 +46,10 @@ class PersonController extends Controller
             'firstname' => ['required'],
             'middlename' => ['nullable'],
             'lastname' => ['required'],
+            'major' => ['required'],
+            'program' => ['required'],
+            'group' => ['required'],
+            'faculty' => ['required'],
             'birthday' => ['required', 'date'],
             'gender' => ['in:"Nam", "Nữ"'],
             'place_of_birth' => ['required'],
@@ -72,6 +78,10 @@ class PersonController extends Controller
             'id.unique' => 'Mã số sinh viên đã tồn tại',
             'firstname.required' => 'Họ tên không được bỏ trống',
             'lastname.required' => 'Họ tên không được bỏ trống',
+            'major.required' => 'Nghành đào tạo không được bỏ trống',
+            'program.required' => 'Chương trình đào tạo không được bỏ trống',
+            'group.required' => 'Lớp không được bỏ trống',
+            'faculty.required' => 'Khoa không được bỏ trống',
             'birthday.required' => 'Ngày tháng năm sinh không được bỏ trống',
             'birthday.date' => 'Ngày tháng năm sinh không hợp lệ',
             'gender.in' => 'Vui lòng chọn giới tính',
@@ -89,11 +99,11 @@ class PersonController extends Controller
             'date_of_student_union.date' => 'Thơi gian vào hội sinh viên không hợp lệ',
             'date_of_dormitory.date' => 'Thời gian ở ký túc xá không hợp lệ',
         ]);
-        $program = TrainingProgram::where('name', $request['program_name'])
-                                    ->where('system', $request['program_system'])
+        $program_name = explode("- Hệ", $request['program']);
+        $program = TrainingProgram::where('name', trim($program_name[0]))
+                                    ->where('system', trim($program_name[1]))
                                     ->first();
-
-        $faculty = $program->groups()->find($request['faculty']);
+        $faculty = Faculty::find($request['faculty']);
 
         $group = Group::where('id_training', $program->id)
                         ->where('id_faculty', $faculty->id)
@@ -165,19 +175,18 @@ class PersonController extends Controller
 
     public function updateStudent(Request $request, $id) {
         $student = Student::find($id);
+        $program = TrainingProgram::find($request['program']);
         $faculty = Faculty::find($request['faculty']);
-        $program = TrainingProgram::where('name', $request['program_name'])
-                                    ->where('system', $request['program_system'])
-                                    ->first();
+
         $group = Group::where('id_training', $program->id)
-                        ->where('id_faculty', $faculty->id)
-                        ->where('name', $request['group'])
-                        ->first();
+            ->where('id_faculty', $faculty->id)
+            ->where('name', $request['group'])
+            ->first();
 
         $major = Major::where('id_training', $program->id)
-                        ->where('id_faculty', $faculty->id)
-                        ->where('name', $request['major'])
-                        ->first();
+            ->where('id_faculty', $faculty->id)
+            ->where('name', $request['major'])
+            ->first();
 
         $student->update([
             'id' => $request['id'],
@@ -212,7 +221,7 @@ class PersonController extends Controller
             'status' => $request['status']
         ]);
 
-        return redirect('/admin/students')->with('success', 'Update Successful');
+        return redirect('/admin/students/profile/id='.$id)->with('success', 'Update Successful');
     }
 
     public function editStudent($id) {
@@ -427,7 +436,7 @@ class PersonController extends Controller
         $teacher->faculty()->associate($faculty);
         $teacher->save();
 
-        return redirect('/admin/teachers');
+        return redirect('/admin/teachers/profile/id='.$id);
     }
     public function deleteTeacher($id) {
         Teacher::find($id)->update([

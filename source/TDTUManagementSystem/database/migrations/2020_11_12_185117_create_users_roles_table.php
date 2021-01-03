@@ -14,11 +14,11 @@ class CreateUsersRolesTable extends Migration
     public function up()
     {
         Schema::create('users_roles', function (Blueprint $table) {
-            $table->bigInteger('id_user')->unsigned();
+            $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')
                 ->references('id')->on('users')
                 ->cascadeOnDelete();
-            $table->bigInteger('id_role')->unsigned();
+            $table->unsignedBigInteger('id_role');
             $table->foreign('id_role')
                 ->references('id')->on('roles')
                 ->cascadeOnDelete();

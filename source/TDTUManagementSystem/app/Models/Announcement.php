@@ -12,11 +12,6 @@ class Announcement extends Model
     protected $table = 'announcements';
 
     protected $fillable = [
-        'title', 'description'
-    ];
-
-    protected $casts = [
-        'created_at' => 'datetime:d/m/Y H:m:s',
-        'updated_at' => 'datetime:d/m/Y H:m:s'
+        'title', 'description', 'to'
     ];
 }

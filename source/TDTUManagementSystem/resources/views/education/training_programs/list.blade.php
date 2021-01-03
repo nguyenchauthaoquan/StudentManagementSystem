@@ -13,6 +13,7 @@
             </a>
         </div>
     </div>
+
     <div class="table-responsive mt-3">
         <table class="table table-bordered table-striped table-hover">
             <thead>
@@ -29,33 +30,32 @@
             </thead>
             <tbody>
                 @foreach($programs as $program)
-                    @if($program->status === 'Đang Mở')
-                        <tr>
-                            <td>{{$program->name}}</td>
-                            <td>{{$program->system}}</td>
-                            <td class="@if($program->status === 'Đang Mở') bg-success text-white @endif
-                                d-flex align-items-center justify-content-center"
+                    <tr>
+                        <td>{{$program->name}}</td>
+                        <td>{{$program->system}}</td>
+                        <td class="@if($program->status === 'Đang Mở') bg-success text-white @endif
+                            d-flex align-items-center justify-content-center"
+                        >
+                            {{$program->status}}
+                        </td>
+                        <td>
+                            <a href="{{url('/admin/programs/edit/id='.$program->id)}}"
+                               class="btn btn-outline-success rounded-circle">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a
+                                class="btn btn-outline-danger rounded-circle"
+                                href="{{url('/admin/programs/delete/id='.$program->id)}}"
                             >
-                                {{$program->status}}
-                            </td>
-                            <td>
-                                <a href="{{url('/admin/programs/edit/id='.$program->id)}}"
-                                   class="btn btn-outline-success rounded-circle">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a
-                                    class="btn btn-outline-danger rounded-circle"
-                                    href="{{url('/admin/programs/delete/id='.$program->id)}}"
-                                >
-                                    <i class="fas fa-minus"></i>
-                                </a>
+                                <i class="fas fa-minus"></i>
+                            </a>
 
-                            </td>
-                        </tr>
-                    @endif
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
+        {{$programs->links('paginator')}}
     </div>
 
     <div class="modal fade" id="deleted" role="dialog">
@@ -76,27 +76,26 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($programs as $program)
-                                @if($program->status === 'Đang Đóng')
-                                    <tr>
-                                        <td>{{$program->name}}</td>
-                                        <td>{{$program->system}}</td>
-                                        <td class="@if($program->status === 'Đang Đóng') bg-danger text-white @endif
-                                            d-flex align-items-center justify-content-center"
-                                        >
-                                            {{$program->status}}
-                                        </td>
-                                        <td>
-                                            <a href="{{url('/admin/programs/edit/id='.$program->id)}}"
-                                               class="btn btn-outline-success rounded-circle">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endif
+                            @foreach($deletedPrograms as $program)
+                                <tr>
+                                    <td>{{$program->name}}</td>
+                                    <td>{{$program->system}}</td>
+                                    <td class="@if($program->status === 'Đang Đóng') bg-danger text-white @endif
+                                        d-flex align-items-center justify-content-center"
+                                    >
+                                        {{$program->status}}
+                                    </td>
+                                    <td>
+                                        <a href="{{url('/admin/programs/edit/id='.$program->id)}}"
+                                           class="btn btn-outline-success rounded-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
+                        {{$deletedPrograms->links('paginator')}}
                     </div>
                 </div>
             </div>

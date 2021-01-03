@@ -2,6 +2,12 @@
 
 
 @section('content')
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{session('success')}}
+        </div>
+    @endif
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group" role="group">
             <a href="{{url('/admin/students/create')}}" class="btn btn-outline-primary rounded-circle mr-2">
@@ -24,6 +30,7 @@
                 <th>{{__('MSSV')}}</th>
                 <th>{{__('Họ và tên')}}</th>
                 <th>{{__('Lớp')}}</th>
+                <th>{{__('Nghành')}}</th>
                 <th>{{__('Tình trạng')}}</th>
             </tr>
             </thead>
@@ -39,6 +46,7 @@
                                 </a>
                             </td>
                             <td>{{$group->name}}</td>
+                            <td>{{$student->name}}</td>
                             <td class="
                                @if ($student->pivot->status === 'Đi Học')
                                  bg-success text-white

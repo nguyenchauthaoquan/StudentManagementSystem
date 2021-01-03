@@ -27,34 +27,31 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="program_name" class="col-md-4 col-form-label">
-                                {{__('Tên chương trình đào tạo')}}
-                            </label>
+                            <label for="program" class="col-md-4 col-form-label">{{__('Chương trình đào tạo')}}</label>
                             <div class="col-md-6">
-                                <select name="program_name" id="program_name" class="form-control">
-                                    @foreach($programs->unique('name') as $program)
-                                        <option value="{{$program->name}}"
-                                                @if($program->name === $program_major->name) selected @endif>
-                                            {{$program->name}}
-                                        </option>
+                                <select type="text"
+                                        id="program"
+                                        class="form-control @if($errors->has('program')) errors @endif"
+                                        name="program">
+                                    <option value="" selected>{{__('Chương trình đào tạo')}}</option>
+                                    @foreach($programs as $program)
+                                        @if ($program->status === 'Đang Mở')
+                                            <option value="{{$program->name." - Hệ ".$program->system}}"
+                                                    @if(($program_major->name." - Hệ ".$program_major->system) === ($program->name." - Hệ ".$program->system))
+                                                    selected
+                                                @endif>
+                                                {{$program->name." - Hệ ".$program->system}}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
+                                @if($errors->has('program'))
+                                    <div class="errors">
+                                        <span>{{ $errors->first('program') }}</span>
+                                    </div>
+                                @endif
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="program_system" class="col-md-4 col-form-label">
-                                {{__('Hệ đào tạo')}}
-                            </label>
-                            <div class="col-md-6">
-                                <select name="program_system" id="program_system" class="form-control">
-                                    @foreach($programs->unique('system') as $program)
-                                        <option value="{{$program->system}}"
-                                                @if($program->system === $program_major->system) selected @endif>
-                                            {{$program->system}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+
                         </div>
                         <div class="form-group row">
                             <label for="status" class="col-md-4 col-form-label">

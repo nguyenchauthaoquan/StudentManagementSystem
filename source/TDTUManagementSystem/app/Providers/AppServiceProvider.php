@@ -29,11 +29,5 @@ class AppServiceProvider extends ServiceProvider
         //
         Paginator::useBootstrap();
         Schema::defaultStringLength(300);
-
-        if (Schema::hasTable('roles')) {
-            Role::firstOrCreate(['name' => 'Admin'], [
-                'name' => 'Admin'
-            ]);
-        }
     }
 }

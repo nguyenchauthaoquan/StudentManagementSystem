@@ -65,4 +65,40 @@
             </div>
         </div>
     </div>
+    <div class="container mt-4">
+        <div class="row row-header">
+            <div class="col-md-6">
+                <h4 class="text-center">{{__('Thông Báo Đến Sinh Viên')}}</h4>
+            </div>
+            <div class="col-md-6">
+                <h4 class="text-center">{{__('Thông Báo Đến Giảng Viên')}}</h4>
+            </div>
+        </div>
+        <div class="row row-information">
+            <div class="col-md-6">
+                <div class="list-group list-group-flush">
+                    @foreach($announcements as $announcement)
+                        @if($announcement->to === 'Students')
+                            <div class="list-group-item">
+                                <h2 class="text-primary">{{$announcement->title}}</h2>
+                                <a href="">{{__('Xem Chi Tiết')}}</a>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="list-group list-group-flush">
+                    @foreach($announcements as $announcement)
+                        @if($announcement->to === 'Teachers')
+                            <div class="list-group-item">
+                                <h2 class="text-primary">{{$announcement->title}}</h2>
+                                <a href="">{{__('Xem Chi Tiết')}}</a>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

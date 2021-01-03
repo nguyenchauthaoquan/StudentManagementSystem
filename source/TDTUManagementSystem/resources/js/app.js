@@ -6,13 +6,12 @@ import './bootstrap';
 $('.date-picker').datepicker({
     dateFormat: 'yy-mm-dd'
 });
-$('.accordion').accordion();
 
 $('.menu-toggle').on('click', function () {
     $('.sidebar').toggleClass('active');
     $('.main').toggleClass('active');
 });
 
-$(".roles").change(function () {
-    $('.list-roles').submit();
-});
+$('.alert').fadeTo(2000, 500).slideUp(500, function () {
+    $(this).slideUp(500);
+})
