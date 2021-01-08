@@ -15,9 +15,7 @@
                 <tr>
                     <td>{{$user->account}}</td>
                     <td>{{$user->email}}</td>
-
                     <td>
-
                         <form action="{{action('App\Http\Controllers\AuthController@grantAccess', $user->id)}}"
                               method="post"
                               class="list-roles form-check-inline">

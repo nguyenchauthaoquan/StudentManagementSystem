@@ -530,6 +530,10 @@ class EducationController extends Controller
                 Student::where('id_group', $group->id)->where('status', 'Đi Học')->update([
                     'status' => 'Thôi Học'
                 ]);
+                User::where('account', Student::where('id_group', $group->id)->where('status', 'Thôi Học')->first()->id
+                )->update([
+                    'status' => 'Không Cho Phép'
+                ]);
                 break;
             }
         }

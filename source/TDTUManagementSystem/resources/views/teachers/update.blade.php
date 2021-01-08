@@ -21,7 +21,13 @@
                         <div class="form-group">
                             <label for="id">{{__('MSGV')}}</label>
                             <div>
-                                <input type="text" class="form-control" name="id" id="id" value="{{$teacher->id}}">
+                                <input type="text"
+                                       class="form-control"
+                                       name="id"
+                                       id="id"
+                                       value="{{$teacher->id}}"
+                                       disabled
+                                >
                             </div>
                         </div>
                     </div>

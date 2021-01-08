@@ -27,6 +27,7 @@
                                    name="id"
                                    id="id"
                                    value="{{$student->id}}"
+                                   disabled
                             >
                             @if($errors->has('id'))
                                 <div class="errors">

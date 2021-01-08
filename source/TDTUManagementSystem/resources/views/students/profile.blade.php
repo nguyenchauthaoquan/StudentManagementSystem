@@ -50,7 +50,7 @@
             </div>
             <div class="col-md-6 col-xl-4 mt-1">
                 <div class="card">
-                    <div class="card-body bg-info text-white">
+                    <div class="card-body bg-danger text-white">
                         <div class="row">
                             <div class="col-3">
                                 <i class="fas fa-book-open fa-5x"></i>
@@ -60,54 +60,6 @@
                                 <h5>{{$group->name}}</h5>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-4 mt-1">
-                <div class="card">
-                    <div class="card-body bg-danger text-white">
-                        <div class="row">
-                            <div class="col-3">
-                                <i class="fas fa-graduation-cap fa-5x"></i>
-                            </div>
-                            <div class="col-9 text-right">
-                                <h2>{{__('Nghành')}}</h2>
-                                <h5>{{$major->name}}</h5>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-4 mt-1">
-                <div class="card">
-                    <div class="card-body bg-secondary text-white">
-                        <div class="row">
-                            <div class="col-3">
-                                <i class="fas fa-envelope-open fa-5x"></i>
-                            </div>
-                            <div class="col-9 text-right">
-                                <h2>{{__('Email')}}</h2>
-                                <h5 style="font-size: 12px">{{$student->email}}</h5>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-4 mt-1">
-                <div class="card">
-                    <div class="card-body bg-dark text-white">
-                        <div class="row">
-                            <div class="col-3">
-                                <i class="fas fa-phone-alt fa-5x"></i>
-                            </div>
-                            <div class="col-9 text-right">
-                                <h2>{{__('Số Điện Thoại')}}</h2>
-                                <h5>{{$student->phone}}</h5>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -121,7 +73,33 @@
             </div>
         </div>
         <div class="row row-information">
-            <div class="col-md-12">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="{{asset('images/'.$student->avatar)}}"
+                                 alt="{{__('User Avatar')}}"
+                                 width="180"
+                                 height="150"
+                                 class="rounded-circle">
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0 font-weight-bold">{{__('Email Cá Nhân')}}</h6>
+                            <span class="text-secondary">{{$student->email}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0 font-weight-bold">{{__('Số điện thoại')}}</h6>
+                            <span class="text-secondary">{{$student->phone}}</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="row">
@@ -138,7 +116,7 @@
                                 <h5 class="mb-0 font-weight-bold">{{__('Ngày sinh')}}</h5>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{$student->birthday}}
+                                {{date('d/m/Y', strtotime($student->birthday))}}
                             </div>
                         </div>
                         <hr>
@@ -202,15 +180,17 @@
         </div>
         <div class="row row-header">
             <div class="col-md-12">
-                <h5>{{('Lý lịch cá nhân')}}</h5>
+                <h5>{{('Thông Tin Nhân Thân')}}</h5>
             </div>
         </div>
         <div class="row row-information">
-            <div class="col-md-12">
-                <a href="{{url('/admin/students/backgrounds/create/id='.$student->id)}}"
-                   class="btn btn-outline-primary rounded-circle">
-                    <i class="far fa-address-book"></i>
-                </a>
+            <div class="btn-toolbar mb-3" role="toolbar">
+                <div class="btn-group mr-2" role="group">
+                    <a href="{{url('/admin/students/backgrounds/create/id='.$student->id)}}"
+                       class="btn btn-outline-primary rounded-circle">
+                        <i class="far fa-address-book"></i>
+                    </a>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover">
@@ -243,13 +223,14 @@
                                 </a>
                             </td>
                         </tr>
+
                     @endforeach
                     </tbody>
                 </table>
             </div>
 
             <div class="col-md-12">
-                <h3>{{__('Hoàn cảnh gia đình')}}</h3>
+                <h3>{{__('Hoàn Cảnh Gia Đình')}}</h3>
             </div>
             <div class="col-md-12">
                 {{$student->description}}
@@ -261,8 +242,8 @@
             </div>
         </div>
         <div class="row row-information">
-            <div class="col-md-12">
-                <div class="col-md-12">
+            <div class="btn-toolbar mb-3" role="toolbar">
+                <div class="btn-group mr-2" role="group">
                     <a href="{{url('/admin/students/policies/create/id='.$student->id)}}"
                        class="btn btn-outline-primary rounded-circle">
                         <i class="far fa-address-book"></i>

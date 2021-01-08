@@ -150,8 +150,7 @@ class PersonController extends Controller
             ['name' => 'Student'],
             ['name' => 'Student']
         );
-        $user = User::firstOrCreate(
-            ['account' => $request['id']],
+        $user = User::create(
             [
                 'account' => $request['id'],
                 'email' => $request['id']."@student.tdtu.edu.vn",
@@ -189,7 +188,6 @@ class PersonController extends Controller
             ->first();
 
         $student->update([
-            'id' => $request['id'],
             'id_group' => $group->id,
             'id_major' => $major->id,
             'firstname' => $request['firstname'],
@@ -221,7 +219,7 @@ class PersonController extends Controller
             'status' => $request['status']
         ]);
 
-        return redirect('/admin/students/profile/id='.$id)->with('success', 'Update Successful');
+        return redirect('/admin/students')->with('success', 'Cập nhật Thành Công');
     }
 
     public function editStudent($id) {
@@ -258,7 +256,8 @@ class PersonController extends Controller
             'id' => $id,
             'student' => $student,
             'major' => $major,
-            'group' => $group
+            'group' => $group,
+            'faculty' => Faculty::whereIn('id', [$major->id_faculty, $group->id_faculty])->get(),
         ]);
     }
 
@@ -382,12 +381,10 @@ class PersonController extends Controller
         $faculty = Faculty::find($request['faculty']);
         $faculty->teachers()->save($teacher);
 
-        $role = Role::firstOrCreate(
-            ['name' => 'Teacher'],
+        $role = Role::create(
             ['name' => 'Teacher']
         );
-        $user = User::firstOrCreate(
-            ['account' => $request['id']],
+        $user = User::create(
             [
                 'account' => $request['id'],
                 'email' => $request['id']."@tdtu.edu.vn",
@@ -436,7 +433,7 @@ class PersonController extends Controller
         $teacher->faculty()->associate($faculty);
         $teacher->save();
 
-        return redirect('/admin/teachers/profile/id='.$id);
+        return redirect('/admin/teachers');
     }
     public function deleteTeacher($id) {
         Teacher::find($id)->update([

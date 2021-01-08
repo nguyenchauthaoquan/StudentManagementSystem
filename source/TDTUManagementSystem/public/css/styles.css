@@ -18701,7 +18701,7 @@ body.antialiased {
 
 .wrapper .main {
   transition: 0.6s cubic-bezier(0, 1.16, 0, 1.23);
-  width: 260px;
+  width: calc(100% - 260px);
   margin-top: 70px;
   margin-left: 260px;
   padding: 20px;
@@ -18709,7 +18709,6 @@ body.antialiased {
 
 .wrapper .main.active {
   margin-left: 80px;
-  width: 80px;
 }
 
 .wrapper .main .card-body-icon {
@@ -18812,9 +18811,11 @@ body.antialiased {
 
   .wrapper .main {
     margin-left: 80px;
+    width: calc(100% - 80px);
   }
 
   .wrapper .main.active {
+    width: 100%;
     margin-left: 0;
   }
 }

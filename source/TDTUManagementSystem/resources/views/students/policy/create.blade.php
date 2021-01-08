@@ -13,7 +13,7 @@
             </div>
             <div class="row row-information">
                 <div class="row w-100">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <label for="area">{{__('Diện chính sách')}}</label>
                         <div>
                             <input type="text" class="form-control" name="area" id="area">

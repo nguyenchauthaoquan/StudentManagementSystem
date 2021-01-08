@@ -145,14 +145,13 @@ body {
     }
     .main {
         transition: 0.6s cubic-bezier(0, 1.16, 0, 1.23);
-        width: 260px;
+        width: calc(100% - 260px);
         margin-top: 70px;
         margin-left: 260px;
         padding: 20px;
 
         &.active {
             margin-left: 80px;
-            width: 80px;
         }
 
         .card-body-icon {
@@ -252,13 +251,14 @@ body {
             }
             &.active {
                 width: 0;
-
             }
         }
 
         .main {
             margin-left: 80px;
+            width: calc(100% - 80px);
             &.active {
+                width: 100%;
                 margin-left: 0;
             }
         }

@@ -145,8 +145,7 @@
                     <div>
                         <select class="form-control @if($errors->has('group')) errors @endif"
                                 id="group"
-                                name="group"
-                        >
+                                name="group">
                             <option value="" selected>{{__('Lớp')}}</option>
                             @foreach($groups->unique('name') as $group)
                                 @if ($group->status === 'Đang Mở')
@@ -166,7 +165,9 @@
                 <div class="col-md-4">
                     <label for="faculty">{{__('Khoa')}}</label>
                     <div>
-                        <select name="faculty" id="faculty" class="form-control @if($errors->has('faculty')) errors @endif">
+                        <select name="faculty"
+                                id="faculty"
+                                class="form-control @if($errors->has('faculty')) errors @endif">
                             <option value="" selected>{{__('Khoa')}}</option>
                             @foreach($faculties as $faculty)
                                 @if($faculty->status === 'Đang Mở')

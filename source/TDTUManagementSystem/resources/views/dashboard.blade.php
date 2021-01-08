@@ -24,8 +24,24 @@
                     </button>
                     <div class="collapse navbar-collapse" id="collapse">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">{{__('Đăng xuất')}}</a>
+                            <li class="nav-item dropdown">
+                                @if (Auth::check())
+                                    <a href="#"
+                                       class="nav-link dropdown-toggle text-white"
+                                       id="dropdown-link"
+                                       role="button"
+                                       data-toggle="dropdown"
+                                       aria-haspopup="true"
+                                       aria-expanded="false"
+                                    >
+                                        {{$user->firstname." ".$user->middlename." ".$user->lastname}}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-link">
+                                        <div class="dropdown-divider"></div>
+                                        <a href="{{url('/home')}}" class="dropdown-item">{{__('Thoát')}}</a>
+                                    </div>
+
+                                @endif
                             </li>
                         </ul>
                     </div>
