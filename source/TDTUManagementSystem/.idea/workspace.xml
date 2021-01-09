@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe6fee79-8cdd-4648-a6bd-5b2bee166e8c" name="Default Changelist" comment="Profile Page updated after login successful.">
-      <change beforePath="$PROJECT_DIR$/../database/tdtumanagement.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../database/tdtumanagement.sql" afterDir="false" />
-    </list>
+    <list default="true" id="fe6fee79-8cdd-4648-a6bd-5b2bee166e8c" name="Default Changelist" comment="Profile Page updated after login successful." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -184,7 +182,7 @@
       <workItem from="1609957241552" duration="2026000" />
       <workItem from="1610075423913" duration="5157000" />
       <workItem from="1610088674656" duration="11766000" />
-      <workItem from="1610176849487" duration="8652000" />
+      <workItem from="1610176849487" duration="9263000" />
     </task>
     <task id="LOCAL-00001" summary="Debug and update documents">
       <created>1609711734517</created>
