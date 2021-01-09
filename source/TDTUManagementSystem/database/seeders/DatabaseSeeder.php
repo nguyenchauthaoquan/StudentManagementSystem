@@ -3,8 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Faculty;
+use App\Models\Group;
 use App\Models\TrainingProgram;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,13 +18,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        TrainingProgram::create([
-            'name' => 'Regular Program',
-            'system' => 'University'
-        ]);
-        Faculty::create([
-            'id' => '06',
-            'name' => 'Science Application'
+        User::create([
+            'account' => '51600072',
+            'email' => '51600072@tdtu.edu.vn',
+            'password' => Hash::make('51600072')
         ]);
     }
 }

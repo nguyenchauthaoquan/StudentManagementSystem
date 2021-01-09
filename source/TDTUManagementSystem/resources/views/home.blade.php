@@ -35,7 +35,7 @@
                            data-toggle="dropdown"
                            aria-haspopup="true"
                            aria-expanded="false">
-                            <i class="far fa-user"></i><span class="pl-2">{{$user->firstname." ".$user->middlename." ".$user->lastname}}</span>
+                            <i class="far fa-user"></i><span class="pl-2">{{$user->student->firstname." ".$user->student->middlename." ".$user->student->lastname}}</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-link">
                             @can('admin')

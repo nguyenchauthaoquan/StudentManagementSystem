@@ -12,6 +12,7 @@ use App\Models\TrainingProgram;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -38,29 +39,15 @@ class AuthController extends Controller
     }
 
     public function home() {
-        $user = null;
-        if (Auth::check()) {
-            $student = Student::find(auth()->user()->account);
-            $teacher = Teacher::find(auth()->user()->account);
-
-            if ($student) {
-               $user = $student;
-            }
-            if ($teacher) {
-                $user = $teacher;
-            }
-        }
-        $group = Group::find($user->id_group);
-        $major = Major::find($user->id_major);
-        $faculties = Faculty::whereIn('id', [$group->id_faculty, $major->id_faculty])->get();
-        $programs =TrainingProgram::where('id', $group->id_training)->where('id', $major->id_training)->get();
+        $user = Auth::user();
+        $group = Group::find($user->student->id_group);
+        $major = Major::find($user->student->id_major);
 
         return view('profile', [
             'user' => $user,
             'group' => $group,
             'major' => $major,
-            'faculties' => $faculties,
-            'programs' => $programs
+            'faculties' => Faculty::where('id', $group->id_faculty)->where('id', $major->id_faculty)->get()
         ]);
     }
 

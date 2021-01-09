@@ -24,6 +24,7 @@
                     </button>
                     <div class="collapse navbar-collapse" id="collapse">
                         <ul class="navbar-nav ml-auto">
+
                             <li class="nav-item dropdown">
                                 @if (Auth::check())
                                     <a href="#"
@@ -34,7 +35,7 @@
                                        aria-haspopup="true"
                                        aria-expanded="false"
                                     >
-                                        {{$user->firstname." ".$user->middlename." ".$user->lastname}}
+                                        {{Auth::user()->student->firstname." ".Auth::user()->student->middlename." ".Auth::user()->student->lastname}}
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-link">
                                         <div class="dropdown-divider"></div>

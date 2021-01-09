@@ -6,21 +6,16 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img src="{{asset('images/'.$user->avatar)}}"
+                            <img src="{{asset('images/'.$user->student->avatar)}}"
                                  alt="{{__('User Avatar')}}"
                                  width="200"
                                  height="150"
                                  class="rounded-circle">
                             <div class="mt-3">
-                                <h4>{{$user->id}}</h4>
+                                <h4>{{$user->student->id}}</h4>
                                 <p class="text-secondary mb-1">
                                     {{$user->firstname." ".$user->middlename." ".$user->lastname}}
                                 </p>
-                                <span class="text-muted font-size-sm">
-                                @foreach($programs as $program)
-                                        {{$program->name.' - Hệ '.$program->system}}
-                                @endforeach
-                            </span>
                             </div>
                         </div>
                     </div>
@@ -54,7 +49,7 @@
                                 <h6 class="mb-0 font-weight-bold">{{__('Số CMND')}}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{$user->id_number}}
+                                {{$user->student->id_number}}
                             </div>
                         </div>
                         <hr>
@@ -63,7 +58,7 @@
                                 <h6 class="mb-0 font-weight-bold">{{__('Ngày sinh')}}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{date('d/m/Y', strtotime($user->birthday))}}
+                                {{date('d/m/Y', strtotime($user->student->birthday))}}
                             </div>
                         </div>
                         <hr>
@@ -72,7 +67,7 @@
                                 <h6 class="mb-0 font-weight-bold">{{__('Nơi sinh')}}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{$user->place_of_birth}}
+                                {{$user->student->place_of_birth}}
                             </div>
                         </div>
                         <hr>
@@ -81,7 +76,7 @@
                                 <h6 class="mb-0 font-weight-bold">{{__('Nguyên quán')}}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{$user->origin}}
+                                {{$user->student->origin}}
                             </div>
                         </div>
                         <hr>
@@ -90,7 +85,7 @@
                                 <h6 class="mb-0 font-weight-bold">{{__('Giới tính')}}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{$user->gender}}
+                                {{$user->student->gender}}
                             </div>
                         </div>
                         <hr>
@@ -99,7 +94,7 @@
                                 <h6 class="mb-0 font-weight-bold">{{__('Tôn giáo')}}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{$user->religion}}
+                                {{$user->student->religion}}
                             </div>
                         </div>
                         <hr>
@@ -108,7 +103,7 @@
                                 <h6 class="mb-0 font-weight-bold">{{__('Dân tộc')}}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{$user->kin}}
+                                {{$user->student->kin}}
                             </div>
                         </div>
                         <hr>
@@ -117,7 +112,7 @@
                                 <h6 class="mb-0 font-weight-bold">{{__('Nơi cấp CMND')}}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{$user->place_of_id_number}}
+                                {{$user->student->place_of_id_number}}
                             </div>
                         </div>
                         <hr>

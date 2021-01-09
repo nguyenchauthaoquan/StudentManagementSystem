@@ -32,4 +32,8 @@ class Student extends Pivot
     public function policies() {
         return $this->hasMany(Policy::class, 'id_student');
     }
+
+    public function user() {
+        return $this->hasOne(User::class, 'id_student');
+    }
 }

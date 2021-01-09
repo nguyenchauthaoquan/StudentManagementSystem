@@ -150,11 +150,14 @@ class PersonController extends Controller
             ['name' => 'Student'],
             ['name' => 'Student']
         );
-        $user = User::create(
+        $user = User::firstOrCreate(
+            ['account' => $request['id']],
             [
+                'id_student' => $request['id'],
                 'account' => $request['id'],
-                'email' => $request['id']."@student.tdtu.edu.vn",
-                'password' => Hash::make($request['id'])
+                'email' => $request['id']."@tdtu.edu.vn",
+                'password' => Hash::make($request['id']),
+                'status' => 'Cho Phép'
             ]
         );
         $user->roles()->attach($role->id);
@@ -266,6 +269,9 @@ class PersonController extends Controller
 
         $student->update([
             'status' => 'Thôi Học'
+        ]);
+        $user = User::where('account', $id)->update([
+            'status' => 'Không Cho Phép'
         ]);
 
         return redirect('/admin/students');
@@ -381,11 +387,14 @@ class PersonController extends Controller
         $faculty = Faculty::find($request['faculty']);
         $faculty->teachers()->save($teacher);
 
-        $role = Role::create(
+        $role = Role::firstOrCreate(
+            ['name' => 'Teacher'],
             ['name' => 'Teacher']
         );
-        $user = User::create(
+        $user = User::firstOrCreate(
+            ['account' => $request['id']],
             [
+                'id_teacher' => $request['id'],
                 'account' => $request['id'],
                 'email' => $request['id']."@tdtu.edu.vn",
                 'password' => Hash::make($request['id'])
@@ -438,6 +447,9 @@ class PersonController extends Controller
     public function deleteTeacher($id) {
         Teacher::find($id)->update([
             'status' => 'Thôi Việc'
+        ]);
+        User::where('account', $id)->update([
+            'status' => 'Không Cho Phép'
         ]);
 
         return redirect('/admin/teachers');

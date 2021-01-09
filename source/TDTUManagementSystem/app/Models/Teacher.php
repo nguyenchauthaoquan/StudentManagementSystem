@@ -35,4 +35,8 @@ class Teacher extends Model
     public function policies() {
         return $this->hasMany(Policy::class, 'id_teacher');
     }
+
+    public function user() {
+        return $this->hasOne(User::class, 'id_teacher');
+    }
 }

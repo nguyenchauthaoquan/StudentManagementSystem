@@ -35,5 +35,21 @@ class AuthServiceProvider extends ServiceProvider
 
            return false;
         });
+        Gate::define('student', function ($user) {
+            foreach ($user->roles as $role) {
+                if ($role->name === 'Student') {
+                    return true;
+                }
+            }
+            return false;
+        });
+        Gate::define('teacher', function ($user) {
+            foreach ($user->roles as $role) {
+                if ($role->name === 'Teacher') {
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 }
