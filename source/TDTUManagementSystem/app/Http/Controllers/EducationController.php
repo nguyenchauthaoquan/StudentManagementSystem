@@ -168,9 +168,6 @@ class EducationController extends Controller
 
         $groups = Group::where('id_training', $program->id)->where('status', 'Đang Đóng')->get();
         $majors = Major::where('id_training', $program->id)->where('status', 'Đang Đóng')->get();
-        $program->subjects()->where('status', 'Đang Mở')->update([
-            'status' => 'Đang Đóng'
-        ]);
 
         foreach ($groups as $group) {
             foreach ($majors as $major) {
@@ -611,14 +608,15 @@ class EducationController extends Controller
             'credits' => $request['credits'],
             'status' => $request['status'],
         ]);
-        $programs = TrainingProgram::whereIn('name', $request['program_name'])
-            ->whereIn('system', $request['system'])
-            ->get();
-
-        foreach ($programs as $program) {
-            $program->subjects()->attach($subject->id);
+        foreach ($request['programs'] as $programs) {
+            $program_name = explode("- Hệ", $programs);
+            $program = TrainingProgram::where('name', trim($program_name[0]))
+                ->where('system', trim($program_name[1]))
+                ->get();
+            foreach ($program as $new_program) {
+                $new_program->subjects()->attach($subject->id);
+            }
         }
-
 
         return redirect('/admin/subjects');
     }
@@ -626,8 +624,7 @@ class EducationController extends Controller
     public function updateSubject(Request $request, $id) {
         $subject = Subject::find($id);
         $faculty = Faculty::find($request['faculty']);
-        $programs = TrainingProgram::whereIn('name', $request->input('program_name'))
-                                    ->whereIn('system', $request->input('system'))
+        $programs = TrainingProgram::whereIn('id', $request->input('programs'))
                                     ->get();
         $subject->update([
             'id' => $request['id'],

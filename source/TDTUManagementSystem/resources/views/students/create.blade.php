@@ -372,13 +372,14 @@
         </div>
         <div class="row row-header">
             <div class="col-md-12">
-                <h5>{{__('Chỗ ở Hiện Tại')}}</h5>
+                <h5>{{__('Thông Tin Chỗ Ở')}}</h5>
             </div>
         </div>
         <div class="row row-information">
+
             <div class="row w-100">
                 <div class="col-md-12">
-                    <label for="address">{{__('Địa chỉ')}}</label>
+                    <label for="address">{{__('Địa chỉ hiện tại')}}</label>
                     <div>
                         <input type="text"
                                id="address"
@@ -393,13 +394,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row row-header">
-            <div class="col-md-12">
-                <h5>{{__('Thông Tin Chỗ Ở (Ký Túc Xá Tại Trường)')}}</h5>
-            </div>
-        </div>
-        <div class="row row-information">
             <div class="row w-100">
                 <div class="col-md">
                     <label for="date_of_dormitory">{{__('Ngày ở ký túc xá')}}</label>

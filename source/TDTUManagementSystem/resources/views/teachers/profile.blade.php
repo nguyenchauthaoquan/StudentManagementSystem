@@ -55,6 +55,32 @@
             <div class="col-md-12"><h5>{{__('Thông tin cá nhân')}}</h5></div>
         </div>
         <div class="row row-information">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="{{asset('images/'.$teacher->avatar)}}"
+                                 alt="{{__('User Avatar')}}"
+                                 width="180"
+                                 height="150"
+                                 class="rounded-circle">
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0 font-weight-bold">{{__('Email Cá Nhân')}}</h6>
+                            <span class="text-secondary">{{$teacher->email}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0 font-weight-bold">{{__('Số điện thoại')}}</h6>
+                            <span class="text-secondary">{{$teacher->phone}}</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
             <div class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-body">

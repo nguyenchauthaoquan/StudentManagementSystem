@@ -11,7 +11,7 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
     <div class="container-fluid">
-        <a class="navbar-brand text-primary" href="{{ url('/') }}">
+        <a class="navbar-brand text-primary" href="{{ url('/home') }}">
             <img src="{{asset('images/logo.png')}}" alt="" width="100" height="45">
             <span class="h3">{{__('Hệ Thống Quản Lý Thông Tin Sinh Viên')}}</span>
         </a>
@@ -43,6 +43,9 @@
                                     <i class="fas fa-chalkboard"></i><span class="pl-2">{{__('Admin Dashboard')}}</span>
                                 </a>
                             @endcan
+                                <a href="{{url('/changepwd')}}" class="dropdown-item">
+                                    <i class="fas fa-key"></i><span class="pl-2">{{__('Đổi Mật Khẩu')}}</span>
+                                </a>
                             <div class="dropdown-divider"></div>
                             <form action="{{url('/logout')}}" method="post">
                                 @csrf

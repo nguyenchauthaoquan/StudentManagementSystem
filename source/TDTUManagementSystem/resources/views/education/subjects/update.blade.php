@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header row-header">
-            <h5>{{__('Thêm thông tin chương trình mới')}}</h5>
+            <h5>{{__('Chỉnh sửa thông tin môn học')}}</h5>
         </div>
         <div class="card-body">
             <form action="{{url('/admin/subjects/update/id='.$subject->id)}}" method="post">
@@ -98,49 +98,26 @@
                                 {{__('Chương trình đào tạo')}}
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdown">
-                                <div class="dropdown-header">
-                                    <strong>{{__('Tên Chương Trình Đào Tạo')}}</strong>
-                                </div>
-                                @foreach($programs->unique('name') as $program)
+                                @foreach($programs as $program)
                                     @if($program->status === 'Đang Mở')
                                         <div class="dropdown-item">
-                                            <input name="program_name[]"
-                                                   id="program_name"
+                                            <input name="programs[]"
+                                                   id="programs"
                                                    class="form-check-input"
                                                    type="checkbox"
-                                                   value="{{$program->name}}"
-                                                   @foreach($subject->programs as $subject_program) @if($subject_program->name === $program->name) checked @endif @endforeach>
-                                            <label class="form-check-label">{{$program->name}}</label>
+                                                   value="{{$program->id}}"
+                                                   @foreach($subject->programs as $subject_program)
+                                                       @if ($program->id === $subject_program->id)
+                                                           checked
+                                                       @endif
+                                                   @endforeach
+                                            >
+                                            <label for="programs" class="form-check-label">
+                                                {{$program->name." - Hệ ".$program->system}}
+                                            </label>
                                         </div>
                                     @endif
                                 @endforeach
-                                <div class="dropdown-divider"></div>
-                                <div class="dropdown-header">
-                                    <strong>{{__('Hệ đào tạo')}}</strong>
-                                </div>
-                                @foreach($programs->unique('system') as $program)
-                                    @if($program->status === 'Đang Mở')
-                                        <div class="dropdown-item">
-                                            <input name="system[]"
-                                                   id="system"
-                                                   class="form-check-input"
-                                                   type="checkbox"
-                                                   value="{{$program->system}}"
-                                                   @foreach($subject->programs as $subject_program) @if($subject_program->system === $program->system) checked @endif @endforeach>
-                                            <label for="system" class="form-check-label">{{$program->system}}</label>
-                                        </div>
-                                    @endif
-                                @endforeach
-                                @if($errors->has('program_name'))
-                                    <div class="errors">
-                                        <span>{{ $errors->first('program_name') }}</span>
-                                    </div>
-                                @endif
-                                @if($errors->has('system'))
-                                    <div class="errors">
-                                        <span>{{ $errors->first('system') }}</span>
-                                    </div>
-                                @endif
                             </div>
                         </div>
 

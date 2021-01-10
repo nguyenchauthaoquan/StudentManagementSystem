@@ -77,4 +77,31 @@ class AuthController extends Controller
 
         return redirect('/admin/users');
     }
+
+    public function changePassword(Request $request) {
+        $this->validate($request, [
+           'current-password' => ['required'],
+           'new-password' => ['required'],
+           'confirmed-new-password' => ['required', 'same:new-password']
+        ], [
+            'current-password.required' => 'Vui lòng nhập mật khẩu hiện tại',
+            'new-password.required' => 'Vui lòng nhập mật khẩu mới',
+            'confirmed-new-password.required' => 'Vui lòng xác nhận mật khẩu mới',
+            'confirmed-new-password.same' => 'Mật khẩu không trùng khớp'
+        ]);
+        if (Auth::check()) {
+            if (Hash::check($request['current-password'], Auth::user()->password)
+            ) {
+                $user = User::find(Auth::user()->id);
+                $user->update([
+                    'password' => Hash::make($request['new-password'])
+                ]);
+
+                $this->logout();
+            } else {
+                return redirect()->back()->with('fail', 'Mật khẩu mới không hợp lệ');
+            }
+        }
+        return redirect('/');
+    }
 }

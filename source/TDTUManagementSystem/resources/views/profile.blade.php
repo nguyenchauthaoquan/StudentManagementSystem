@@ -14,7 +14,7 @@
                             <div class="mt-3">
                                 <h4>{{$user->student->id}}</h4>
                                 <p class="text-secondary mb-1">
-                                    {{$user->firstname." ".$user->middlename." ".$user->lastname}}
+                                    {{$user->student->firstname." ".$user->student->middlename." ".$user->student->lastname}}
                                 </p>
                             </div>
                         </div>
