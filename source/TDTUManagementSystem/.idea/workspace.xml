@@ -20,21 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe6fee79-8cdd-4648-a6bd-5b2bee166e8c" name="Default Changelist" comment="Profile Page updated after login successful.">
-      <change afterPath="$PROJECT_DIR$/resources/views/changepwd.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../documents/51600072.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../documents/51600072.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../documents/DACNTT2.1_DANGMINHTHANG_51600072.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../documents/DACNTT2.1_DANGMINHTHANG_51600072.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../documents/diagrams/ERD.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../../documents/diagrams/ERD.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EducationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EducationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/education/subjects/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/education/subjects/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/education/subjects/update.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/education/subjects/update.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/students/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/students/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/teachers/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teachers/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/teachers/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teachers/profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,6 +188,8 @@
       <workItem from="1610088674656" duration="11766000" />
       <workItem from="1610176849487" duration="18036000" />
       <workItem from="1610288839923" duration="596000" />
+      <workItem from="1610303299514" duration="2431000" />
+      <workItem from="1610306197297" duration="1807000" />
     </task>
     <task id="LOCAL-00001" summary="Debug and update documents">
       <created>1609711734517</created>
