@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fe6fee79-8cdd-4648-a6bd-5b2bee166e8c" name="Default Changelist" comment="Profile Page updated after login successful.">
       <change beforePath="$PROJECT_DIR$/../../documents/DACNTT2.1_DANGMINHTHANG_51600072.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../documents/DACNTT2.1_DANGMINHTHANG_51600072.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../documents/diagrams/ERD.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../../documents/diagrams/ERD.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -190,6 +189,7 @@
       <workItem from="1610288839923" duration="596000" />
       <workItem from="1610303299514" duration="2431000" />
       <workItem from="1610306197297" duration="1807000" />
+      <workItem from="1610315173104" duration="617000" />
     </task>
     <task id="LOCAL-00001" summary="Debug and update documents">
       <created>1609711734517</created>
