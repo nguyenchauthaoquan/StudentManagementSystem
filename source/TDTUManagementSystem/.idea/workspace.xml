@@ -19,11 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe6fee79-8cdd-4648-a6bd-5b2bee166e8c" name="Default Changelist" comment="Profile Page updated after login successful.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EducationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EducationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/education/groups/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/education/groups/create.blade.php" afterDir="false" />
-    </list>
+    <list default="true" id="fe6fee79-8cdd-4648-a6bd-5b2bee166e8c" name="Default Changelist" comment="Profile Page updated after login successful." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -203,7 +199,7 @@
       <workItem from="1610358310767" duration="4640000" />
       <workItem from="1610388141565" duration="609000" />
       <workItem from="1610388784573" duration="82000" />
-      <workItem from="1610388879470" duration="1262000" />
+      <workItem from="1610388879470" duration="1572000" />
     </task>
     <task id="LOCAL-00001" summary="Debug and update documents">
       <created>1609711734517</created>
@@ -233,7 +229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610214522340</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Profile Page updated after login successful.">
+      <created>1610390224601</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1610390224602</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,8 +256,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Debug and update documents" />
-    <MESSAGE value="Profile Page updated after login successful." />
     <MESSAGE value="Add SQL, debug" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add SQL, debug" />
+    <MESSAGE value="Profile Page updated after login successful." />
+    <option name="LAST_COMMIT_MESSAGE" value="Profile Page updated after login successful." />
   </component>
 </project>
