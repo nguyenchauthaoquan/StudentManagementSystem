@@ -3,13 +3,14 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 09, 2021 lúc 04:10 PM
+-- Thời gian đã tạo: Th1 11, 2021 lúc 07:42 PM
 -- Phiên bản máy phục vụ: 10.4.17-MariaDB
 -- Phiên bản PHP: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -135,7 +136,9 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`id`, `name`, `id_training`, `id_faculty`, `date_graduation`, `date_admission`, `status`, `created_at`, `updated_at`) VALUES
-(1, '16050310', 1, '05', '2021-12-31', '2016-08-15', 'Đang Mở', '2021-01-09 14:27:11', '2021-01-09 14:27:11');
+(1, '16050310', 1, '05', '2021-12-31', '2016-08-15', 'Đang Mở', '2021-01-09 14:27:11', '2021-01-09 14:27:11'),
+(2, '16050311', 1, '05', '2021-12-31', '2016-08-15', 'Đang Mở', '2021-01-11 10:27:32', '2021-01-11 10:27:32'),
+(3, '16050301', 2, '05', '2021-12-31', '2016-08-15', 'Đang Mở', '2021-01-11 10:27:51', '2021-01-11 10:27:51');
 
 -- --------------------------------------------------------
 
@@ -234,6 +237,14 @@ CREATE TABLE `programs_subjects` (
   `id_subject` varchar(300) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `programs_subjects`
+--
+
+INSERT INTO `programs_subjects` (`id_training`, `id_subject`) VALUES
+(2, '503073'),
+(1, '503073');
+
 -- --------------------------------------------------------
 
 --
@@ -318,7 +329,10 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `id_group`, `id_major`, `avatar`, `firstname`, `middlename`, `lastname`, `birthday`, `place_of_birth`, `origin`, `gender`, `phone`, `address`, `email`, `religion`, `kin`, `id_number`, `place_of_id_number`, `nationality`, `talents`, `incomes`, `career`, `description`, `date_of_union`, `date_of_communist`, `date_of_student_union`, `date_of_dormitory`, `room_of_dormitory`, `military`, `volunteer`, `status`, `created_at`, `updated_at`) VALUES
+('51600003', 1, 'F7480101', 'user.png', 'Hoàng', 'Việt', 'Anh', '1997-01-01', 'Thành phố Hồ Chí Minh', 'Thành phố Hồ Chí Minh', 'Nam', '0123456', 'Thành phố Hồ Chí Minh', 'hoangvietanh@gmail.com', 'Phật', 'Kinh', '0123456', 'Thành phố Hồ Chí Minh', 'Việt Nam', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 'Thôi Học', '2021-01-11 10:20:21', '2021-01-11 10:21:23'),
+('51600063', 1, 'F7480101', 'user.png', 'Bùi', 'Thanh', 'Phong', '1998-01-01', 'Phú Quốc', 'Phú Quốc', 'Nam', '0123456', 'Phú Quốc', 'buithanhphong@gmail.com', 'Phật', 'Kinh', '0123456', 'Phú Quốc', 'Việt Nam', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 'Đi Học', '2021-01-11 09:52:40', '2021-01-11 09:52:40'),
 ('51600068', 1, 'F7480101', 'user.png', 'Nguyễn', 'Hưng', 'Phúc', '1998-08-14', 'Tỉnh Long An', 'Tỉnh Long An', 'Nam', '0123456', 'Huyện Cần Giuộc, Tỉnh Long An', 'hungphucnguyen1998@gmail.com', 'Phật', 'Kinh', '0123456', 'Tỉnh Long An', 'Việt Nam', NULL, NULL, NULL, NULL, NULL, NULL, '2016-08-15', '2016-08-15', 'M101', 0, 0, 'Đi Học', '2021-01-09 15:04:55', '2021-01-09 15:07:01'),
+('51600069', 1, 'F7480101', 'user.png', 'Nguyễn', 'Hữu', 'Phúc', '1998-08-01', 'Thành phố Hồ Chí Minh', 'Thành phố Hồ Chí Minh', 'Nam', '0123456', 'Thành phố Hồ Chí Minh', 'nguyenhuuphuc@gmail.com', 'Phật', 'Kinh', '0123456', 'Thành phố Hồ Chí Minh', 'Việt Nam', NULL, NULL, NULL, NULL, NULL, NULL, '2016-08-15', NULL, NULL, 0, 0, 'Đi Học', '2021-01-11 04:08:53', '2021-01-11 04:08:53'),
 ('51600072', 1, 'F7480101', 'user.png', 'Nguyễn', 'Châu Thảo', 'Quân', '1996-08-11', 'Thành phố Hồ Chí Minh', 'Thành phố Hồ Chí Minh', 'Nam', '0938706433', '183B/25/24B, đường Tôn Thất Thuyết Phường 4 Quận 4', 'thaoquannguyenchau1996@gmail.com', 'Phật', 'Kinh', '079096013733', 'Thành phố Hồ Chí Minh', 'Việt Nam', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 'Đi Học', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -336,6 +350,13 @@ CREATE TABLE `subjects` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `subjects`
+--
+
+INSERT INTO `subjects` (`id`, `id_faculty`, `name`, `credits`, `status`, `created_at`, `updated_at`) VALUES
+('503073', '05', 'Lập Trình Web & Ứng Dụng', 3, 'Đang Mở', '2021-01-11 10:09:23', '2021-01-11 10:10:03');
 
 -- --------------------------------------------------------
 
@@ -383,6 +404,7 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`id`, `id_faculty`, `avatar`, `firstname`, `middlename`, `lastname`, `birthday`, `place_of_birth`, `origin`, `gender`, `phone`, `address`, `email`, `academic_rank`, `degree`, `religion`, `kin`, `id_number`, `place_of_id_number`, `nationality`, `talents`, `incomes`, `career`, `description`, `date_of_union`, `date_of_communist`, `date_of_student_union`, `military`, `volunteer`, `status`, `created_at`, `updated_at`) VALUES
+('IT0123', '05', 'user.png', 'Đặng', 'Minh', 'Thắng', '1986-01-01', 'Thành phố Hồ Chí Minh', 'Thành phố Hồ Chí Minh', 'Nam', '0123456', 'Thành phố Hồ Chí Minh', 'dangminhthang@gmail.com', NULL, 'Thạc sĩ', 'Phật', 'Kinh', '0123456', 'Thành phố Hồ Chí Minh', 'Việt Nam', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 'Thôi Việc', '2021-01-11 10:22:35', '2021-01-11 10:22:43'),
 ('IT01234', '05', 'user.png', 'Võ', 'Hoàng', 'Anh', '1986-01-01', 'Thành phố Hồ Chí Minh', 'Thành phố Hồ Chí Minh', 'Nữ', '0123456', 'Thành phố Hồ Chí Minh', 'vohoanganh@gmail.com', NULL, 'Thạc sĩ', 'Phật', 'Kinh', '0123456', 'Thành phố Hồ Chí Minh', 'Việt Nam', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 'Đang Công Tác', '2021-01-09 15:08:30', '2021-01-09 15:08:30');
 
 -- --------------------------------------------------------
@@ -405,7 +427,8 @@ CREATE TABLE `training_programs` (
 --
 
 INSERT INTO `training_programs` (`id`, `name`, `system`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Chương Trình Chất Lượng Cao', 'Đại Học', 'Đang Mở', '2021-01-09 14:25:28', '2021-01-09 14:25:45');
+(1, 'Chương Trình Chất Lượng Cao', 'Đại học', 'Đang Mở', '2021-01-09 14:25:28', '2021-01-09 14:25:45'),
+(2, 'Chương Trình Tiêu Chuẩn', 'Đại học', 'Đang Mở', '2021-01-11 10:09:02', '2021-01-11 10:09:02');
 
 -- --------------------------------------------------------
 
@@ -432,9 +455,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `id_student`, `id_teacher`, `account`, `email`, `email_verified_at`, `password`, `remember_token`, `status`, `created_at`, `updated_at`) VALUES
-(1, '51600072', NULL, '51600072', '51600072@tdtu.edu.vn', NULL, '$2y$10$RvSCMafMM8Q.S7OiFPPbNOlCltocxsbE1x7oKapy2Bt928.s9ngTW', 'dn5Z8lJlpnvrNmbEAi1mECpA5uT3TR7LcWsoCNiGfWcgv5FlCnOQcVUNoQLK', 'Cho Phép', '2021-01-09 14:31:41', '2021-01-09 14:31:41'),
-(8, '51600068', NULL, '51600068', '51600068@tdtu.edu.vn', NULL, '$2y$10$lDcPCfA8FmscFGlBuRW91eswn70HiI1Ka4UJCKVWaTqDD3V3euSle', 'plg2HP9TDj8H38Rk7XZ9UG7OOR4giLlgCpv9S4ICZ9xeAiCNLi0IMGxOX5Vf', 'Cho Phép', '2021-01-09 15:04:55', '2021-01-09 15:04:55'),
-(9, NULL, 'IT01234', 'IT01234', 'IT01234@tdtu.edu.vn', NULL, '$2y$10$PSssHorLglV6t4kWgTtypuHQnwfQtqs0tf5YYtdv..lg269uJBjZi', NULL, 'Cho Phép', '2021-01-09 15:08:30', '2021-01-09 15:08:30');
+(1, '51600072', NULL, '51600072', '51600072@tdtu.edu.vn', NULL, '$2y$10$.fih9T9NWS5Y4yWxsPUrE.RbJ/M2933ijbTBx4zDpNF7vc/zpFA2e', 'ltKBSlLhnUP9V9KH2aAwgGQRdX5pxj6UfFy78bArMQrz1kk5rHs5BBvIUVPm', 'Cho Phép', '2021-01-09 14:31:41', '2021-01-11 04:07:12'),
+(8, '51600068', NULL, '51600068', '51600068@tdtu.edu.vn', NULL, '$2y$10$lDcPCfA8FmscFGlBuRW91eswn70HiI1Ka4UJCKVWaTqDD3V3euSle', 'omrriVNQDnbzB1tKdC0g3o6otTQgenR3WwoSziwc5EGsFvwaBdaiKe13YcFY', 'Cho Phép', '2021-01-09 15:04:55', '2021-01-09 15:04:55'),
+(9, NULL, 'IT01234', 'IT01234', 'IT01234@tdtu.edu.vn', NULL, '$2y$10$PSssHorLglV6t4kWgTtypuHQnwfQtqs0tf5YYtdv..lg269uJBjZi', NULL, 'Cho Phép', '2021-01-09 15:08:30', '2021-01-09 15:08:30'),
+(10, '51600069', NULL, '51600069', '51600069@tdtu.edu.vn', NULL, '$2y$10$quuMAHgTTwyF9Zg2AbtM9OEVD5TjA/NJPa6KDQifB3VDzAXYhNX1y', NULL, 'Cho Phép', '2021-01-11 04:08:53', '2021-01-11 04:08:53'),
+(11, '51600063', NULL, '51600063', '51600063@tdtu.edu.vn', NULL, '$2y$10$LHeaGKpacdn86BQwaHDcG.Wf3wwgwJaBmluxwLISekit13x2wja1a', NULL, 'Cho Phép', '2021-01-11 09:52:41', '2021-01-11 10:18:49'),
+(12, '51600003', NULL, '51600003', '51600003@tdtu.edu.vn', NULL, '$2y$10$AQwSgCuvgYpoVp1LBsiKO.9hTs8O1kNmPbmzVEZRRTvmIHARYU4Hy', NULL, 'Không Cho Phép', '2021-01-11 10:20:21', '2021-01-11 10:21:23'),
+(13, NULL, 'IT0123', 'IT0123', 'IT0123@tdtu.edu.vn', NULL, '$2y$10$vAwwg9CY6G/WAMlUkfwYhe90upwRUF1YNDq0bx16PdPa8LLkGx.ie', NULL, 'Không Cho Phép', '2021-01-11 10:22:36', '2021-01-11 10:22:43');
 
 -- --------------------------------------------------------
 
@@ -455,7 +482,12 @@ INSERT INTO `users_roles` (`id_user`, `id_role`) VALUES
 (1, 1),
 (8, 2),
 (1, 2),
-(9, 4);
+(9, 4),
+(10, 2),
+(11, 2),
+(12, 2),
+(13, 4),
+(13, 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -625,7 +657,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT cho bảng `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `migrations`
@@ -655,13 +687,13 @@ ALTER TABLE `scores`
 -- AUTO_INCREMENT cho bảng `training_programs`
 --
 ALTER TABLE `training_programs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

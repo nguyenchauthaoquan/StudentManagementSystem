@@ -19,7 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe6fee79-8cdd-4648-a6bd-5b2bee166e8c" name="Default Changelist" comment="Profile Page updated after login successful." />
+    <list default="true" id="fe6fee79-8cdd-4648-a6bd-5b2bee166e8c" name="Default Changelist" comment="Profile Page updated after login successful.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../database/tdtumanagement.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../database/tdtumanagement.sql" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -199,7 +202,8 @@
       <workItem from="1610358310767" duration="4640000" />
       <workItem from="1610388141565" duration="609000" />
       <workItem from="1610388784573" duration="82000" />
-      <workItem from="1610388879470" duration="1572000" />
+      <workItem from="1610388879470" duration="1887000" />
+      <workItem from="1610392481476" duration="16000" />
     </task>
     <task id="LOCAL-00001" summary="Debug and update documents">
       <created>1609711734517</created>
@@ -236,7 +240,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610390224602</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Profile Page updated after login successful.">
+      <created>1610390769655</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1610390769655</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
