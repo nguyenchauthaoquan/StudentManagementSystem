@@ -20,8 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe6fee79-8cdd-4648-a6bd-5b2bee166e8c" name="Default Changelist" comment="Profile Page updated after login successful.">
-      <change beforePath="$PROJECT_DIR$/../../documents/DACNTT2.1_DANGMINHTHANG_51600072.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../documents/DACNTT2.1_DANGMINHTHANG_51600072.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +36,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -190,6 +200,8 @@
       <workItem from="1610303299514" duration="2431000" />
       <workItem from="1610306197297" duration="1807000" />
       <workItem from="1610315173104" duration="617000" />
+      <workItem from="1610337989574" duration="616000" />
+      <workItem from="1610358310767" duration="4640000" />
     </task>
     <task id="LOCAL-00001" summary="Debug and update documents">
       <created>1609711734517</created>

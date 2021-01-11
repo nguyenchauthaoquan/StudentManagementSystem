@@ -39,16 +39,24 @@ class AuthController extends Controller
     }
 
     public function home() {
-        $user = Auth::user();
-        $group = Group::find($user->student->id_group);
-        $major = Major::find($user->student->id_major);
+        if (Auth::check()) {
+            $user = Auth::user();
+            if (Gate::allows('student', $user)) {
+                $group = Group::find($user->student->id_group);
+                $major = Major::find($user->student->id_major);
 
-        return view('profile', [
-            'user' => $user,
-            'group' => $group,
-            'major' => $major,
-            'faculties' => Faculty::where('id', $group->id_faculty)->where('id', $major->id_faculty)->get()
-        ]);
+                return view('profile', [
+                    'user' => $user,
+                    'group' => $group,
+                    'major' => $major,
+                    'faculties' => Faculty::where('id', $group->id_faculty)->where('id', $major->id_faculty)->get()
+                ]);
+            } else {
+                abort(403);
+            }
+        }
+
+        return route('login');
     }
 
     public function logout() {
