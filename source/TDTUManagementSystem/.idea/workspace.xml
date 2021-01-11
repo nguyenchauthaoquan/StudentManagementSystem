@@ -21,9 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="fe6fee79-8cdd-4648-a6bd-5b2bee166e8c" name="Default Changelist" comment="Profile Page updated after login successful.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EducationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EducationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/education/groups/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/education/groups/create.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,6 +201,9 @@
       <workItem from="1610315173104" duration="617000" />
       <workItem from="1610337989574" duration="616000" />
       <workItem from="1610358310767" duration="4640000" />
+      <workItem from="1610388141565" duration="609000" />
+      <workItem from="1610388784573" duration="82000" />
+      <workItem from="1610388879470" duration="1262000" />
     </task>
     <task id="LOCAL-00001" summary="Debug and update documents">
       <created>1609711734517</created>
