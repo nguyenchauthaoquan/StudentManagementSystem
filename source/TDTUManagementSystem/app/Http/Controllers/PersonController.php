@@ -162,8 +162,8 @@ class PersonController extends Controller
         );
         $user->roles()->attach($role->id);
 
-
-        return redirect('/admin/students')->with('success', 'Sinh viên mới được thêm vào');
+        $name = $request['firstname'].' '.$request['middlename'].' '.$request['lastname'];
+        return redirect('/admin/students')->with('success', 'Sinh viên '.$name.' được thêm vào hệ thống');
     }
 
     public function createStudent() {
@@ -221,8 +221,24 @@ class PersonController extends Controller
             'volunteer' => $request['volunteer'],
             'status' => $request['status']
         ]);
+        switch ($request['status']) {
+            case 'Đi Học': {
+                User::where('account', $id)->update([
+                    'status' => 'Cho Phép'
+                ]);
+                break;
+            }
+            case 'Tốt Nghiệp':
+            case 'Thôi Học': {
+                User::where('account', $id)->update([
+                    'status' => 'Không Cho Phép'
+                ]);
+                break;
+            }
+        }
+        $name = $request['firstname'].' '.$request['middlename'].' '.$request['lastname'];
 
-        return redirect('/admin/students')->with('success', 'Cập nhật Thành Công');
+        return redirect('/admin/students')->with('success', 'Thông tin của sinh viên '.$name.' đã được cập nhật');
     }
 
     public function editStudent($id) {
@@ -438,6 +454,21 @@ class PersonController extends Controller
             'volunteer' => $request['volunteer'],
             'status' => $request['status']
         ]);
+        switch ($request['status']) {
+            case 'Đang Công Tác': {
+                User::where('account', $id)->update([
+                    'status' => 'Cho Phép'
+                ]);
+                break;
+            }
+            case 'Thôi Việc': {
+                User::where('account', $id)->update([
+                    'status' => 'Không Cho Phép'
+                ]);
+                break;
+            }
+        }
+
         $faculty = Faculty::find($request['faculty']);
         $teacher->faculty()->associate($faculty);
         $teacher->save();

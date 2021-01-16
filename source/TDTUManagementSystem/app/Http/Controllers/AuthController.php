@@ -41,18 +41,24 @@ class AuthController extends Controller
     public function home() {
         if (Auth::check()) {
             $user = Auth::user();
-            if (Gate::allows('student', $user)) {
-                $group = Group::find($user->student->id_group);
-                $major = Major::find($user->student->id_major);
-
-                return view('profile', [
-                    'user' => $user,
-                    'group' => $group,
-                    'major' => $major,
-                    'faculties' => Faculty::where('id', $group->id_faculty)->where('id', $major->id_faculty)->get()
-                ]);
-            } else {
+            if ($user->status === 'Không Cho Phép') {
                 abort(403);
+            } else {
+                if (Gate::allows('student', $user)) {
+                    $group = Group::find($user->student->id_group);
+                    $major = Major::find($user->student->id_major);
+
+                    return view('profile', [
+                        'user' => $user,
+                        'group' => $group,
+                        'major' => $major,
+                        'faculties' => Faculty::where('id', $group->id_faculty)->where('id', $major->id_faculty)->get()
+                    ]);
+                } else if (Gate::allows('teacher', $user)){
+                    return redirect('/admin/dashboard');
+                } else {
+                    abort(403);
+                }
             }
         }
 

@@ -35,11 +35,19 @@
                                        aria-haspopup="true"
                                        aria-expanded="false"
                                     >
-                                        {{Auth::user()->student->firstname." ".Auth::user()->student->middlename." ".Auth::user()->student->lastname}}
+                                        {{$user->firstname." ".$user->middlename." ".$user->lastname}}
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-link">
                                         <div class="dropdown-divider"></div>
                                         <a href="{{url('/home')}}" class="dropdown-item">{{__('Thoát')}}</a>
+                                        <form action="{{url('/logout')}}" method="post">
+                                            @csrf
+                                            <button type="submit"
+                                                    class="dropdown-item">
+                                                <i class="fas fa-sign-out-alt"></i>
+                                                <span class="pl-2">{{__('Đăng xuất')}}</span>
+                                            </button>
+                                        </form>
                                     </div>
 
                                 @endif

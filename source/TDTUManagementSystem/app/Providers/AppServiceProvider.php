@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         Schema::defaultStringLength(300);
 
-        View::composer(['home', 'dashboard'], function ($view) {
+        View::composer(['home'], function ($view) {
             if (Auth::check() && Gate::allows('student')) {
                 $user = Auth::user();
                 $group = Group::find($user->student->id_group);
@@ -47,8 +47,21 @@ class AppServiceProvider extends ServiceProvider
                     'major' => $major,
                     'faculties' => Faculty::where('id', $group->id_faculty)->where('id', $major->id_faculty)->get()
                 ]);
+            } else {
+                abort(403);
             }
 
+        });
+        View::composer(['dashboard'], function ($view) {
+            if (Auth::check() && Gate::allows('student') && Gate::allows('admin')) {
+                $view->with([
+                    'user' => Auth::user()->student
+                ]);
+            } else if (Auth::check() && Gate::allows('teacher') && Gate::allows('admin')) {
+                $view->with([
+                    'user' => Auth::user()->teacher
+                ]);
+            }
         });
     }
 }
